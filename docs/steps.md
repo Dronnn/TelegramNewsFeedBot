@@ -85,16 +85,16 @@
 **Контекст фазы**: Модели готовы (`bot/db/models.py`). Нужно написать класс Database для подключения к SQLite и создания таблиц.
 **Прочитай**: `bot/db/models.py`, `docs/plan.md` секция "БД: Схема (SQLite)" — SQL для всех таблиц
 
-- [ ] **Шаг 020**: Написать `bot/db/database.py` — класс `Database` с `__init__(self, db_path: str)`
-- [ ] **Шаг 021**: В `Database` — async метод `connect()`: открыть aiosqlite соединение, включить WAL mode, foreign keys
-- [ ] **Шаг 022**: В `Database` — async метод `close()`: закрыть соединение
-- [ ] **Шаг 023**: В `Database` — async метод `init_schema()`: выполнить CREATE TABLE IF NOT EXISTS для таблицы `users`
-- [ ] **Шаг 024**: В `init_schema()` — CREATE TABLE для `channels`
-- [ ] **Шаг 025**: В `init_schema()` — CREATE TABLE для `subscriptions`
-- [ ] **Шаг 026**: В `init_schema()` — CREATE TABLE для `user_topics`
-- [ ] **Шаг 027**: В `init_schema()` — CREATE TABLE для `catalog`
-- [ ] **Шаг 028**: В `init_schema()` — CREATE TABLE для `forwarded_messages` + индекс по forwarded_at
-- [ ] **Шаг 029**: Коммит "Add database connection and schema"
+- [x] **Шаг 020**: Написать `bot/db/database.py` — класс `Database` с `__init__(self, db_path: str)`
+- [x] **Шаг 021**: В `Database` — async метод `connect()`: открыть aiosqlite соединение, включить WAL mode, foreign keys
+- [x] **Шаг 022**: В `Database` — async метод `close()`: закрыть соединение
+- [x] **Шаг 023**: В `Database` — async метод `init_schema()`: выполнить CREATE TABLE IF NOT EXISTS для таблицы `users`
+- [x] **Шаг 024**: В `init_schema()` — CREATE TABLE для `channels`
+- [x] **Шаг 025**: В `init_schema()` — CREATE TABLE для `subscriptions`
+- [x] **Шаг 026**: В `init_schema()` — CREATE TABLE для `user_topics`
+- [x] **Шаг 027**: В `init_schema()` — CREATE TABLE для `catalog`
+- [x] **Шаг 028**: В `init_schema()` — CREATE TABLE для `forwarded_messages` + индекс по forwarded_at
+- [x] **Шаг 029**: Коммит "Add database connection and schema"
 
 ---
 
