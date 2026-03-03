@@ -470,12 +470,12 @@
 **Контекст фазы**: main.py собран. Обновляем handlers — заменяем заглушки на реальные вызовы ChannelManager, Searcher и т.д.
 **Прочитай**: `bot/telegram_bot/handlers/channels.py`, `bot/telegram_bot/handlers/topics.py`, `bot/channel_monitor/manager.py`, `bot/channel_monitor/searcher.py`
 
-- [ ] **Шаг 189**: Обновить `handlers/channels.py` — `/add` теперь вызывает реальный channel_manager.resolve_and_add_channel()
-- [ ] **Шаг 190**: Обновить `/add` — после подписки вызвать channel_manager.on_subscription_change()
-- [ ] **Шаг 191**: Обновить `/remove` — после отписки вызвать channel_manager.on_subscription_change()
-- [ ] **Шаг 192**: Обновить `handlers/topics.py` — `/topics` загружает реальный список тем из каталога
-- [ ] **Шаг 193**: Обновить `/topics` — при подписке на тему вызвать resolve и subscribe для каждого канала
-- [ ] **Шаг 194**: Коммит "Wire handlers to real dependencies"
+- [x] **Шаг 189**: Обновить `handlers/channels.py` — `/add` теперь вызывает реальный channel_manager.resolve_and_add_channel()
+- [x] **Шаг 190**: Обновить `/add` — после подписки вызвать channel_manager.on_subscription_change()
+- [x] **Шаг 191**: Обновить `/remove` — после отписки вызвать channel_manager.on_subscription_change()
+- [x] **Шаг 192**: Обновить `handlers/topics.py` — `/topics` загружает реальный список тем из каталога
+- [x] **Шаг 193**: Обновить `/topics` — при подписке на тему вызвать resolve и subscribe для каждого канала
+- [x] **Шаг 194**: Коммит "Wire handlers to real dependencies"
 
 ---
 

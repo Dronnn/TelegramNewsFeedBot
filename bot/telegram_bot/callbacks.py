@@ -1,15 +1,18 @@
 from __future__ import annotations
 
 import json
+import logging
 
 from aiogram import F, Router
 from aiogram.types import CallbackQuery
 
+from bot.channel_monitor.manager import ChannelManager
 from bot.db import queries
 from bot.db.database import Database
 from bot.telegram_bot.keyboards import channel_list_keyboard, topics_keyboard
 
 router = Router()
+log = logging.getLogger(__name__)
 
 
 def _load_topics(catalog_path: str) -> list[dict]:
@@ -25,19 +28,15 @@ def _find_topic_channels(all_topics: list[dict], topic_id: str) -> list[dict]:
     return []
 
 
-async def _resolve_channel(username: str) -> tuple[int, str, str]:
-    """Stub: resolve channel by username. Will be replaced by Telethon later."""
-    fake_id = abs(hash(username)) % (10**10)
-    return fake_id, username, username
-
-
 @router.callback_query(F.data.startswith("remove_channel:"))
 async def cb_remove_channel(callback: CallbackQuery) -> None:
     db: Database = callback.bot["db"]  # type: ignore[index]
+    channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     channel_id = int(callback.data.split(":", 1)[1])
     user_id = callback.from_user.id
 
     await queries.unsubscribe(db, user_id, channel_id)
+    await channel_manager.on_subscription_change(channel_id)
 
     subs = await queries.get_user_subscriptions(db, user_id)
     kb = channel_list_keyboard(subs)
@@ -51,6 +50,7 @@ async def cb_remove_channel(callback: CallbackQuery) -> None:
 @router.callback_query(F.data.startswith("subscribe_topic:"))
 async def cb_subscribe_topic(callback: CallbackQuery) -> None:
     db: Database = callback.bot["db"]  # type: ignore[index]
+    channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
     user_id = callback.from_user.id
 
@@ -62,9 +62,16 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
     # Subscribe user to all channels of this topic from the catalog
     channels = _find_topic_channels(all_topics, topic_id)
     for ch in channels:
-        channel_id, ch_username, title = await _resolve_channel(ch["username"])
-        await queries.add_channel(db, channel_id, ch_username, title)
-        await queries.subscribe(db, user_id, channel_id)
+        try:
+            channel = await channel_manager.resolve_and_add_channel(ch["username"])
+        except Exception:
+            log.exception(
+                "Failed to resolve channel '%s' for topic '%s'",
+                ch["username"], topic_id,
+            )
+            continue
+        await queries.subscribe(db, user_id, channel.channel_id)
+        await channel_manager.on_subscription_change(channel.channel_id)
 
     user_topics = await queries.get_user_topics(db, user_id)
     kb = topics_keyboard(all_topics, user_topics)
@@ -75,6 +82,7 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
 @router.callback_query(F.data.startswith("unsubscribe_topic:"))
 async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
     db: Database = callback.bot["db"]  # type: ignore[index]
+    channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
     user_id = callback.from_user.id
 
@@ -83,11 +91,14 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
     catalog_path = callback.bot["config"].catalog_path  # type: ignore[index]
     all_topics = _load_topics(catalog_path)
 
-    # Unsubscribe user from all channels of this topic from the catalog
+    # Unsubscribe user from all channels of this topic
     channels = _find_topic_channels(all_topics, topic_id)
     for ch in channels:
-        channel_id, _username, _title = await _resolve_channel(ch["username"])
-        await queries.unsubscribe(db, user_id, channel_id)
+        channel = await queries.get_channel_by_username(db, ch["username"])
+        if channel is None:
+            continue
+        await queries.unsubscribe(db, user_id, channel.channel_id)
+        await channel_manager.on_subscription_change(channel.channel_id)
 
     user_topics = await queries.get_user_topics(db, user_id)
     kb = topics_keyboard(all_topics, user_topics)

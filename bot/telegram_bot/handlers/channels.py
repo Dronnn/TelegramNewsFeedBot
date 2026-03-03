@@ -1,16 +1,19 @@
 from __future__ import annotations
 
+import logging
 import re
 
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
+from bot.channel_monitor.manager import ChannelManager
 from bot.db import queries
 from bot.db.database import Database
 from bot.telegram_bot.keyboards import channel_list_keyboard
 
 router = Router()
+log = logging.getLogger(__name__)
 
 _CHANNEL_RE = re.compile(
     r"(?:@|(?:https?://)?t\.me/)([A-Za-z][A-Za-z0-9_]{3,})"
@@ -25,15 +28,11 @@ def _parse_channel_ref(text: str) -> str | None:
     return m.group(1) if m else None
 
 
-async def _resolve_channel(username: str) -> tuple[int, str, str]:
-    """Stub: resolve channel by username. Will be replaced by Telethon later."""
-    fake_id = abs(hash(username)) % (10**10)
-    return fake_id, username, username
-
-
 @router.message(Command("add"))
 async def cmd_add(message: Message) -> None:
     db: Database = message.bot["db"]  # type: ignore[index]
+    channel_manager: ChannelManager = message.bot["channel_manager"]  # type: ignore[index]
+
     username = _parse_channel_ref(message.text or "")
     if not username:
         await message.answer(
@@ -41,15 +40,25 @@ async def cmd_add(message: Message) -> None:
         )
         return
 
-    channel_id, ch_username, title = await _resolve_channel(username)
-    await queries.add_channel(db, channel_id, ch_username, title)
-    await queries.subscribe(db, message.from_user.id, channel_id)
-    await message.answer(f"Подписка на @{ch_username} оформлена!")
+    try:
+        channel = await channel_manager.resolve_and_add_channel(username)
+    except Exception:
+        log.exception("Failed to resolve channel '%s'", username)
+        await message.answer(
+            "Не удалось найти канал. Проверь имя и убедись, что канал публичный."
+        )
+        return
+
+    await queries.subscribe(db, message.from_user.id, channel.channel_id)
+    await channel_manager.on_subscription_change(channel.channel_id)
+    await message.answer(f"Подписка на @{channel.username} оформлена!")
 
 
 @router.message(Command("remove"))
 async def cmd_remove(message: Message) -> None:
     db: Database = message.bot["db"]  # type: ignore[index]
+    channel_manager: ChannelManager = message.bot["channel_manager"]  # type: ignore[index]
+
     username = _parse_channel_ref(message.text or "")
     if not username:
         await message.answer(
@@ -68,6 +77,7 @@ async def cmd_remove(message: Message) -> None:
         return
 
     await queries.unsubscribe(db, message.from_user.id, channel.channel_id)
+    await channel_manager.on_subscription_change(channel.channel_id)
     await message.answer(f"Отписка от @{username} выполнена.")
 
 

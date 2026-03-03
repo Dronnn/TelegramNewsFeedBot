@@ -41,6 +41,7 @@ async def main() -> None:
 
     channel_manager = ChannelManager(telethon_client, db, config)
     await channel_manager.load_joined_channels()
+    bot["channel_manager"] = channel_manager
 
     rate_limiter = TokenBucketRateLimiter(rate=config.forward_rate_limit)
     pipeline = ForwardingPipeline(
