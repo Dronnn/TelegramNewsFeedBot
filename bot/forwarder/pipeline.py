@@ -29,7 +29,7 @@ class ForwardingPipeline:
         self.db = db
         self.rate_limiter = rate_limiter
         self.num_workers = num_workers
-        self._queue: asyncio.Queue[tuple[int, int, int]] = asyncio.Queue()
+        self._queue: asyncio.Queue[tuple[int, int, int]] = asyncio.Queue(maxsize=10000)
         self._workers: list[asyncio.Task[None]] = []
         self._retry_counts: dict[tuple[int, int, int], int] = {}
 
