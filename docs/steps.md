@@ -195,8 +195,8 @@
 **Контекст фазы**: БД слой + тесты готовы. Пишем вспомогательные утилиты.
 **Прочитай**: ничего специального, простой модуль
 
-- [ ] **Шаг 074**: Написать `bot/utils/logging.py` — функция `setup_logging(level)`: настройка logging с форматом `[%(asctime)s] %(name)s %(levelname)s: %(message)s`
-- [ ] **Шаг 075**: Коммит "Add logging utility"
+- [x] **Шаг 074**: Написать `bot/utils/logging.py` — функция `setup_logging(level)`: настройка logging с форматом `[%(asctime)s] %(name)s %(levelname)s: %(message)s`
+- [x] **Шаг 075**: Коммит "Add logging utility"
 
 ---
 
