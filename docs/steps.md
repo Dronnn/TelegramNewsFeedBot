@@ -438,9 +438,9 @@
 **Контекст фазы**: Searcher готов (`bot/channel_monitor/searcher.py`). Пишем тесты.
 **Прочитай**: `bot/channel_monitor/searcher.py`
 
-- [ ] **Шаг 173**: Написать `tests/test_searcher.py` — тест `test_search_by_topic_from_catalog`
-- [ ] **Шаг 174**: Тест `test_search_combined_catalog_enough`: достаточно результатов из каталога, Telegram API не вызывается
-- [ ] **Шаг 175**: Коммит "Add searcher tests"
+- [x] **Шаг 173**: Написать `tests/test_searcher.py` — тест `test_search_by_topic_from_catalog`
+- [x] **Шаг 174**: Тест `test_search_combined_catalog_enough`: достаточно результатов из каталога, Telegram API не вызывается
+- [x] **Шаг 175**: Коммит "Add searcher tests"
 
 ---
 
