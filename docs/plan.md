@@ -331,3 +331,40 @@ LOG_LEVEL=INFO
 - [x] Step 101: Обновить `callbacks.py` — при отписке от темы также отписывать от всех каналов темы
 - [x] Зарегистрировать topics router в `handlers/__init__.py`
 - [x] Добавить query `get_catalog_categories` в `queries.py`
+
+---
+
+## Phase: ChannelSearcher Tests
+
+### Шаги
+
+- [x] Step: Создать `tests/test_searcher.py` с тестами `test_search_by_topic_from_catalog` и `test_search_combined_catalog_enough`
+
+---
+
+## Phase 31: Подключение реальных зависимостей к хендлерам
+
+Хендлеры бота переключаются со стабов на реальные вызовы ChannelManager и ChannelSearcher.
+
+### Шаги
+
+- [x] Step 189: Обновить `handlers/channels.py` — `/add` вызывает `channel_manager.resolve_and_add_channel()`
+- [x] Step 190: Обновить `/add` — после подписки вызывать `channel_manager.on_subscription_change()`
+- [x] Step 191: Обновить `/remove` — после отписки вызывать `channel_manager.on_subscription_change()`
+- [x] Step 192: Обновить `handlers/topics.py` — `/topics` загружает реальный список тем из каталога БД
+- [x] Step 193: Обновить колбэки тем — при подписке вызывать resolve и subscribe через `channel_manager`
+- [x] Подключить `channel_manager` в `bot["channel_manager"]` в `main.py`
+- [x] Тесты интеграции
+
+---
+
+## Phase: Error Handling Improvements
+
+Улучшения обработки ошибок в ключевых компонентах.
+
+### Шаги
+
+- [x] Step 196a: poller.py — уведомлять подписчиков при ChannelPrivateError, передать Bot в конструктор
+- [x] Step 196b: event_handler.py — проверить (уже корректно, try/except с logger.exception)
+- [x] Step 196c: pipeline.py — добавить retry counter (макс. 3 попытки) для general exception
+- [x] Step 196d: main.py — signal handling (SIGINT/SIGTERM), robust cleanup с отдельными try/except
