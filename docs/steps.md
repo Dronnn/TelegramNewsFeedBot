@@ -371,11 +371,11 @@
 **Контекст фазы**: ChannelManager готов (`bot/channel_monitor/manager.py`). Пишем тесты с моками Telethon.
 **Прочитай**: `bot/channel_monitor/manager.py`
 
-- [ ] **Шаг 146**: Написать `tests/test_manager.py` — mock для Telethon client и DB
-- [ ] **Шаг 147**: Тест `test_join_on_threshold`: при subscriber_count >= 3 вызывается JoinChannelRequest
-- [ ] **Шаг 148**: Тест `test_leave_on_below_threshold`: при count < 3 вызывается LeaveChannelRequest
-- [ ] **Шаг 149**: Тест `test_cleanup_on_zero`: при count == 0 канал удаляется
-- [ ] **Шаг 150**: Коммит "Add channel manager tests"
+- [x] **Шаг 146**: Написать `tests/test_manager.py` — mock для Telethon client и DB
+- [x] **Шаг 147**: Тест `test_join_on_threshold`: при subscriber_count >= 3 вызывается JoinChannelRequest
+- [x] **Шаг 148**: Тест `test_leave_on_below_threshold`: при count < 3 вызывается LeaveChannelRequest
+- [x] **Шаг 149**: Тест `test_cleanup_on_zero`: при count == 0 канал удаляется
+- [x] **Шаг 150**: Коммит "Add channel manager tests"
 
 ---
 
