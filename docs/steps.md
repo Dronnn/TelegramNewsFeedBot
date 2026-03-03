@@ -497,8 +497,8 @@
 **Контекст фазы**: Обработка ошибок готова. Добавляем фоновую задачу: раз в час чистить старые записи из forwarded_messages (старше 7 дней).
 **Прочитай**: `bot/main.py`, `bot/db/queries.py` (cleanup_old_forwarded)
 
-- [ ] **Шаг 200**: В `bot/main.py` — async функция `cleanup_task(db)`: бесконечный цикл, каждый час вызывает cleanup_old_forwarded(db, days=7)
-- [ ] **Шаг 201**: Коммит "Add periodic cleanup task"
+- [x] **Шаг 200**: В `bot/main.py` — async функция `cleanup_task(db)`: бесконечный цикл, каждый час вызывает cleanup_old_forwarded(db, days=7)
+- [x] **Шаг 201**: Коммит "Add periodic cleanup task"
 
 ---
 

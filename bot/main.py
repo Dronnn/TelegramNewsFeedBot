@@ -22,6 +22,17 @@ from bot.utils.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
+async def cleanup_task(db: Database) -> None:
+    """Periodically remove old forwarded-message records (runs every hour)."""
+    while True:
+        await asyncio.sleep(3600)
+        try:
+            deleted = await cleanup_old_forwarded(db, days=7)
+            logger.info("Cleaned up %d old forwarded-message records", deleted)
+        except Exception:
+            logger.exception("Error during forwarded-messages cleanup")
+
+
 async def main() -> None:
     config = load_config()
     setup_logging(config.log_level)
@@ -55,13 +66,7 @@ async def main() -> None:
     poller = ChannelPoller(telethon_client, db, pipeline, config, bot)
     poller_task = asyncio.create_task(poller.run())
 
-    async def _cleanup_loop() -> None:
-        while True:
-            await asyncio.sleep(3600)
-            deleted = await cleanup_old_forwarded(db, days=7)
-            logger.info("Cleaned up %d old forwarded-message records", deleted)
-
-    cleanup_task = asyncio.create_task(_cleanup_loop())
+    cleanup = asyncio.create_task(cleanup_task(db))
 
     loop = asyncio.get_running_loop()
     shutdown_event = asyncio.Event()
@@ -91,8 +96,8 @@ async def main() -> None:
 
         logger.info("Cancelling cleanup task...")
         try:
-            cleanup_task.cancel()
-            await asyncio.gather(cleanup_task, return_exceptions=True)
+            cleanup.cancel()
+            await asyncio.gather(cleanup, return_exceptions=True)
         except Exception:
             logger.exception("Error cancelling cleanup task")
 
