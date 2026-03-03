@@ -103,16 +103,26 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
 
     all_topics = callback.bot["topics"]  # type: ignore[index]
 
-    # Unsubscribe user from all channels of this topic
+    user_topics = await queries.get_user_topics(db, user_id)
+
     channels = _find_topic_channels(all_topics, topic_id)
     for ch in channels:
         channel = await queries.get_channel_by_username(db, ch["username"])
         if channel is None:
             continue
+
+        shared = False
+        for other_tid in user_topics:
+            other_chs = _find_topic_channels(all_topics, other_tid)
+            if any(oc["username"] == ch["username"] for oc in other_chs):
+                shared = True
+                break
+
+        if shared:
+            continue
+
         await queries.unsubscribe(db, user_id, channel.channel_id)
         await channel_manager.on_subscription_change(channel.channel_id)
-
-    user_topics = await queries.get_user_topics(db, user_id)
     kb = topics_keyboard(all_topics, user_topics)
     await callback.message.edit_reply_markup(reply_markup=kb)
 

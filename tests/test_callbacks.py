@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from bot.db import queries
+from bot.telegram_bot.callbacks import _find_topic_channels
 
 
 class TestCallbackRemoveChannel:
@@ -68,3 +69,53 @@ class TestCallbackTopics:
 
         topics = await queries.get_user_topics(db, user_id)
         assert topics.count("music") == 1
+
+    @pytest.mark.asyncio
+    async def test_unsubscribe_topic_keeps_shared_channel(self, db):
+        user_id = 203
+        shared_channel_id = 9010
+        exclusive_channel_id = 9011
+
+        await queries.add_user(db, user_id, "topicuser4", "TU4")
+        await queries.add_channel(db, shared_channel_id, "shared_ch", "Shared")
+        await queries.add_channel(db, exclusive_channel_id, "exclusive_ch", "Exclusive")
+        await queries.subscribe(db, user_id, shared_channel_id)
+        await queries.subscribe(db, user_id, exclusive_channel_id)
+        await queries.add_user_topic(db, user_id, "topic_a")
+        await queries.add_user_topic(db, user_id, "topic_b")
+
+        all_topics = [
+            {"id": "topic_a", "channels": [
+                {"username": "shared_ch"},
+                {"username": "exclusive_ch"},
+            ]},
+            {"id": "topic_b", "channels": [
+                {"username": "shared_ch"},
+            ]},
+        ]
+
+        await queries.remove_user_topic(db, user_id, "topic_a")
+        user_topics = await queries.get_user_topics(db, user_id)
+        channels = _find_topic_channels(all_topics, "topic_a")
+
+        for ch in channels:
+            channel = await queries.get_channel_by_username(db, ch["username"])
+            if channel is None:
+                continue
+
+            shared = False
+            for other_tid in user_topics:
+                other_chs = _find_topic_channels(all_topics, other_tid)
+                if any(oc["username"] == ch["username"] for oc in other_chs):
+                    shared = True
+                    break
+
+            if shared:
+                continue
+
+            await queries.unsubscribe(db, user_id, channel.channel_id)
+
+        subs = await queries.get_user_subscriptions(db, user_id)
+        sub_ids = [s.channel_id for s in subs]
+        assert shared_channel_id in sub_ids
+        assert exclusive_channel_id not in sub_ids
