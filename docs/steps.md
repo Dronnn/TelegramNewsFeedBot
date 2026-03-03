@@ -272,9 +272,9 @@
 **Контекст фазы**: Все основные команды бота готовы. Добавляем /pause и /resume.
 **Прочитай**: `bot/db/queries.py` (set_user_paused)
 
-- [ ] **Шаг 103**: Написать `bot/telegram_bot/handlers/settings.py` — handler для `/pause`: вызвать set_user_paused(True), ответить юзеру
-- [ ] **Шаг 104**: В `handlers/settings.py` — handler для `/resume`: вызвать set_user_paused(False), ответить юзеру
-- [ ] **Шаг 105**: Коммит "Add /pause and /resume handlers"
+- [x] **Шаг 103**: Написать `bot/telegram_bot/handlers/settings.py` — handler для `/pause`: вызвать set_user_paused(True), ответить юзеру
+- [x] **Шаг 104**: В `handlers/settings.py` — handler для `/resume`: вызвать set_user_paused(False), ответить юзеру
+- [x] **Шаг 105**: Коммит "Add /pause and /resume handlers"
 
 ---
 
