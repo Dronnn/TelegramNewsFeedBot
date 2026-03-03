@@ -384,12 +384,12 @@
 **Контекст фазы**: ChannelManager готов. Пишем обработчик новых сообщений из joined каналов (реалтайм через Telethon events).
 **Прочитай**: `bot/channel_monitor/manager.py`, `bot/forwarder/pipeline.py`, `bot/db/queries.py` (get_active_subscribers, update_channel_last_message)
 
-- [ ] **Шаг 151**: Написать `bot/channel_monitor/event_handler.py` — async функция `setup_event_handler(telethon_client, channel_manager, pipeline, db)`
-- [ ] **Шаг 152**: В `setup_event_handler` — зарегистрировать обработчик events.NewMessage
-- [ ] **Шаг 153**: В обработчике — проверить что event.chat_id в joined_channels
-- [ ] **Шаг 154**: В обработчике — обновить last_message_id канала
-- [ ] **Шаг 155**: В обработчике — получить active_subscribers, для каждого вызвать pipeline.enqueue()
-- [ ] **Шаг 156**: Коммит "Add real-time event handler for joined channels"
+- [x] **Шаг 151**: Написать `bot/channel_monitor/event_handler.py` — async функция `setup_event_handler(telethon_client, channel_manager, pipeline, db)`
+- [x] **Шаг 152**: В `setup_event_handler` — зарегистрировать обработчик events.NewMessage
+- [x] **Шаг 153**: В обработчике — проверить что event.chat_id в joined_channels
+- [x] **Шаг 154**: В обработчике — обновить last_message_id канала
+- [x] **Шаг 155**: В обработчике — получить active_subscribers, для каждого вызвать pipeline.enqueue()
+- [x] **Шаг 156**: Коммит "Add real-time event handler for joined channels"
 
 ---
 
