@@ -65,10 +65,11 @@ class TestResolveChannel:
         mock_client = AsyncMock()
         mock_client.get_entity = AsyncMock(return_value=channel)
 
-        result = await resolve_channel(mock_client, "@testchan")
+        with patch("bot.channel_monitor.client.utils.get_peer_id", return_value=-1001234567890):
+            result = await resolve_channel(mock_client, "@testchan")
 
         mock_client.get_entity.assert_called_once_with("testchan")
-        assert result == (123, "testchan", "Test Channel")
+        assert result == (-1001234567890, "testchan", "Test Channel")
 
     @pytest.mark.asyncio
     async def test_resolve_channel_tme_link(self):
@@ -76,10 +77,11 @@ class TestResolveChannel:
         mock_client = AsyncMock()
         mock_client.get_entity = AsyncMock(return_value=channel)
 
-        result = await resolve_channel(mock_client, "https://t.me/testchan")
+        with patch("bot.channel_monitor.client.utils.get_peer_id", return_value=-1001234567890):
+            result = await resolve_channel(mock_client, "https://t.me/testchan")
 
         mock_client.get_entity.assert_called_once_with("testchan")
-        assert result == (123, "testchan", "Test Channel")
+        assert result == (-1001234567890, "testchan", "Test Channel")
 
     @pytest.mark.asyncio
     async def test_resolve_channel_plain(self):
@@ -87,7 +89,8 @@ class TestResolveChannel:
         mock_client = AsyncMock()
         mock_client.get_entity = AsyncMock(return_value=channel)
 
-        result = await resolve_channel(mock_client, "testchan")
+        with patch("bot.channel_monitor.client.utils.get_peer_id", return_value=-1001234567890):
+            result = await resolve_channel(mock_client, "testchan")
 
         mock_client.get_entity.assert_called_once_with("testchan")
-        assert result == (123, "testchan", "Test Channel")
+        assert result == (-1001234567890, "testchan", "Test Channel")

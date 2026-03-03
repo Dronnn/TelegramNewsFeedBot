@@ -368,3 +368,18 @@ LOG_LEVEL=INFO
 - [x] Step 196b: event_handler.py — проверить (уже корректно, try/except с logger.exception)
 - [x] Step 196c: pipeline.py — добавить retry counter (макс. 3 попытки) для general exception
 - [x] Step 196d: main.py — signal handling (SIGINT/SIGTERM), robust cleanup с отдельными try/except
+
+---
+
+## Phase: Code Review Fixes (2026-03-03)
+
+Исправление 6 найденных проблем при code review.
+
+### Шаги
+
+- [x] Issue 1: Тесты сломаны после get_peer_id fix — патчить `utils.get_peer_id` в тестах
+- [x] Issue 2: Каталог не сидится при запуске — добавить `seed_catalog()` в `main.py`
+- [x] Issue 3: Нет хендлера для "noop" callback — добавить `cb_noop` в `callbacks.py`
+- [x] Issue 4: `callback.answer()` вызывается слишком поздно — перенести в начало хендлеров
+- [x] Issue 5: Сообщения из поллера в обратном порядке — добавить `reversed()` в `poller.py`
+- [x] Issue 6: `load_topics` вызывает JSON синхронно при каждом вызове — кешировать в `bot["topics"]`

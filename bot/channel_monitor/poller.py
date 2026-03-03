@@ -78,7 +78,7 @@ class ChannelPoller:
         )
 
         max_message_id = channel.last_message_id
-        for message in messages:
+        for message in reversed(messages):
             if message.id > max_message_id:
                 max_message_id = message.id
             for user_id in subscribers:

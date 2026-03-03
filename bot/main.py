@@ -11,9 +11,11 @@ from bot.channel_monitor.manager import ChannelManager
 from bot.channel_monitor.poller import ChannelPoller
 from bot.config import load_config
 from bot.db.database import Database
-from bot.db.queries import cleanup_old_forwarded
+from bot.db.models import CatalogEntry
+from bot.db.queries import cleanup_old_forwarded, seed_catalog
 from bot.forwarder.pipeline import ForwardingPipeline
 from bot.forwarder.rate_limiter import TokenBucketRateLimiter
+from bot.telegram_bot import load_topics
 from bot.telegram_bot.handlers import register_all_handlers
 from bot.telegram_bot.middlewares import UserRegistrationMiddleware
 from bot.utils.logging import setup_logging
@@ -40,6 +42,19 @@ async def main() -> None:
     await db.connect()
     await db.init_schema()
 
+    catalog_data = load_topics(config.catalog_path)
+    entries = []
+    for topic in catalog_data:
+        for ch in topic.get("channels", []):
+            entries.append(CatalogEntry(
+                channel_username=ch["username"],
+                title=ch["title"],
+                category=str(topic["id"]),
+                tags=ch.get("tags", ""),
+                language=ch.get("language", ""),
+            ))
+    await seed_catalog(db, entries)
+
     telethon_client = create_telethon_client(config)
     await start_telethon_client(telethon_client, config.telegram_phone)
 
@@ -47,6 +62,7 @@ async def main() -> None:
     dp = Dispatcher()
     bot["db"] = db
     bot["config"] = config
+    bot["topics"] = catalog_data
 
     dp.message.middleware(UserRegistrationMiddleware())
     dp.callback_query.middleware(UserRegistrationMiddleware())

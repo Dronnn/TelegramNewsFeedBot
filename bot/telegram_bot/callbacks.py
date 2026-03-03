@@ -8,7 +8,6 @@ from aiogram.types import CallbackQuery
 from bot.channel_monitor.manager import ChannelManager
 from bot.db import queries
 from bot.db.database import Database
-from bot.telegram_bot import load_topics
 from bot.telegram_bot.keyboards import channel_list_keyboard, topics_keyboard
 
 router = Router()
@@ -43,6 +42,7 @@ async def cb_remove_channel(callback: CallbackQuery) -> None:
 
 @router.callback_query(F.data.startswith("subscribe_topic:"))
 async def cb_subscribe_topic(callback: CallbackQuery) -> None:
+    await callback.answer("Подписываю на каналы темы...")
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
@@ -50,8 +50,7 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
 
     await queries.add_user_topic(db, user_id, topic_id)
 
-    catalog_path = callback.bot["config"].catalog_path  # type: ignore[index]
-    all_topics = load_topics(catalog_path)
+    all_topics = callback.bot["topics"]  # type: ignore[index]
 
     # Subscribe user to all channels of this topic from the catalog
     channels = _find_topic_channels(all_topics, topic_id)
@@ -70,11 +69,11 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
     user_topics = await queries.get_user_topics(db, user_id)
     kb = topics_keyboard(all_topics, user_topics)
     await callback.message.edit_reply_markup(reply_markup=kb)
-    await callback.answer("Тема добавлена")
 
 
 @router.callback_query(F.data.startswith("unsubscribe_topic:"))
 async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
+    await callback.answer("Отписываю от каналов темы...")
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
@@ -82,8 +81,7 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
 
     await queries.remove_user_topic(db, user_id, topic_id)
 
-    catalog_path = callback.bot["config"].catalog_path  # type: ignore[index]
-    all_topics = load_topics(catalog_path)
+    all_topics = callback.bot["topics"]  # type: ignore[index]
 
     # Unsubscribe user from all channels of this topic
     channels = _find_topic_channels(all_topics, topic_id)
@@ -97,4 +95,8 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
     user_topics = await queries.get_user_topics(db, user_id)
     kb = topics_keyboard(all_topics, user_topics)
     await callback.message.edit_reply_markup(reply_markup=kb)
-    await callback.answer("Тема убрана")
+
+
+@router.callback_query(F.data == "noop")
+async def cb_noop(callback: CallbackQuery) -> None:
+    await callback.answer()
