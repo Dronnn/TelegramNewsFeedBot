@@ -50,8 +50,8 @@ async def main() -> None:
                 channel_username=ch["username"],
                 title=ch["title"],
                 category=str(topic["id"]),
-                tags=ch.get("tags", ""),
-                language=ch.get("language", ""),
+                tags=ch.get("tags"),
+                language=ch.get("language", "ru"),
             ))
     await seed_catalog(db, entries)
 

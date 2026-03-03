@@ -107,7 +107,10 @@ class ChannelPoller:
             channels = await queries.get_channels_to_poll(self.db)
 
             for channel in channels:
-                await self.poll_once(channel)
+                try:
+                    await self.poll_once(channel)
+                except Exception:
+                    logger.exception("Error polling channel %d", channel.channel_id)
                 await asyncio.sleep(0.1)
 
             await asyncio.sleep(self.config.poll_interval_default)

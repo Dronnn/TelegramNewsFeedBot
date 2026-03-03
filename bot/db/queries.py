@@ -152,7 +152,11 @@ async def get_joined_channel_ids(db: Database) -> list[int]:
 
 
 async def delete_channel(db: Database, channel_id: int) -> None:
-    """Delete a channel and its forwarded messages from the database."""
+    """Delete a channel and its related data from the database."""
+    await db.conn.execute(
+        "DELETE FROM subscriptions WHERE channel_id = ?",
+        (channel_id,),
+    )
     await db.conn.execute(
         "DELETE FROM forwarded_messages WHERE channel_id = ?",
         (channel_id,),

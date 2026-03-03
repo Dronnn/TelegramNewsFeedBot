@@ -101,6 +101,7 @@ class ForwardingPipeline:
                         user_id,
                         self._retry_counts[key],
                     )
+                    await asyncio.sleep(1)
                     await self._queue.put((channel_id, message_id, user_id))
                 else:
                     logger.exception(
