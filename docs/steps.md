@@ -295,10 +295,10 @@
 **Контекст фазы**: Telethon-клиент готов. Пишем rate limiter для ограничения скорости пересылки (Telegram Bot API лимит ~30 msg/sec, ставим 25 для запаса).
 **Прочитай**: `docs/plan.md` секция "Архитектура" — про rate limit
 
-- [ ] **Шаг 110**: Написать `bot/forwarder/rate_limiter.py` — класс `TokenBucketRateLimiter(rate, burst)`
-- [ ] **Шаг 111**: В `TokenBucketRateLimiter` — `__init__`: инициализировать tokens, last_refill, asyncio.Lock
-- [ ] **Шаг 112**: В `TokenBucketRateLimiter` — async метод `acquire()`: ждать пока будет доступен токен, с рефилом
-- [ ] **Шаг 113**: Коммит "Add token bucket rate limiter"
+- [x] **Шаг 110**: Написать `bot/forwarder/rate_limiter.py` — класс `TokenBucketRateLimiter(rate, burst)`
+- [x] **Шаг 111**: В `TokenBucketRateLimiter` — `__init__`: инициализировать tokens, last_refill, asyncio.Lock
+- [x] **Шаг 112**: В `TokenBucketRateLimiter` — async метод `acquire()`: ждать пока будет доступен токен, с рефилом
+- [x] **Шаг 113**: Коммит "Add token bucket rate limiter"
 
 ---
 
