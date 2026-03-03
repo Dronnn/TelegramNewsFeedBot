@@ -29,7 +29,7 @@ async def test_handler_ignores_non_joined_channel():
     event = _make_event(chat_id=-9999, message_id=1)
     await handler(event)
 
-    db._conn.execute.assert_not_awaited()
+    db.conn.execute.assert_not_awaited()
     pipeline.enqueue.assert_not_awaited()
 
 
@@ -41,20 +41,20 @@ async def test_handler_forwards_to_subscribers(db):
     user_ids = [100, 200, 300]
 
     # Seed the DB with a channel and subscribed users
-    await db._conn.execute(
+    await db.conn.execute(
         "INSERT INTO channels (channel_id, username, title, is_joined) VALUES (?, ?, ?, 1)",
         (channel_id, "testchan", "Test Channel"),
     )
     for uid in user_ids:
-        await db._conn.execute(
+        await db.conn.execute(
             "INSERT INTO users (user_id, username, first_name) VALUES (?, ?, ?)",
             (uid, f"user{uid}", f"User{uid}"),
         )
-        await db._conn.execute(
+        await db.conn.execute(
             "INSERT INTO subscriptions (user_id, channel_id) VALUES (?, ?)",
             (uid, channel_id),
         )
-    await db._conn.commit()
+    await db.conn.commit()
 
     telethon_client = Mock()
     channel_manager = Mock()
@@ -86,11 +86,11 @@ async def test_handler_no_subscribers(db):
     channel_id = -1002
     message_id = 55
 
-    await db._conn.execute(
+    await db.conn.execute(
         "INSERT INTO channels (channel_id, username, title, is_joined) VALUES (?, ?, ?, 1)",
         (channel_id, "emptychan", "Empty Channel"),
     )
-    await db._conn.commit()
+    await db.conn.commit()
 
     telethon_client = Mock()
     channel_manager = Mock()

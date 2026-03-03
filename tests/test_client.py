@@ -23,12 +23,11 @@ def _make_config() -> Config:
 
 
 class TestCreateTelethonClient:
-    @pytest.mark.asyncio
-    async def test_create_telethon_client(self):
+    def test_create_telethon_client(self):
         config = _make_config()
 
         with patch("bot.channel_monitor.client.TelegramClient") as mock_cls:
-            result = await create_telethon_client(config)
+            result = create_telethon_client(config)
 
             mock_cls.assert_called_once_with(
                 config.session_name,

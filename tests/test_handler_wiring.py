@@ -206,7 +206,7 @@ class TestTopicsFromCatalogDB:
     async def test_topics_filtered_by_catalog(self, db):
         """_topics_from_catalog should only return topics present in catalog DB."""
         from bot.db.models import CatalogEntry
-        from bot.telegram_bot.handlers.topics import _load_topics
+        from bot.telegram_bot import load_topics
 
         entries = [
             CatalogEntry(

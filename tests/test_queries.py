@@ -53,9 +53,9 @@ async def test_add_user_duplicate(db: Database) -> None:
     user = await get_user(db, user_id=1)
 
     assert user is not None
-    # INSERT OR IGNORE keeps the first insert; the duplicate is silently ignored.
-    assert user.username == "alice"
-    assert user.first_name == "Alice"
+    # ON CONFLICT DO UPDATE refreshes username and first_name.
+    assert user.username == "alice_v2"
+    assert user.first_name == "Alice V2"
 
 
 # ── Step 062: test_set_user_paused ───────────────────────────────
@@ -182,14 +182,14 @@ async def test_cleanup_old_forwarded(db: Database) -> None:
     await add_channel(db, channel_id=-1001, username="news", title="News")
 
     # Insert a forwarded record with a timestamp 30 days in the past.
-    await db._conn.execute(
+    await db.conn.execute(
         "INSERT INTO forwarded_messages (channel_id, message_id, user_id, forwarded_at) "
         "VALUES (?, ?, ?, datetime('now', '-30 days'))",
         (-1001, 100, 1),
     )
     # Insert a recent forwarded record (should survive cleanup).
     await mark_forwarded(db, channel_id=-1001, message_id=200, user_id=1)
-    await db._conn.commit()
+    await db.conn.commit()
 
     deleted = await cleanup_old_forwarded(db, days=7)
 
@@ -217,7 +217,7 @@ async def test_seed_catalog(db: Database) -> None:
 
     await seed_catalog(db, entries)
 
-    cursor = await db._conn.execute("SELECT COUNT(*) FROM catalog")
+    cursor = await db.conn.execute("SELECT COUNT(*) FROM catalog")
     row = await cursor.fetchone()
     assert row[0] == 2
 

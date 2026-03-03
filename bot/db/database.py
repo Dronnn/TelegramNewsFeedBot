@@ -6,21 +6,21 @@ import aiosqlite
 class Database:
     def __init__(self, db_path: str) -> None:
         self.db_path = db_path
-        self._conn: aiosqlite.Connection | None = None
+        self.conn: aiosqlite.Connection | None = None
 
     async def connect(self) -> None:
-        self._conn = await aiosqlite.connect(self.db_path)
-        await self._conn.execute("PRAGMA journal_mode=WAL")
-        await self._conn.execute("PRAGMA foreign_keys=ON")
+        self.conn = await aiosqlite.connect(self.db_path)
+        await self.conn.execute("PRAGMA journal_mode=WAL")
+        await self.conn.execute("PRAGMA foreign_keys=ON")
 
     async def close(self) -> None:
-        if self._conn is not None:
-            await self._conn.close()
-            self._conn = None
+        if self.conn is not None:
+            await self.conn.close()
+            self.conn = None
 
     async def init_schema(self) -> None:
-        assert self._conn is not None, "call connect() first"
-        await self._conn.executescript(
+        assert self.conn is not None, "call connect() first"
+        await self.conn.executescript(
             """
             CREATE TABLE IF NOT EXISTS users (
                 user_id       INTEGER PRIMARY KEY,

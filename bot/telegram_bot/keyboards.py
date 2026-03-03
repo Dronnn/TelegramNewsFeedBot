@@ -46,10 +46,3 @@ def my_topics_keyboard(user_topics: list[dict]) -> InlineKeyboardMarkup | None:
             InlineKeyboardButton(text="Отписаться", callback_data=f"unsubscribe_topic:{tid}"),
         ])
     return InlineKeyboardMarkup(inline_keyboard=rows)
-
-
-def confirm_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text="Да", callback_data="confirm_yes"),
-        InlineKeyboardButton(text="Нет", callback_data="confirm_no"),
-    ]])

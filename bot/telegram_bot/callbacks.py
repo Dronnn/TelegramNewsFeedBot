@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import logging
 
 from aiogram import F, Router
@@ -9,16 +8,11 @@ from aiogram.types import CallbackQuery
 from bot.channel_monitor.manager import ChannelManager
 from bot.db import queries
 from bot.db.database import Database
+from bot.telegram_bot import load_topics
 from bot.telegram_bot.keyboards import channel_list_keyboard, topics_keyboard
 
 router = Router()
 log = logging.getLogger(__name__)
-
-
-def _load_topics(catalog_path: str) -> list[dict]:
-    with open(catalog_path, encoding="utf-8") as f:
-        data = json.load(f)
-    return data.get("topics", [])
 
 
 def _find_topic_channels(all_topics: list[dict], topic_id: str) -> list[dict]:
@@ -57,7 +51,7 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
     await queries.add_user_topic(db, user_id, topic_id)
 
     catalog_path = callback.bot["config"].catalog_path  # type: ignore[index]
-    all_topics = _load_topics(catalog_path)
+    all_topics = load_topics(catalog_path)
 
     # Subscribe user to all channels of this topic from the catalog
     channels = _find_topic_channels(all_topics, topic_id)
@@ -89,7 +83,7 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
     await queries.remove_user_topic(db, user_id, topic_id)
 
     catalog_path = callback.bot["config"].catalog_path  # type: ignore[index]
-    all_topics = _load_topics(catalog_path)
+    all_topics = load_topics(catalog_path)
 
     # Unsubscribe user from all channels of this topic
     channels = _find_topic_channels(all_topics, topic_id)

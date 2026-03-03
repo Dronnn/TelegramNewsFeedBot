@@ -1,22 +1,15 @@
 from __future__ import annotations
 
-import json
-
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
 from bot.db import queries
 from bot.db.database import Database
+from bot.telegram_bot import load_topics
 from bot.telegram_bot.keyboards import my_topics_keyboard, topics_keyboard
 
 router = Router()
-
-
-def _load_topics(catalog_path: str) -> list[dict]:
-    with open(catalog_path, encoding="utf-8") as f:
-        data = json.load(f)
-    return data.get("topics", [])
 
 
 async def _topics_from_catalog(db: Database, catalog_path: str) -> list[dict]:
@@ -25,7 +18,7 @@ async def _topics_from_catalog(db: Database, catalog_path: str) -> list[dict]:
     if not db_categories:
         return []
 
-    all_topics = _load_topics(catalog_path)
+    all_topics = load_topics(catalog_path)
     db_cat_set = set(db_categories)
     return [t for t in all_topics if str(t["id"]) in db_cat_set]
 
@@ -55,7 +48,7 @@ async def cmd_mytopics(message: Message) -> None:
         await message.answer("У тебя пока нет выбранных тем. Используй /topics")
         return
 
-    all_topics = _load_topics(catalog_path)
+    all_topics = load_topics(catalog_path)
     selected = set(user_topic_ids)
     user_topics = [t for t in all_topics if str(t["id"]) in selected]
 

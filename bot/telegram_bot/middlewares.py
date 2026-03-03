@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from typing import Any, Awaitable, Callable
+from typing import Any, Awaitable, Callable, Union
 
 from aiogram import BaseMiddleware
-from aiogram.types import Message
+from aiogram.types import CallbackQuery, Message
 
 from bot.db import queries
 from bot.db.database import Database
@@ -12,8 +12,8 @@ from bot.db.database import Database
 class UserRegistrationMiddleware(BaseMiddleware):
     async def __call__(
         self,
-        handler: Callable[[Message, dict[str, Any]], Awaitable[Any]],
-        event: Message,
+        handler: Callable[[Union[Message, CallbackQuery], dict[str, Any]], Awaitable[Any]],
+        event: Union[Message, CallbackQuery],
         data: dict[str, Any],
     ) -> Any:
         if event.from_user:

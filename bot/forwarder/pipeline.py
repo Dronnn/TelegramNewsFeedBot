@@ -69,12 +69,25 @@ class ForwardingPipeline:
                 self._retry_counts.pop((channel_id, message_id, user_id), None)
 
             except TelegramRetryAfter as exc:
-                logger.warning(
-                    "Rate limited, retrying after %s seconds",
-                    exc.retry_after,
-                )
-                await self._queue.put((channel_id, message_id, user_id))
-                await asyncio.sleep(exc.retry_after)
+                key = (channel_id, message_id, user_id)
+                self._retry_counts[key] = self._retry_counts.get(key, 0) + 1
+                if self._retry_counts[key] < 3:
+                    logger.warning(
+                        "Rate limited, retrying after %s seconds (attempt %d/3)",
+                        exc.retry_after,
+                        self._retry_counts[key],
+                    )
+                    await asyncio.sleep(exc.retry_after)
+                    await self._queue.put(key)
+                else:
+                    logger.warning(
+                        "Dropping message %d from channel %d to user %d "
+                        "after 3 rate-limit retries",
+                        message_id,
+                        channel_id,
+                        user_id,
+                    )
+                    self._retry_counts.pop(key, None)
 
             except Exception:
                 key = (channel_id, message_id, user_id)

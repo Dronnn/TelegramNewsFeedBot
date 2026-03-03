@@ -27,12 +27,12 @@ async def _seed_channel(
     db, channel_id: int, subscriber_count: int, is_joined: bool = False,
 ) -> None:
     """Insert a channel row directly so on_subscription_change can read it."""
-    await db._conn.execute(
+    await db.conn.execute(
         "INSERT INTO channels (channel_id, username, title, subscriber_count, is_joined) "
         "VALUES (?, ?, ?, ?, ?)",
         (channel_id, "testchan", "Test Channel", subscriber_count, int(is_joined)),
     )
-    await db._conn.commit()
+    await db.conn.commit()
 
 
 # -- Tests -----------------------------------------------------------------

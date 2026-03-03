@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-import signal
 
 from aiogram import Bot, Dispatcher
 
@@ -41,14 +40,16 @@ async def main() -> None:
     await db.connect()
     await db.init_schema()
 
-    telethon_client = await create_telethon_client(config)
+    telethon_client = create_telethon_client(config)
     await start_telethon_client(telethon_client, config.telegram_phone)
 
     bot = Bot(token=config.bot_token)
     dp = Dispatcher()
     bot["db"] = db
+    bot["config"] = config
 
     dp.message.middleware(UserRegistrationMiddleware())
+    dp.callback_query.middleware(UserRegistrationMiddleware())
     register_all_handlers(dp)
 
     channel_manager = ChannelManager(telethon_client, db, config)
@@ -67,16 +68,6 @@ async def main() -> None:
     poller_task = asyncio.create_task(poller.run())
 
     cleanup = asyncio.create_task(cleanup_task(db))
-
-    loop = asyncio.get_running_loop()
-    shutdown_event = asyncio.Event()
-
-    def _signal_handler() -> None:
-        logger.info("Received shutdown signal")
-        shutdown_event.set()
-
-    for sig in (signal.SIGINT, signal.SIGTERM):
-        loop.add_signal_handler(sig, _signal_handler)
 
     try:
         await dp.start_polling(bot)

@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from telethon import TelegramClient
+from telethon import TelegramClient, utils
 from telethon.tl.types import Channel
 
 from bot.config import Config
 
 
-async def create_telethon_client(config: Config) -> TelegramClient:
+def create_telethon_client(config: Config) -> TelegramClient:
     """Create a Telethon client instance without starting it."""
     return TelegramClient(
         config.session_name,
@@ -34,7 +34,9 @@ async def resolve_channel(
 
     entity = await client.get_entity(username)
 
-    if isinstance(entity, Channel):
-        return entity.id, entity.username or "", getattr(entity, "title", "")
+    peer_id = utils.get_peer_id(entity)
 
-    return entity.id, getattr(entity, "username", "") or "", getattr(entity, "title", "")
+    if isinstance(entity, Channel):
+        return peer_id, entity.username or "", getattr(entity, "title", "")
+
+    return peer_id, getattr(entity, "username", "") or "", getattr(entity, "title", "")

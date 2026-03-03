@@ -110,4 +110,4 @@ class ChannelPoller:
                 await self.poll_once(channel)
                 await asyncio.sleep(0.1)
 
-            await asyncio.sleep(30)
+            await asyncio.sleep(self.config.poll_interval_default)
