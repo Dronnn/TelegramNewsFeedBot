@@ -172,21 +172,21 @@
 **Контекст фазы**: Весь слой БД готов (`bot/db/database.py`, `bot/db/models.py`, `bot/db/queries.py`). Пишем тесты для всех запросов.
 **Прочитай**: `bot/db/queries.py`, `bot/db/database.py`, `bot/db/models.py`
 
-- [ ] **Шаг 059**: Создать `tests/conftest.py` — pytest fixture для in-memory SQLite Database (async)
-- [ ] **Шаг 060**: Написать `tests/test_queries.py` — тест `test_add_and_get_user`: добавить юзера, получить его обратно
-- [ ] **Шаг 061**: Тест `test_add_user_duplicate`: повторный INSERT не падает
-- [ ] **Шаг 062**: Тест `test_set_user_paused`: пауза/resume
-- [ ] **Шаг 063**: Тест `test_add_channel_and_get`: добавить канал, получить
-- [ ] **Шаг 064**: Тест `test_subscribe_and_unsubscribe`: подписка/отписка, проверить subscriber_count
-- [ ] **Шаг 065**: Тест `test_get_user_subscriptions`: список подписок юзера
-- [ ] **Шаг 066**: Тест `test_get_active_subscribers`: только не-paused юзеры
-- [ ] **Шаг 067**: Тест `test_is_forwarded_and_mark`: дедупликация
-- [ ] **Шаг 068**: Тест `test_cleanup_old_forwarded`: удаление старых записей
-- [ ] **Шаг 069**: Тест `test_seed_catalog`: загрузка каталога
-- [ ] **Шаг 070**: Тест `test_search_catalog`: поиск по категории
-- [ ] **Шаг 071**: Тест `test_user_topics`: добавление/удаление/получение тем
-- [ ] **Шаг 072**: Добавить `pytest` и `pytest-asyncio` в `requirements.txt` (dev-секция)
-- [ ] **Шаг 073**: Коммит "Add database unit tests"
+- [x] **Шаг 059**: Создать `tests/conftest.py` — pytest fixture для in-memory SQLite Database (async)
+- [x] **Шаг 060**: Написать `tests/test_queries.py` — тест `test_add_and_get_user`: добавить юзера, получить его обратно
+- [x] **Шаг 061**: Тест `test_add_user_duplicate`: повторный INSERT не падает
+- [x] **Шаг 062**: Тест `test_set_user_paused`: пауза/resume
+- [x] **Шаг 063**: Тест `test_add_channel_and_get`: добавить канал, получить
+- [x] **Шаг 064**: Тест `test_subscribe_and_unsubscribe`: подписка/отписка, проверить subscriber_count
+- [x] **Шаг 065**: Тест `test_get_user_subscriptions`: список подписок юзера
+- [x] **Шаг 066**: Тест `test_get_active_subscribers`: только не-paused юзеры
+- [x] **Шаг 067**: Тест `test_is_forwarded_and_mark`: дедупликация
+- [x] **Шаг 068**: Тест `test_cleanup_old_forwarded`: удаление старых записей
+- [x] **Шаг 069**: Тест `test_seed_catalog`: загрузка каталога
+- [x] **Шаг 070**: Тест `test_search_catalog`: поиск по категории
+- [x] **Шаг 071**: Тест `test_user_topics`: добавление/удаление/получение тем
+- [x] **Шаг 072**: Добавить `pytest` и `pytest-asyncio` в `requirements.txt` (dev-секция)
+- [x] **Шаг 073**: Коммит "Add database unit tests"
 
 ---
 
