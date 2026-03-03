@@ -47,6 +47,14 @@ def load_config() -> Config:
     if forward_rate_limit <= 0:
         raise ValueError("FORWARD_RATE_LIMIT must be a positive integer")
 
+    forward_workers = int(os.getenv("FORWARD_WORKERS", "3"))
+    if forward_workers <= 0:
+        raise ValueError("FORWARD_WORKERS must be a positive integer")
+
+    poll_interval_default = int(os.getenv("POLL_INTERVAL_DEFAULT", "120"))
+    if poll_interval_default <= 0:
+        raise ValueError("POLL_INTERVAL_DEFAULT must be a positive integer")
+
     return Config(
         bot_token=bot_token,
         telegram_api_id=int(telegram_api_id),
@@ -56,8 +64,8 @@ def load_config() -> Config:
         db_path=os.getenv("DB_PATH", "data/bot.db"),
         catalog_path=os.getenv("CATALOG_PATH", "data/channel_catalog.json"),
         join_threshold=int(os.getenv("JOIN_THRESHOLD", "3")),
-        poll_interval_default=int(os.getenv("POLL_INTERVAL_DEFAULT", "120")),
+        poll_interval_default=poll_interval_default,
         forward_rate_limit=forward_rate_limit,
-        forward_workers=int(os.getenv("FORWARD_WORKERS", "3")),
+        forward_workers=forward_workers,
         log_level=os.getenv("LOG_LEVEL", "INFO"),
     )
