@@ -78,7 +78,15 @@ class ForwardingPipeline:
                         self._retry_counts[key],
                     )
                     await asyncio.sleep(exc.retry_after)
-                    await self._queue.put(key)
+                    try:
+                        self._queue.put_nowait(key)
+                    except asyncio.QueueFull:
+                        logger.warning(
+                            "Queue full, dropping retry for message %d "
+                            "from channel %d to user %d",
+                            message_id, channel_id, user_id,
+                        )
+                        self._retry_counts.pop(key, None)
                 else:
                     logger.warning(
                         "Dropping message %d from channel %d to user %d "
@@ -102,7 +110,15 @@ class ForwardingPipeline:
                         self._retry_counts[key],
                     )
                     await asyncio.sleep(1)
-                    await self._queue.put((channel_id, message_id, user_id))
+                    try:
+                        self._queue.put_nowait(key)
+                    except asyncio.QueueFull:
+                        logger.warning(
+                            "Queue full, dropping retry for message %d "
+                            "from channel %d to user %d",
+                            message_id, channel_id, user_id,
+                        )
+                        self._retry_counts.pop(key, None)
                 else:
                     logger.exception(
                         "Dropping message %d from channel %d to user %d "
