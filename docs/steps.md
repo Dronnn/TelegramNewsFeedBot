@@ -398,14 +398,14 @@
 **Контекст фазы**: Event handler готов (для joined). Пишем poller для остальных каналов — периодический опрос через get_messages().
 **Прочитай**: `bot/channel_monitor/event_handler.py`, `bot/forwarder/pipeline.py`, `bot/db/queries.py` (get_channels_to_poll)
 
-- [ ] **Шаг 157**: Написать `bot/channel_monitor/poller.py` — класс `ChannelPoller(telethon_client, db, pipeline, config)`
-- [ ] **Шаг 158**: В `ChannelPoller` — async метод `poll_once(channel)`: вызвать get_messages(min_id=last_message_id, limit=20)
-- [ ] **Шаг 159**: В `poll_once` — обработка ChannelPrivateError: канал стал приватным, залогировать
-- [ ] **Шаг 160**: В `poll_once` — для каждого нового сообщения: получить subscribers, вызвать pipeline.enqueue()
-- [ ] **Шаг 161**: В `poll_once` — обновить last_message_id и last_polled_at
-- [ ] **Шаг 162**: В `ChannelPoller` — async метод `run()`: бесконечный цикл — получить каналы для поллинга, опросить каждый с задержкой 0.1с
-- [ ] **Шаг 163**: В `run()` — между полными циклами спать 30 секунд
-- [ ] **Шаг 164**: Коммит "Add channel poller for non-joined channels"
+- [x] **Шаг 157**: Написать `bot/channel_monitor/poller.py` — класс `ChannelPoller(telethon_client, db, pipeline, config)`
+- [x] **Шаг 158**: В `ChannelPoller` — async метод `poll_once(channel)`: вызвать get_messages(min_id=last_message_id, limit=20)
+- [x] **Шаг 159**: В `poll_once` — обработка ChannelPrivateError: канал стал приватным, залогировать
+- [x] **Шаг 160**: В `poll_once` — для каждого нового сообщения: получить subscribers, вызвать pipeline.enqueue()
+- [x] **Шаг 161**: В `poll_once` — обновить last_message_id и last_polled_at
+- [x] **Шаг 162**: В `ChannelPoller` — async метод `run()`: бесконечный цикл — получить каналы для поллинга, опросить каждый с задержкой 0.1с
+- [x] **Шаг 163**: В `run()` — между полными циклами спать 30 секунд
+- [x] **Шаг 164**: Коммит "Add channel poller for non-joined channels"
 
 ---
 
