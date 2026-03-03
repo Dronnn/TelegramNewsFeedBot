@@ -47,6 +47,256 @@
         {"username": "cblogjp", "title": "Центральный банк", "language": "ru"},
         {"username": "bankrollo", "title": "Bankrollo"}
       ]
+    },
+    {
+      "id": "sports",
+      "name": "Спорт",
+      "emoji": "\u26bd",
+      "channels": [
+        {"username": "match_tv", "title": "Матч ТВ", "language": "ru"},
+        {"username": "sports_ru", "title": "Sports.ru", "language": "ru"},
+        {"username": "championat", "title": "Чемпионат", "language": "ru"}
+      ]
+    },
+    {
+      "id": "gaming",
+      "name": "Игры",
+      "emoji": "\ud83c\udfae",
+      "channels": [
+        {"username": "gamedevtuts", "title": "GameDev Tutorials"},
+        {"username": "DTF", "title": "DTF", "language": "ru"},
+        {"username": "ign", "title": "IGN"}
+      ]
+    },
+    {
+      "id": "movies",
+      "name": "Кино",
+      "emoji": "\ud83c\udfac",
+      "channels": [
+        {"username": "kinomania", "title": "Киномания", "language": "ru"},
+        {"username": "filmsnow", "title": "Films Now"},
+        {"username": "kinopoiskru", "title": "Кинопоиск", "language": "ru"}
+      ]
+    },
+    {
+      "id": "music",
+      "name": "Музыка",
+      "emoji": "\ud83c\udfb5",
+      "channels": [
+        {"username": "themusicnews", "title": "The Music News"},
+        {"username": "muzlenta", "title": "Музлента", "language": "ru"},
+        {"username": "billboard", "title": "Billboard"}
+      ]
+    },
+    {
+      "id": "travel",
+      "name": "Путешествия",
+      "emoji": "\u2708\ufe0f",
+      "channels": [
+        {"username": "travelrussia", "title": "Путешествия по России", "language": "ru"},
+        {"username": "cheapflydeals", "title": "Cheap Fly Deals"},
+        {"username": "vandrouki", "title": "Вандруки", "language": "ru"}
+      ]
+    },
+    {
+      "id": "food",
+      "name": "Еда и рецепты",
+      "emoji": "\ud83c\udf73",
+      "channels": [
+        {"username": "eda_ru", "title": "Еда.ру", "language": "ru"},
+        {"username": "tasty", "title": "Tasty"},
+        {"username": "foodphoto", "title": "Food Photo"}
+      ]
+    },
+    {
+      "id": "health",
+      "name": "Здоровье",
+      "emoji": "\ud83e\ude7a",
+      "channels": [
+        {"username": "zdorovyeinfo", "title": "Здоровье инфо", "language": "ru"},
+        {"username": "meduzalive", "title": "Медуза Live", "language": "ru", "tags": "медицина,здоровье"},
+        {"username": "WHO", "title": "World Health Organization"}
+      ]
+    },
+    {
+      "id": "psychology",
+      "name": "Психология",
+      "emoji": "\ud83e\udde0",
+      "channels": [
+        {"username": "psikiatra_net", "title": "Записки психиатра", "language": "ru"},
+        {"username": "psychologytoday", "title": "Psychology Today"},
+        {"username": "psy_science", "title": "Психология и наука", "language": "ru"}
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Образование",
+      "emoji": "\ud83c\udf93",
+      "channels": [
+        {"username": "skillboxmedia", "title": "Skillbox Media", "language": "ru"},
+        {"username": "netaboratory", "title": "Нетология", "language": "ru"},
+        {"username": "edutainme", "title": "Edutainme", "language": "ru"}
+      ]
+    },
+    {
+      "id": "books",
+      "name": "Книги",
+      "emoji": "\ud83d\udcda",
+      "channels": [
+        {"username": "knigsovet", "title": "Книгосовет", "language": "ru"},
+        {"username": "bookmate", "title": "Bookmate", "language": "ru"},
+        {"username": "flibustahype", "title": "Флибуста", "language": "ru"}
+      ]
+    },
+    {
+      "id": "art",
+      "name": "Искусство",
+      "emoji": "\ud83c\udfa8",
+      "channels": [
+        {"username": "artnews", "title": "ArtNews"},
+        {"username": "theartnewspaper", "title": "The Art Newspaper"},
+        {"username": "museumrus", "title": "Музеи России", "language": "ru"}
+      ]
+    },
+    {
+      "id": "photography",
+      "name": "Фотография",
+      "emoji": "\ud83d\udcf7",
+      "channels": [
+        {"username": "natgeo", "title": "National Geographic"},
+        {"username": "35photo", "title": "35Photo", "language": "ru"},
+        {"username": "streetphotography", "title": "Street Photography"}
+      ]
+    },
+    {
+      "id": "design",
+      "name": "Дизайн",
+      "emoji": "\ud83c\udfad",
+      "channels": [
+        {"username": "designchat", "title": "Design Chat"},
+        {"username": "uxhorn", "title": "UX Horn", "language": "ru"},
+        {"username": "awwwards", "title": "Awwwards"}
+      ]
+    },
+    {
+      "id": "programming",
+      "name": "Программирование",
+      "emoji": "\ud83d\udc68\u200d\ud83d\udcbb",
+      "channels": [
+        {"username": "devkg", "title": "Dev.KG"},
+        {"username": "pythonl", "title": "Python"},
+        {"username": "habr_com", "title": "Хабр", "language": "ru"}
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "Искусственный интеллект",
+      "emoji": "\ud83e\udd16",
+      "channels": [
+        {"username": "ai_newz", "title": "AI Newz"},
+        {"username": "gonzo_ML", "title": "Gonzo ML", "language": "ru"},
+        {"username": "deeplearning_ai", "title": "DeepLearning.AI"}
+      ]
+    },
+    {
+      "id": "startups",
+      "name": "Стартапы",
+      "emoji": "\ud83d\ude80",
+      "channels": [
+        {"username": "startupoftheday", "title": "Стартап дня", "language": "ru"},
+        {"username": "vc_ru", "title": "VC.ru", "language": "ru"},
+        {"username": "techcrunch", "title": "TechCrunch"}
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Маркетинг",
+      "emoji": "\ud83d\udce3",
+      "channels": [
+        {"username": "marketing_s", "title": "Маркетинг", "language": "ru"},
+        {"username": "cossa_ru", "title": "Cossa", "language": "ru"},
+        {"username": "digitalmarketing", "title": "Digital Marketing"}
+      ]
+    },
+    {
+      "id": "business",
+      "name": "Бизнес",
+      "emoji": "\ud83d\udcbc",
+      "channels": [
+        {"username": "rbc_news", "title": "РБК Новости", "language": "ru"},
+        {"username": "forbes_russia", "title": "Forbes Russia", "language": "ru"},
+        {"username": "bloombergbusiness", "title": "Bloomberg Business"}
+      ]
+    },
+    {
+      "id": "politics",
+      "name": "Политика",
+      "emoji": "\ud83c\udfdb\ufe0f",
+      "channels": [
+        {"username": "rian_ru", "title": "РИА Новости", "language": "ru"},
+        {"username": "taborsky", "title": "ТАСС", "language": "ru"},
+        {"username": "raboratory", "title": "Политика сегодня", "language": "ru"}
+      ]
+    },
+    {
+      "id": "cars",
+      "name": "Автомобили",
+      "emoji": "\ud83d\ude97",
+      "channels": [
+        {"username": "autonews", "title": "Autonews", "language": "ru"},
+        {"username": "drive2", "title": "DRIVE2", "language": "ru"},
+        {"username": "topgear", "title": "Top Gear"}
+      ]
+    },
+    {
+      "id": "fashion",
+      "name": "Мода",
+      "emoji": "\ud83d\udc57",
+      "channels": [
+        {"username": "vikivodka", "title": "Вики Водка", "language": "ru"},
+        {"username": "voguemagazine", "title": "Vogue"},
+        {"username": "fashionista", "title": "Fashionista"}
+      ]
+    },
+    {
+      "id": "pets",
+      "name": "Животные",
+      "emoji": "\ud83d\udc3e",
+      "channels": [
+        {"username": "animalplanet", "title": "Animal Planet"},
+        {"username": "kotiki_i_sobaki", "title": "Котики и собаки", "language": "ru"},
+        {"username": "natgeo_wild", "title": "Nat Geo Wild"}
+      ]
+    },
+    {
+      "id": "humor",
+      "name": "Юмор",
+      "emoji": "\ud83d\ude02",
+      "channels": [
+        {"username": "anekdotikha", "title": "Анекдотиха", "language": "ru"},
+        {"username": "maboratory", "title": "Мемы", "language": "ru"},
+        {"username": "humorlenta", "title": "Юмор лента", "language": "ru"}
+      ]
+    },
+    {
+      "id": "history",
+      "name": "История",
+      "emoji": "\ud83c\udfdb\ufe0f",
+      "channels": [
+        {"username": "historyrussia", "title": "История России", "language": "ru"},
+        {"username": "history", "title": "History Channel"},
+        {"username": "catx2", "title": "Cat_Cat", "language": "ru", "tags": "история,факты"}
+      ]
+    },
+    {
+      "id": "space",
+      "name": "Космос",
+      "emoji": "\ud83d\ude80",
+      "channels": [
+        {"username": "roscosmos_gk", "title": "Роскосмос", "language": "ru"},
+        {"username": "spacex", "title": "SpaceX"},
+        {"username": "nasa", "title": "NASA"}
+      ]
     }
   ]
 }
