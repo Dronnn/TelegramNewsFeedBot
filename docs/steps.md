@@ -231,14 +231,14 @@
 **Контекст фазы**: Клавиатуры готовы (`bot/telegram_bot/keyboards.py`). Пишем handlers для /add, /remove, /list. Пока resolve_channel будет заглушкой.
 **Прочитай**: `bot/telegram_bot/keyboards.py`, `bot/db/queries.py` (subscribe, unsubscribe, get_user_subscriptions)
 
-- [ ] **Шаг 086**: Написать `bot/telegram_bot/handlers/channels.py` — handler для `/add`: парсит аргумент @channel или t.me/channel
-- [ ] **Шаг 087**: В handler `/add` — валидация: проверить что аргумент передан, вернуть ошибку если нет
-- [ ] **Шаг 088**: В handler `/add` — вызвать `manager.resolve_channel()` для получения channel_id и title (заглушка пока)
-- [ ] **Шаг 089**: В handler `/add` — вызвать `queries.add_channel()` и `queries.subscribe()`, ответить юзеру
-- [ ] **Шаг 090**: В `handlers/channels.py` — handler для `/remove`: парсит @channel, вызывает `queries.unsubscribe()`
-- [ ] **Шаг 091**: В handler `/remove` — проверить что юзер подписан, вернуть ошибку если нет
-- [ ] **Шаг 092**: В `handlers/channels.py` — handler для `/list`: получить подписки юзера, показать с inline-кнопками
-- [ ] **Шаг 093**: Коммит "Add /add, /remove, /list handlers"
+- [x] **Шаг 086**: Написать `bot/telegram_bot/handlers/channels.py` — handler для `/add`: парсит аргумент @channel или t.me/channel
+- [x] **Шаг 087**: В handler `/add` — валидация: проверить что аргумент передан, вернуть ошибку если нет
+- [x] **Шаг 088**: В handler `/add` — вызвать `manager.resolve_channel()` для получения channel_id и title (заглушка пока)
+- [x] **Шаг 089**: В handler `/add` — вызвать `queries.add_channel()` и `queries.subscribe()`, ответить юзеру
+- [x] **Шаг 090**: В `handlers/channels.py` — handler для `/remove`: парсит @channel, вызывает `queries.unsubscribe()`
+- [x] **Шаг 091**: В handler `/remove` — проверить что юзер подписан, вернуть ошибку если нет
+- [x] **Шаг 092**: В `handlers/channels.py` — handler для `/list`: получить подписки юзера, показать с inline-кнопками
+- [x] **Шаг 093**: Коммит "Add /add, /remove, /list handlers"
 
 ---
 
