@@ -283,10 +283,10 @@
 **Контекст фазы**: Весь aiogram-бот готов (UI). Начинаем писать Telethon-клиент для чтения каналов. Telethon использует MTProto (Client API) — позволяет читать любые публичные каналы.
 **Прочитай**: `bot/config.py`, `docs/plan.md` секция "Архитектура"
 
-- [ ] **Шаг 106**: Написать `bot/channel_monitor/client.py` — async функция `create_telethon_client(config)`: создать TelegramClient с api_id, api_hash, session_name
-- [ ] **Шаг 107**: В `client.py` — async функция `start_telethon_client(client, phone)`: вызвать client.start(phone=phone)
-- [ ] **Шаг 108**: В `client.py` — async функция `resolve_channel(client, channel_ref)`: принимает @username или t.me/... ссылку, возвращает (channel_id, username, title) через client.get_entity()
-- [ ] **Шаг 109**: Коммит "Add Telethon client setup"
+- [x] **Шаг 106**: Написать `bot/channel_monitor/client.py` — async функция `create_telethon_client(config)`: создать TelegramClient с api_id, api_hash, session_name
+- [x] **Шаг 107**: В `client.py` — async функция `start_telethon_client(client, phone)`: вызвать client.start(phone=phone)
+- [x] **Шаг 108**: В `client.py` — async функция `resolve_channel(client, channel_ref)`: принимает @username или t.me/... ссылку, возвращает (channel_id, username, title) через client.get_entity()
+- [x] **Шаг 109**: Коммит "Add Telethon client setup"
 
 ---
 
