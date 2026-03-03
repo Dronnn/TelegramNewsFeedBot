@@ -16,7 +16,7 @@ router = Router()
 log = logging.getLogger(__name__)
 
 _CHANNEL_RE = re.compile(
-    r"(?:@|(?:https?://)?t\.me/)([A-Za-z][A-Za-z0-9_]{3,})"
+    r"(?:@|(?:https?://)?t\.me/)(?!joinchat/|\+)([A-Za-z][A-Za-z0-9_]{3,})"
 )
 
 

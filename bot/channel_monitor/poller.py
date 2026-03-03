@@ -67,6 +67,7 @@ class ChannelPoller:
                         user_id,
                         channel.channel_id,
                     )
+            await queries.delete_channel(self.db, channel.channel_id)
             return
 
         if not messages:
