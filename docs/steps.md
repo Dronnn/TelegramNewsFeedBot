@@ -61,9 +61,9 @@
 **Контекст фазы**: Структура директорий создана, requirements.txt есть. Нужно написать модуль загрузки конфигурации.
 **Прочитай**: `.env.example`, `docs/plan.md` секция "Конфигурация (.env)"
 
-- [ ] **Шаг 012**: Написать `bot/config.py` — dataclass `Config` со всеми полями из .env
-- [ ] **Шаг 013**: В `bot/config.py` — функция `load_config()` загружает .env через python-dotenv и возвращает Config
-- [ ] **Шаг 014**: Коммит "Add configuration module"
+- [x] **Шаг 012**: Написать `bot/config.py` — dataclass `Config` со всеми полями из .env
+- [x] **Шаг 013**: В `bot/config.py` — функция `load_config()` загружает .env через python-dotenv и возвращает Config
+- [x] **Шаг 014**: Коммит "Add configuration module"
 
 ---
 
