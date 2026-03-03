@@ -205,11 +205,11 @@
 **Контекст фазы**: БД и утилиты готовы. Начинаем писать Telegram-бот на aiogram. Middleware для авторегистрации юзеров + базовые команды /start, /help.
 **Прочитай**: `bot/db/queries.py` (функция add_user), `bot/config.py`, `docs/plan.md` секция "Команды бота"
 
-- [ ] **Шаг 076**: Написать `bot/telegram_bot/middlewares.py` — класс `UserRegistrationMiddleware`: на каждое сообщение проверять и регистрировать юзера в БД
-- [ ] **Шаг 077**: Написать `bot/telegram_bot/handlers/start.py` — handler для `/start`: приветственное сообщение с кратким описанием бота
-- [ ] **Шаг 078**: В `handlers/start.py` — handler для `/help`: список всех команд с описанием
-- [ ] **Шаг 079**: Написать `bot/telegram_bot/handlers/__init__.py` — функция `register_all_handlers(router)` подключает все обработчики
-- [ ] **Шаг 080**: Коммит "Add bot skeleton with /start and /help"
+- [x] **Шаг 076**: Написать `bot/telegram_bot/middlewares.py` — класс `UserRegistrationMiddleware`: на каждое сообщение проверять и регистрировать юзера в БД
+- [x] **Шаг 077**: Написать `bot/telegram_bot/handlers/start.py` — handler для `/start`: приветственное сообщение с кратким описанием бота
+- [x] **Шаг 078**: В `handlers/start.py` — handler для `/help`: список всех команд с описанием
+- [x] **Шаг 079**: Написать `bot/telegram_bot/handlers/__init__.py` — функция `register_all_handlers(router)` подключает все обработчики
+- [x] **Шаг 080**: Коммит "Add bot skeleton with /start and /help"
 
 ---
 
