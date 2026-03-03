@@ -78,3 +78,5 @@ class Database:
                 ON forwarded_messages(forwarded_at);
             """
         )
+        # executescript implicitly issues COMMIT which may reset PRAGMAs
+        await self.conn.execute("PRAGMA foreign_keys=ON")

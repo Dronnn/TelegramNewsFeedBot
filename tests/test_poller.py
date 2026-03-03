@@ -83,7 +83,7 @@ async def test_poll_once_new_messages():
         await poller.poll_once(channel)
 
     telethon_client.get_messages.assert_awaited_once_with(
-        -1001, min_id=100, limit=20,
+        -1001, min_id=100, limit=100,
     )
 
     assert pipeline.enqueue.await_count == 4

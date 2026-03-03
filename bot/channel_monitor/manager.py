@@ -8,6 +8,7 @@ from telethon.tl.functions.channels import JoinChannelRequest, LeaveChannelReque
 from bot.channel_monitor.client import resolve_channel
 from bot.db.queries import (
     add_channel,
+    delete_channel,
     get_channel,
     get_channel_subscriber_count,
     get_joined_channel_ids,
@@ -58,14 +59,7 @@ class ChannelManager:
                     log.exception("Failed to leave channel %d", channel_id)
                 self.joined_channels.discard(channel_id)
                 log.info("Left channel %d (no subscribers)", channel_id)
-            await self.db.conn.execute(
-                "DELETE FROM forwarded_messages WHERE channel_id = ?",
-                (channel_id,),
-            )
-            await self.db.conn.execute(
-                "DELETE FROM channels WHERE channel_id = ?", (channel_id,),
-            )
-            await self.db.conn.commit()
+            await delete_channel(self.db, channel_id)
             log.info("Deleted channel %d from DB", channel_id)
             return
 

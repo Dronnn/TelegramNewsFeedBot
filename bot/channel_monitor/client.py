@@ -34,9 +34,12 @@ async def resolve_channel(
 
     entity = await client.get_entity(username)
 
+    if not isinstance(entity, Channel):
+        raise ValueError(
+            f"'{channel_ref}' is not a channel (resolved to {type(entity).__name__}). "
+            "Only channels and supergroups are supported."
+        )
+
     peer_id = utils.get_peer_id(entity)
 
-    if isinstance(entity, Channel):
-        return peer_id, entity.username or "", getattr(entity, "title", "")
-
-    return peer_id, getattr(entity, "username", "") or "", getattr(entity, "title", "")
+    return peer_id, entity.username or "", getattr(entity, "title", "")

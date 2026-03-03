@@ -25,7 +25,12 @@ def _find_topic_channels(all_topics: list[dict], topic_id: str) -> list[dict]:
 async def cb_remove_channel(callback: CallbackQuery) -> None:
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
-    channel_id = int(callback.data.split(":", 1)[1])
+    try:
+        channel_id = int(callback.data.split(":", 1)[1])
+    except (ValueError, IndexError):
+        log.warning("Malformed callback data: %s", callback.data)
+        await callback.answer("Ошибка данных")
+        return
     user_id = callback.from_user.id
 
     await queries.unsubscribe(db, user_id, channel_id)

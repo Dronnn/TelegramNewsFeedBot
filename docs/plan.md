@@ -383,3 +383,18 @@ LOG_LEVEL=INFO
 - [x] Issue 4: `callback.answer()` вызывается слишком поздно — перенести в начало хендлеров
 - [x] Issue 5: Сообщения из поллера в обратном порядке — добавить `reversed()` в `poller.py`
 - [x] Issue 6: `load_topics` вызывает JSON синхронно при каждом вызове — кешировать в `bot["topics"]`
+
+---
+
+## Phase: Code Review Fixes Round 2 (2026-03-03)
+
+Исправление 5 проблем из code review (Issue A — ложное срабатывание, Issue G — dead code, оставлен как есть).
+
+### Шаги
+
+- [x] Issue A: seed_catalog.py category type mismatch — FALSE POSITIVE (IDs уже строки в JSON)
+- [x] Issue B: Callback data parsing crash — обёрнуто в try/except ValueError/IndexError
+- [x] Issue C: resolve_channel не проверяет тип entity — добавлена проверка isinstance(entity, Channel)
+- [x] Issue D: PRAGMA foreign_keys может сброситься после executescript — повторный PRAGMA после init_schema
+- [x] Issue E: Raw SQL в manager.py — вынесено в queries.delete_channel()
+- [x] Issue F: Poller limit=20 теряет сообщения — увеличено до 100

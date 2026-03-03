@@ -43,7 +43,7 @@ class ChannelPoller:
             messages = await self.telethon_client.get_messages(
                 channel.channel_id,
                 min_id=channel.last_message_id,
-                limit=20,
+                limit=100,
             )
         except ChannelPrivateError:
             logger.warning(
