@@ -116,15 +116,15 @@
 **Контекст фазы**: User-запросы готовы в `bot/db/queries.py`. Добавляем запросы для каналов.
 **Прочитай**: `bot/db/queries.py` (то что уже написано), `bot/db/models.py`
 
-- [ ] **Шаг 035**: В `queries.py` — async функция `add_channel(db, channel_id, username, title)` — INSERT OR IGNORE
-- [ ] **Шаг 036**: В `queries.py` — async функция `get_channel(db, channel_id)` — SELECT, возвращает Channel или None
-- [ ] **Шаг 037**: В `queries.py` — async функция `get_channel_by_username(db, username)` — SELECT WHERE username=?
-- [ ] **Шаг 038**: В `queries.py` — async функция `update_channel_last_message(db, channel_id, message_id)` — UPDATE last_message_id
-- [ ] **Шаг 039**: В `queries.py` — async функция `update_channel_polled(db, channel_id)` — UPDATE last_polled_at
-- [ ] **Шаг 040**: В `queries.py` — async функция `set_channel_joined(db, channel_id, is_joined)` — UPDATE
-- [ ] **Шаг 041**: В `queries.py` — async функция `get_channels_to_poll(db)` — SELECT WHERE is_joined=0 AND subscriber_count>0
-- [ ] **Шаг 042**: В `queries.py` — async функция `get_joined_channel_ids(db)` — SELECT channel_id WHERE is_joined=1
-- [ ] **Шаг 043**: Коммит "Add channel queries"
+- [x] **Шаг 035**: В `queries.py` — async функция `add_channel(db, channel_id, username, title)` — INSERT OR IGNORE
+- [x] **Шаг 036**: В `queries.py` — async функция `get_channel(db, channel_id)` — SELECT, возвращает Channel или None
+- [x] **Шаг 037**: В `queries.py` — async функция `get_channel_by_username(db, username)` — SELECT WHERE username=?
+- [x] **Шаг 038**: В `queries.py` — async функция `update_channel_last_message(db, channel_id, message_id)` — UPDATE last_message_id
+- [x] **Шаг 039**: В `queries.py` — async функция `update_channel_polled(db, channel_id)` — UPDATE last_polled_at
+- [x] **Шаг 040**: В `queries.py` — async функция `set_channel_joined(db, channel_id, is_joined)` — UPDATE
+- [x] **Шаг 041**: В `queries.py` — async функция `get_channels_to_poll(db)` — SELECT WHERE is_joined=0 AND subscriber_count>0
+- [x] **Шаг 042**: В `queries.py` — async функция `get_joined_channel_ids(db)` — SELECT channel_id WHERE is_joined=1
+- [x] **Шаг 043**: Коммит "Add channel queries"
 
 ---
 

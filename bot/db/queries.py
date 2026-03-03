@@ -7,7 +7,7 @@ import aiosqlite
 if TYPE_CHECKING:
     from bot.db.database import Database
 
-from bot.db.models import User
+from bot.db.models import Channel, User
 
 
 async def add_user(
@@ -50,6 +50,100 @@ async def get_active_subscribers(db: Database, channel_id: int) -> list[int]:
         "SELECT user_id FROM subscriptions JOIN users USING(user_id) "
         "WHERE channel_id = ? AND is_paused = 0",
         (channel_id,),
+    )
+    rows = await cursor.fetchall()
+    return [row[0] for row in rows]
+
+
+# ── Channel queries ───────────────────────────────────────────────
+
+
+def _row_to_channel(row: aiosqlite.Row) -> Channel:
+    return Channel(
+        channel_id=row["channel_id"],
+        username=row["username"],
+        title=row["title"],
+        is_joined=bool(row["is_joined"]),
+        subscriber_count=row["subscriber_count"],
+        last_message_id=row["last_message_id"],
+        poll_interval=row["poll_interval"],
+        last_polled_at=row["last_polled_at"],
+        created_at=row["created_at"],
+    )
+
+
+async def add_channel(
+    db: Database, channel_id: int, username: str | None, title: str | None
+) -> None:
+    await db._conn.execute(
+        "INSERT OR IGNORE INTO channels (channel_id, username, title) VALUES (?, ?, ?)",
+        (channel_id, username, title),
+    )
+    await db._conn.commit()
+
+
+async def get_channel(db: Database, channel_id: int) -> Channel | None:
+    cursor = await db._conn.execute(
+        "SELECT * FROM channels WHERE channel_id = ?", (channel_id,)
+    )
+    cursor.row_factory = aiosqlite.Row
+    row = await cursor.fetchone()
+    if row is None:
+        return None
+    return _row_to_channel(row)
+
+
+async def get_channel_by_username(db: Database, username: str) -> Channel | None:
+    cursor = await db._conn.execute(
+        "SELECT * FROM channels WHERE username = ?", (username,)
+    )
+    cursor.row_factory = aiosqlite.Row
+    row = await cursor.fetchone()
+    if row is None:
+        return None
+    return _row_to_channel(row)
+
+
+async def update_channel_last_message(
+    db: Database, channel_id: int, message_id: int
+) -> None:
+    await db._conn.execute(
+        "UPDATE channels SET last_message_id = ? WHERE channel_id = ?",
+        (message_id, channel_id),
+    )
+    await db._conn.commit()
+
+
+async def update_channel_polled(db: Database, channel_id: int) -> None:
+    await db._conn.execute(
+        "UPDATE channels SET last_polled_at = datetime('now') WHERE channel_id = ?",
+        (channel_id,),
+    )
+    await db._conn.commit()
+
+
+async def set_channel_joined(
+    db: Database, channel_id: int, is_joined: bool
+) -> None:
+    await db._conn.execute(
+        "UPDATE channels SET is_joined = ? WHERE channel_id = ?",
+        (int(is_joined), channel_id),
+    )
+    await db._conn.commit()
+
+
+async def get_channels_to_poll(db: Database) -> list[Channel]:
+    cursor = await db._conn.execute(
+        "SELECT * FROM channels WHERE is_joined = 0 AND subscriber_count > 0"
+    )
+    cursor.row_factory = aiosqlite.Row
+    rows = await cursor.fetchall()
+    return [_row_to_channel(row) for row in rows]
+
+
+async def get_joined_channel_ids(db: Database) -> list[int]:
+    cursor = await db._conn.execute(
+        "SELECT channel_id FROM channels WHERE is_joined = 1"
     )
     rows = await cursor.fetchall()
     return [row[0] for row in rows]
