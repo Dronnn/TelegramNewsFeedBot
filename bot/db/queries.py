@@ -97,7 +97,7 @@ async def get_channel(db: Database, channel_id: int) -> Channel | None:
 
 async def get_channel_by_username(db: Database, username: str) -> Channel | None:
     cursor = await db.conn.execute(
-        "SELECT * FROM channels WHERE username = ?", (username,)
+        "SELECT * FROM channels WHERE username = ? COLLATE NOCASE", (username,)
     )
     cursor.row_factory = aiosqlite.Row
     row = await cursor.fetchone()
