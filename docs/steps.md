@@ -218,11 +218,11 @@
 **Контекст фазы**: Скелет бота готов (start, help, middleware). Пишем inline-клавиатуры для всех интерактивных элементов.
 **Прочитай**: `bot/telegram_bot/handlers/start.py`, `docs/plan.md` секция "Команды бота"
 
-- [ ] **Шаг 081**: Написать `bot/telegram_bot/keyboards.py` — функция `channel_list_keyboard(channels)`: inline-кнопки с каналами и кнопкой [Удалить]
-- [ ] **Шаг 082**: В `keyboards.py` — функция `topics_keyboard(topics, user_topics)`: inline-кнопки со всеми темами, отмечены выбранные
-- [ ] **Шаг 083**: В `keyboards.py` — функция `my_topics_keyboard(user_topics)`: inline-кнопки с выбранными темами и кнопкой [Отписаться]
-- [ ] **Шаг 084**: В `keyboards.py` — функция `confirm_keyboard()`: кнопки [Да] [Нет] для подтверждений
-- [ ] **Шаг 085**: Коммит "Add inline keyboards"
+- [x] **Шаг 081**: Написать `bot/telegram_bot/keyboards.py` — функция `channel_list_keyboard(channels)`: inline-кнопки с каналами и кнопкой [Удалить]
+- [x] **Шаг 082**: В `keyboards.py` — функция `topics_keyboard(topics, user_topics)`: inline-кнопки со всеми темами, отмечены выбранные
+- [x] **Шаг 083**: В `keyboards.py` — функция `my_topics_keyboard(user_topics)`: inline-кнопки с выбранными темами и кнопкой [Отписаться]
+- [x] **Шаг 084**: В `keyboards.py` — функция `confirm_keyboard()`: кнопки [Да] [Нет] для подтверждений
+- [x] **Шаг 085**: Коммит "Add inline keyboards"
 
 ---
 
