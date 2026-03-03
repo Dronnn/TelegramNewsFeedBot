@@ -133,11 +133,11 @@
 **Контекст фазы**: Запросы для users и channels готовы в `bot/db/queries.py`. Добавляем запросы для подписок (связь user-channel).
 **Прочитай**: `bot/db/queries.py`
 
-- [ ] **Шаг 044**: В `queries.py` — async функция `subscribe(db, user_id, channel_id)` — INSERT OR IGNORE + UPDATE subscriber_count +1
-- [ ] **Шаг 045**: В `queries.py` — async функция `unsubscribe(db, user_id, channel_id)` — DELETE + UPDATE subscriber_count -1
-- [ ] **Шаг 046**: В `queries.py` — async функция `get_user_subscriptions(db, user_id)` — SELECT с JOIN на channels, возвращает список Channel
-- [ ] **Шаг 047**: В `queries.py` — async функция `get_channel_subscriber_count(db, channel_id)` — SELECT subscriber_count
-- [ ] **Шаг 048**: Коммит "Add subscription queries"
+- [x] **Шаг 044**: В `queries.py` — async функция `subscribe(db, user_id, channel_id)` — INSERT OR IGNORE + UPDATE subscriber_count +1
+- [x] **Шаг 045**: В `queries.py` — async функция `unsubscribe(db, user_id, channel_id)` — DELETE + UPDATE subscriber_count -1
+- [x] **Шаг 046**: В `queries.py` — async функция `get_user_subscriptions(db, user_id)` — SELECT с JOIN на channels, возвращает список Channel
+- [x] **Шаг 047**: В `queries.py` — async функция `get_channel_subscriber_count(db, channel_id)` — SELECT subscriber_count
+- [x] **Шаг 048**: Коммит "Add subscription queries"
 
 ---
 

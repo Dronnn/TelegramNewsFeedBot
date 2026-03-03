@@ -147,3 +147,56 @@ async def get_joined_channel_ids(db: Database) -> list[int]:
     )
     rows = await cursor.fetchall()
     return [row[0] for row in rows]
+
+
+# ── Subscription queries ─────────────────────────────────────────
+
+
+async def subscribe(db: Database, user_id: int, channel_id: int) -> None:
+    cursor = await db._conn.execute(
+        "INSERT OR IGNORE INTO subscriptions (user_id, channel_id) VALUES (?, ?)",
+        (user_id, channel_id),
+    )
+    if cursor.rowcount > 0:
+        await db._conn.execute(
+            "UPDATE channels SET subscriber_count = subscriber_count + 1 "
+            "WHERE channel_id = ?",
+            (channel_id,),
+        )
+    await db._conn.commit()
+
+
+async def unsubscribe(db: Database, user_id: int, channel_id: int) -> None:
+    cursor = await db._conn.execute(
+        "DELETE FROM subscriptions WHERE user_id = ? AND channel_id = ?",
+        (user_id, channel_id),
+    )
+    if cursor.rowcount > 0:
+        await db._conn.execute(
+            "UPDATE channels SET subscriber_count = subscriber_count - 1 "
+            "WHERE channel_id = ?",
+            (channel_id,),
+        )
+    await db._conn.commit()
+
+
+async def get_user_subscriptions(db: Database, user_id: int) -> list[Channel]:
+    cursor = await db._conn.execute(
+        "SELECT channels.* FROM subscriptions JOIN channels USING(channel_id) "
+        "WHERE user_id = ?",
+        (user_id,),
+    )
+    cursor.row_factory = aiosqlite.Row
+    rows = await cursor.fetchall()
+    return [_row_to_channel(row) for row in rows]
+
+
+async def get_channel_subscriber_count(db: Database, channel_id: int) -> int:
+    cursor = await db._conn.execute(
+        "SELECT subscriber_count FROM channels WHERE channel_id = ?",
+        (channel_id,),
+    )
+    row = await cursor.fetchone()
+    if row is None:
+        return 0
+    return row[0]
