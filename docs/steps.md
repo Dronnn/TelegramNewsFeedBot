@@ -425,11 +425,11 @@
 **Контекст фазы**: Каталог готов. Пишем модуль поиска каналов: сначала по каталогу, если не хватает — через Telegram API.
 **Прочитай**: `data/channel_catalog.json`, `bot/db/queries.py` (search_catalog), `bot/channel_monitor/client.py`
 
-- [ ] **Шаг 168**: Написать `bot/channel_monitor/searcher.py` — класс `ChannelSearcher(telethon_client, db)`
-- [ ] **Шаг 169**: В `ChannelSearcher` — async метод `search_by_topic(topic_id)`: найти каналы в каталоге по category=topic_id
-- [ ] **Шаг 170**: В `ChannelSearcher` — async метод `search_telegram(query, limit=20)`: вызвать contacts.SearchRequest через Telethon, отфильтровать только каналы
-- [ ] **Шаг 171**: В `ChannelSearcher` — async метод `search_combined(topic_id, query)`: сначала каталог, если мало результатов — Telegram API
-- [ ] **Шаг 172**: Коммит "Add channel searcher"
+- [x] **Шаг 168**: Написать `bot/channel_monitor/searcher.py` — класс `ChannelSearcher(telethon_client, db)`
+- [x] **Шаг 169**: В `ChannelSearcher` — async метод `search_by_topic(topic_id)`: найти каналы в каталоге по category=topic_id
+- [x] **Шаг 170**: В `ChannelSearcher` — async метод `search_telegram(query, limit=20)`: вызвать contacts.SearchRequest через Telethon, отфильтровать только каналы
+- [x] **Шаг 171**: В `ChannelSearcher` — async метод `search_combined(topic_id, query)`: сначала каталог, если мало результатов — Telegram API
+- [x] **Шаг 172**: Коммит "Add channel searcher"
 
 ---
 
