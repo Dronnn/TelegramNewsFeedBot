@@ -39,38 +39,58 @@ class ChannelPoller:
 
     async def poll_once(self, channel: Channel) -> None:
         """Poll a single channel for new messages since last_message_id."""
-        try:
-            messages = await self.telethon_client.get_messages(
-                channel.channel_id,
-                min_id=channel.last_message_id,
-                limit=100,
-            )
-        except ChannelPrivateError:
-            logger.warning(
-                "Channel %d (%s) is now private, skipping poll",
-                channel.channel_id,
-                channel.username,
-            )
-            subscribers = await queries.get_active_subscribers(
-                self.db, channel.channel_id,
-            )
-            for user_id in subscribers:
-                try:
-                    await self.bot.send_message(
-                        user_id,
-                        f"Channel @{channel.username} is no longer accessible "
-                        f"(private or deleted). You may want to /remove it.",
-                    )
-                except Exception:
-                    logger.warning(
-                        "Failed to notify user %d about private channel %d",
-                        user_id,
-                        channel.channel_id,
-                    )
-            await queries.delete_channel(self.db, channel.channel_id)
-            return
+        all_messages: list = []
+        max_id = 0
 
-        if not messages:
+        while True:
+            try:
+                kwargs: dict = {
+                    "min_id": channel.last_message_id,
+                    "limit": 100,
+                }
+                if max_id:
+                    kwargs["max_id"] = max_id
+
+                messages = await self.telethon_client.get_messages(
+                    channel.channel_id,
+                    **kwargs,
+                )
+            except ChannelPrivateError:
+                logger.warning(
+                    "Channel %d (%s) is now private, skipping poll",
+                    channel.channel_id,
+                    channel.username,
+                )
+                subscribers = await queries.get_active_subscribers(
+                    self.db, channel.channel_id,
+                )
+                for user_id in subscribers:
+                    try:
+                        await self.bot.send_message(
+                            user_id,
+                            f"Channel @{channel.username} is no longer accessible "
+                            f"(private or deleted). You may want to /remove it.",
+                        )
+                    except Exception:
+                        logger.warning(
+                            "Failed to notify user %d about private channel %d",
+                            user_id,
+                            channel.channel_id,
+                        )
+                await queries.delete_channel(self.db, channel.channel_id)
+                return
+
+            if not messages:
+                break
+
+            all_messages.extend(messages)
+
+            if len(messages) < 100:
+                break
+
+            max_id = min(m.id for m in messages)
+
+        if not all_messages:
             await queries.update_channel_polled(self.db, channel.channel_id)
             return
 
@@ -79,7 +99,7 @@ class ChannelPoller:
         )
 
         max_message_id = channel.last_message_id
-        for message in reversed(messages):
+        for message in reversed(all_messages):
             if message.id > max_message_id:
                 max_message_id = message.id
             for user_id in subscribers:
@@ -98,7 +118,7 @@ class ChannelPoller:
             "Polled channel %d (%s): %d new messages for %d subscribers",
             channel.channel_id,
             channel.username,
-            len(messages),
+            len(all_messages),
             len(subscribers),
         )
 

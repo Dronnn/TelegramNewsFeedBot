@@ -32,6 +32,7 @@ class ForwardingPipeline:
         self._queue: asyncio.Queue[tuple[int, int, int]] = asyncio.Queue(maxsize=10000)
         self._workers: list[asyncio.Task[None]] = []
         self._retry_counts: dict[tuple[int, int, int], int] = {}
+        self._in_progress: set[tuple[int, int, int]] = set()
 
     async def enqueue(
         self, channel_id: int, message_id: int, user_id: int
@@ -41,10 +42,16 @@ class ForwardingPipeline:
     async def _worker(self) -> None:
         while True:
             channel_id, message_id, user_id = await self._queue.get()
+            key = (channel_id, message_id, user_id)
             try:
+                if key in self._in_progress:
+                    continue
+                self._in_progress.add(key)
+
                 if await queries.is_forwarded(
                     self.db, channel_id, message_id, user_id
                 ):
+                    self._in_progress.discard(key)
                     continue
 
                 await self.rate_limiter.acquire()
@@ -59,17 +66,19 @@ class ForwardingPipeline:
                     self.db, channel_id, message_id, user_id
                 )
 
-                self._retry_counts.pop((channel_id, message_id, user_id), None)
+                self._in_progress.discard(key)
+                self._retry_counts.pop(key, None)
 
             except TelegramForbiddenError:
                 logger.warning(
                     "User %d blocked the bot, pausing delivery", user_id
                 )
                 await queries.set_user_paused(self.db, user_id, True)
-                self._retry_counts.pop((channel_id, message_id, user_id), None)
+                self._in_progress.discard(key)
+                self._retry_counts.pop(key, None)
 
             except TelegramRetryAfter as exc:
-                key = (channel_id, message_id, user_id)
+                self._in_progress.discard(key)
                 self._retry_counts[key] = self._retry_counts.get(key, 0) + 1
                 if self._retry_counts[key] < 3:
                     logger.warning(
@@ -98,7 +107,7 @@ class ForwardingPipeline:
                     self._retry_counts.pop(key, None)
 
             except Exception:
-                key = (channel_id, message_id, user_id)
+                self._in_progress.discard(key)
                 self._retry_counts[key] = self._retry_counts.get(key, 0) + 1
                 if self._retry_counts[key] < 3:
                     logger.warning(

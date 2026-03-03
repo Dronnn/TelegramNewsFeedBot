@@ -17,7 +17,7 @@ class UserRegistrationMiddleware(BaseMiddleware):
         data: dict[str, Any],
     ) -> Any:
         if event.from_user:
-            db: Database = data["db"]
+            db: Database = data["bot"]["db"]
             await queries.add_user(
                 db,
                 user_id=event.from_user.id,
