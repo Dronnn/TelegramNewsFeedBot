@@ -247,10 +247,10 @@
 **Контекст фазы**: Handlers и keyboards готовы. Пишем обработчики нажатий inline-кнопок.
 **Прочитай**: `bot/telegram_bot/keyboards.py`, `bot/telegram_bot/handlers/channels.py`, `bot/db/queries.py`
 
-- [ ] **Шаг 094**: Написать `bot/telegram_bot/callbacks.py` — handler для callback `remove_channel:{channel_id}`: отписать юзера, обновить сообщение
-- [ ] **Шаг 095**: В `callbacks.py` — handler для callback `subscribe_topic:{topic_id}`: подписать на тему
-- [ ] **Шаг 096**: В `callbacks.py` — handler для callback `unsubscribe_topic:{topic_id}`: отписать от темы
-- [ ] **Шаг 097**: Коммит "Add callback handlers for inline buttons"
+- [x] **Шаг 094**: Написать `bot/telegram_bot/callbacks.py` — handler для callback `remove_channel:{channel_id}`: отписать юзера, обновить сообщение
+- [x] **Шаг 095**: В `callbacks.py` — handler для callback `subscribe_topic:{topic_id}`: подписать на тему
+- [x] **Шаг 096**: В `callbacks.py` — handler для callback `unsubscribe_topic:{topic_id}`: отписать от темы
+- [x] **Шаг 097**: Коммит "Add callback handlers for inline buttons"
 
 ---
 
