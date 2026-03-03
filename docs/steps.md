@@ -259,11 +259,11 @@
 **Контекст фазы**: Callback-обработчики готовы. Пишем handlers для /topics и /mytopics. Юзер выбирает тему — бот подписывает на все каналы этой темы.
 **Прочитай**: `bot/telegram_bot/callbacks.py`, `bot/telegram_bot/keyboards.py`, `bot/db/queries.py` (search_catalog, add_user_topic, get_user_topics)
 
-- [ ] **Шаг 098**: Написать `bot/telegram_bot/handlers/topics.py` — handler для `/topics`: показать все темы из каталога с inline-кнопками
-- [ ] **Шаг 099**: В handler `/topics` — при нажатии на тему: подписать юзера на все каналы этой темы из каталога
-- [ ] **Шаг 100**: В `handlers/topics.py` — handler для `/mytopics`: показать выбранные темы с кнопками [Отписаться]
-- [ ] **Шаг 101**: В handler `/mytopics` — при отписке от темы: отписать от всех каналов этой темы
-- [ ] **Шаг 102**: Коммит "Add /topics and /mytopics handlers"
+- [x] **Шаг 098**: Написать `bot/telegram_bot/handlers/topics.py` — handler для `/topics`: показать все темы из каталога с inline-кнопками
+- [x] **Шаг 099**: В handler `/topics` — при нажатии на тему: подписать юзера на все каналы этой темы из каталога
+- [x] **Шаг 100**: В `handlers/topics.py` — handler для `/mytopics`: показать выбранные темы с кнопками [Отписаться]
+- [x] **Шаг 101**: В handler `/mytopics` — при отписке от темы: отписать от всех каналов этой темы
+- [x] **Шаг 102**: Коммит "Add /topics and /mytopics handlers"
 
 ---
 

@@ -318,3 +318,16 @@ LOG_LEVEL=INFO
 5. Перезапустить бота -> убедиться что пропущенные посты догнаны
 
 **Напоминание**: на этом Mac ничего не запускаем. Только пишем код и коммитим.
+
+---
+
+## Phase 16: /topics и /mytopics хендлеры
+
+### Шаги
+
+- [x] Step 098: Создать `bot/telegram_bot/handlers/topics.py` с хендлером `/topics`
+- [x] Step 099: Обновить `callbacks.py` — при подписке на тему также подписывать на все каналы темы из каталога
+- [x] Step 100: Добавить хендлер `/mytopics` в `topics.py`
+- [x] Step 101: Обновить `callbacks.py` — при отписке от темы также отписывать от всех каналов темы
+- [x] Зарегистрировать topics router в `handlers/__init__.py`
+- [x] Добавить query `get_catalog_categories` в `queries.py`

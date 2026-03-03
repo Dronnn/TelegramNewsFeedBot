@@ -251,6 +251,14 @@ async def search_catalog(db: Database, category: str) -> list[CatalogEntry]:
     ]
 
 
+async def get_catalog_categories(db: Database) -> list[str]:
+    cursor = await db._conn.execute(
+        "SELECT DISTINCT category FROM catalog ORDER BY category"
+    )
+    rows = await cursor.fetchall()
+    return [row[0] for row in rows]
+
+
 async def seed_catalog(db: Database, entries: list[CatalogEntry]) -> None:
     await db._conn.executemany(
         "INSERT OR IGNORE INTO catalog "
