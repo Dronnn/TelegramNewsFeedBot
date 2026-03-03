@@ -27,6 +27,12 @@ class Channel:
 
 
 @dataclass
+class Subscription:
+    user_id: int
+    channel_id: int
+
+
+@dataclass
 class CatalogEntry:
     channel_username: str
     title: str

@@ -35,6 +35,7 @@ async def cb_remove_channel(callback: CallbackQuery) -> None:
         await callback.answer("Ошибка данных")
         return
     user_id = callback.from_user.id
+    await callback.answer("Удаляю канал...")
 
     await queries.unsubscribe(db, user_id, channel_id)
     await channel_manager.on_subscription_change(channel_id)
@@ -45,7 +46,6 @@ async def cb_remove_channel(callback: CallbackQuery) -> None:
         await callback.message.edit_text("Твои подписки:", reply_markup=kb)
     else:
         await callback.message.edit_text("Все подписки удалены.")
-    await callback.answer("Канал удалён")
 
 
 @router.callback_query(F.data.startswith("subscribe_topic:"))

@@ -77,7 +77,8 @@ async def add_channel(
     db: Database, channel_id: int, username: str | None, title: str | None
 ) -> None:
     await db.conn.execute(
-        "INSERT OR IGNORE INTO channels (channel_id, username, title) VALUES (?, ?, ?)",
+        "INSERT INTO channels (channel_id, username, title) VALUES (?, ?, ?) "
+        "ON CONFLICT(channel_id) DO UPDATE SET username=excluded.username, title=excluded.title",
         (channel_id, username, title),
     )
     await db.conn.commit()
