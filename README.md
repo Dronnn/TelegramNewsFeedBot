@@ -196,14 +196,10 @@ TelegramNewsFeedBot/
 
 ```bash
 # Запуск всех тестов
-pytest tests/
+pytest tests/ -v
 
 # Запуск конкретного файла тестов
-pytest tests/test_queries.py
-pytest tests/test_pipeline.py
-pytest tests/test_rate_limiter.py
-pytest tests/test_manager.py
-pytest tests/test_searcher.py
+pytest tests/test_queries.py -v
 ```
 
 ## Лицензия

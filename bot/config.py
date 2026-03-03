@@ -43,6 +43,10 @@ def load_config() -> Config:
     if missing:
         raise ValueError(f"Missing required environment variables: {', '.join(missing)}")
 
+    forward_rate_limit = int(os.getenv("FORWARD_RATE_LIMIT", "25"))
+    if forward_rate_limit <= 0:
+        raise ValueError("FORWARD_RATE_LIMIT must be a positive integer")
+
     return Config(
         bot_token=bot_token,
         telegram_api_id=int(telegram_api_id),
@@ -53,7 +57,7 @@ def load_config() -> Config:
         catalog_path=os.getenv("CATALOG_PATH", "data/channel_catalog.json"),
         join_threshold=int(os.getenv("JOIN_THRESHOLD", "3")),
         poll_interval_default=int(os.getenv("POLL_INTERVAL_DEFAULT", "120")),
-        forward_rate_limit=int(os.getenv("FORWARD_RATE_LIMIT", "25")),
+        forward_rate_limit=forward_rate_limit,
         forward_workers=int(os.getenv("FORWARD_WORKERS", "3")),
         log_level=os.getenv("LOG_LEVEL", "INFO"),
     )

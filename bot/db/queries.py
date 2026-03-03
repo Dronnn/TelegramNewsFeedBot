@@ -109,8 +109,9 @@ async def update_channel_last_message(
     db: Database, channel_id: int, message_id: int
 ) -> None:
     await db.conn.execute(
-        "UPDATE channels SET last_message_id = ? WHERE channel_id = ?",
-        (message_id, channel_id),
+        "UPDATE channels SET last_message_id = ? "
+        "WHERE channel_id = ? AND (last_message_id IS NULL OR last_message_id < ?)",
+        (message_id, channel_id, message_id),
     )
     await db.conn.commit()
 
@@ -275,9 +276,11 @@ async def get_catalog_categories(db: Database) -> list[str]:
 
 async def seed_catalog(db: Database, entries: list[CatalogEntry]) -> None:
     await db.conn.executemany(
-        "INSERT OR IGNORE INTO catalog "
+        "INSERT INTO catalog "
         "(channel_username, title, category, tags, language) "
-        "VALUES (?, ?, ?, ?, ?)",
+        "VALUES (?, ?, ?, ?, ?) "
+        "ON CONFLICT(channel_username, category) DO UPDATE SET "
+        "title=excluded.title, tags=excluded.tags, language=excluded.language",
         [
             (e.channel_username, e.title, e.category, e.tags, e.language)
             for e in entries

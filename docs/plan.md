@@ -251,11 +251,19 @@ TelegramNewsFeedBot/
 │       └── logging.py            <- настройка логирования
 ├── tests/
 │   ├── __init__.py
+│   ├── test_callbacks.py
+│   ├── test_channels_handler.py
+│   ├── test_client.py
+│   ├── test_event_handler.py
+│   ├── test_handler_wiring.py
+│   ├── test_manager.py
+│   ├── test_pipeline.py
+│   ├── test_poller.py
 │   ├── test_queries.py
 │   ├── test_rate_limiter.py
-│   ├── test_pipeline.py
-│   ├── test_manager.py
-│   └── test_searcher.py
+│   ├── test_searcher.py
+│   ├── test_seed_catalog.py
+│   └── test_settings.py
 └── scripts/
     └── seed_catalog.py           <- загрузка каталога из JSON в БД
 ```

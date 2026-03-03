@@ -45,8 +45,12 @@ class ChannelManager:
         )
         await add_channel(self.db, channel_id, username, title)
         channel = await get_channel(self.db, channel_id)
+        if channel is None:
+            raise RuntimeError(
+                f"Channel {channel_ref} (id={channel_id}) was added but not found in DB"
+            )
         log.info("Resolved channel %s -> %d (%s)", channel_ref, channel_id, title)
-        return channel  # type: ignore[return-value]
+        return channel
 
     async def on_subscription_change(self, channel_id: int) -> None:
         count = await get_channel_subscriber_count(self.db, channel_id)

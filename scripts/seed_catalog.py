@@ -27,7 +27,7 @@ def load_entries(catalog_path: Path) -> list[CatalogEntry]:
 
     entries: list[CatalogEntry] = []
     for topic in data["topics"]:
-        category = topic["id"]
+        category = str(topic["id"])
         for ch in topic["channels"]:
             entries.append(
                 CatalogEntry(

@@ -206,7 +206,7 @@ class TestTopicsFromCatalogDB:
     async def test_topics_filtered_by_catalog(self, db):
         """_topics_from_catalog should only return topics present in catalog DB."""
         from bot.db.models import CatalogEntry
-        from bot.telegram_bot import load_topics
+        from bot.telegram_bot.handlers.topics import _topics_from_catalog
 
         entries = [
             CatalogEntry(
@@ -216,15 +216,11 @@ class TestTopicsFromCatalogDB:
         ]
         await queries.seed_catalog(db, entries)
 
-        db_categories = await queries.get_catalog_categories(db)
-        db_cat_set = set(db_categories)
-
-        # Simulate _topics_from_catalog logic
         all_topics = [
             {"id": "tech", "name": "Tech", "emoji": "T", "channels": []},
             {"id": "sports", "name": "Sports", "emoji": "S", "channels": []},
         ]
-        filtered = [t for t in all_topics if str(t["id"]) in db_cat_set]
+        filtered = await _topics_from_catalog(db, all_topics)
 
         assert len(filtered) == 1
         assert filtered[0]["id"] == "tech"

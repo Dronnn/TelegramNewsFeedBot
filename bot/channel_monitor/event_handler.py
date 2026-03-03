@@ -48,5 +48,8 @@ async def setup_event_handler(
                 "Error handling new message from channel %d", event.chat_id,
             )
 
-    telethon_client.add_event_handler(_on_new_message, events.NewMessage())
-    logger.info("Registered NewMessage event handler")
+    telethon_client.add_event_handler(
+        _on_new_message,
+        events.NewMessage(incoming=True, func=lambda e: e.is_channel),
+    )
+    logger.info("Registered NewMessage event handler (channels only)")

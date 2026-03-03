@@ -11,6 +11,8 @@ from bot.db.models import CatalogEntry
 # Allow importing the script even though it lives outside the bot package.
 import sys
 
+import pytest
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -87,7 +89,7 @@ def test_load_entries_real_catalog():
     """Verify the actual project catalog file parses without errors."""
     catalog_path = PROJECT_ROOT / "data" / "channel_catalog.json"
     if not catalog_path.exists():
-        return
+        pytest.skip("catalog file not found")
     entries = load_entries(catalog_path)
     assert len(entries) > 0
     categories = {e.category for e in entries}

@@ -23,6 +23,9 @@ def _find_topic_channels(all_topics: list[dict], topic_id: str) -> list[dict]:
 
 @router.callback_query(F.data.startswith("remove_channel:"))
 async def cb_remove_channel(callback: CallbackQuery) -> None:
+    if callback.message is None:
+        await callback.answer("Сообщение устарело.")
+        return
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     try:
@@ -47,13 +50,16 @@ async def cb_remove_channel(callback: CallbackQuery) -> None:
 
 @router.callback_query(F.data.startswith("subscribe_topic:"))
 async def cb_subscribe_topic(callback: CallbackQuery) -> None:
-    await callback.answer("Подписываю на каналы темы...")
+    if callback.message is None:
+        await callback.answer("Сообщение устарело.")
+        return
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
     if not topic_id:
         await callback.answer("Ошибка данных")
         return
+    await callback.answer("Подписываю на каналы темы...")
     user_id = callback.from_user.id
 
     await queries.add_user_topic(db, user_id, topic_id)
@@ -81,13 +87,16 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
 
 @router.callback_query(F.data.startswith("unsubscribe_topic:"))
 async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
-    await callback.answer("Отписываю от каналов темы...")
+    if callback.message is None:
+        await callback.answer("Сообщение устарело.")
+        return
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
     if not topic_id:
         await callback.answer("Ошибка данных")
         return
+    await callback.answer("Отписываю от каналов темы...")
     user_id = callback.from_user.id
 
     await queries.remove_user_topic(db, user_id, topic_id)
