@@ -160,10 +160,10 @@
 **Контекст фазы**: Все основные запросы готовы. Добавляем запросы для таблицы forwarded_messages (предотвращение повторной пересылки).
 **Прочитай**: `bot/db/queries.py`
 
-- [ ] **Шаг 055**: В `queries.py` — async функция `is_forwarded(db, channel_id, message_id, user_id)` — SELECT EXISTS
-- [ ] **Шаг 056**: В `queries.py` — async функция `mark_forwarded(db, channel_id, message_id, user_id)` — INSERT
-- [ ] **Шаг 057**: В `queries.py` — async функция `cleanup_old_forwarded(db, days=7)` — DELETE WHERE forwarded_at < ?
-- [ ] **Шаг 058**: Коммит "Add dedup queries"
+- [x] **Шаг 055**: В `queries.py` — async функция `is_forwarded(db, channel_id, message_id, user_id)` — SELECT EXISTS
+- [x] **Шаг 056**: В `queries.py` — async функция `mark_forwarded(db, channel_id, message_id, user_id)` — INSERT
+- [x] **Шаг 057**: В `queries.py` — async функция `cleanup_old_forwarded(db, days=7)` — DELETE WHERE forwarded_at < ?
+- [x] **Шаг 058**: Коммит "Add dedup queries"
 
 ---
 

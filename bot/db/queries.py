@@ -262,3 +262,41 @@ async def seed_catalog(db: Database, entries: list[CatalogEntry]) -> None:
         ],
     )
     await db._conn.commit()
+
+
+# ── Dedup queries ────────────────────────────────────────────────
+
+
+async def is_forwarded(
+    db: Database, channel_id: int, message_id: int, user_id: int
+) -> bool:
+    cursor = await db._conn.execute(
+        "SELECT EXISTS("
+        "SELECT 1 FROM forwarded_messages "
+        "WHERE channel_id = ? AND message_id = ? AND user_id = ?"
+        ")",
+        (channel_id, message_id, user_id),
+    )
+    row = await cursor.fetchone()
+    return bool(row[0])
+
+
+async def mark_forwarded(
+    db: Database, channel_id: int, message_id: int, user_id: int
+) -> None:
+    await db._conn.execute(
+        "INSERT OR IGNORE INTO forwarded_messages "
+        "(channel_id, message_id, user_id) VALUES (?, ?, ?)",
+        (channel_id, message_id, user_id),
+    )
+    await db._conn.commit()
+
+
+async def cleanup_old_forwarded(db: Database, days: int = 7) -> int:
+    cursor = await db._conn.execute(
+        "DELETE FROM forwarded_messages "
+        "WHERE forwarded_at < datetime('now', ? || ' days')",
+        (f"-{days}",),
+    )
+    await db._conn.commit()
+    return cursor.rowcount
