@@ -146,12 +146,12 @@
 **Контекст фазы**: Запросы для users, channels, subscriptions готовы. Добавляем запросы для тем и каталога каналов.
 **Прочитай**: `bot/db/queries.py`, `docs/plan.md` секция "Каталог тем"
 
-- [ ] **Шаг 049**: В `queries.py` — async функция `add_user_topic(db, user_id, topic_id)` — INSERT OR IGNORE
-- [ ] **Шаг 050**: В `queries.py` — async функция `remove_user_topic(db, user_id, topic_id)` — DELETE
-- [ ] **Шаг 051**: В `queries.py` — async функция `get_user_topics(db, user_id)` — SELECT topic_id
-- [ ] **Шаг 052**: В `queries.py` — async функция `search_catalog(db, category)` — SELECT WHERE category=?
-- [ ] **Шаг 053**: В `queries.py` — async функция `seed_catalog(db, entries)` — batch INSERT для загрузки каталога
-- [ ] **Шаг 054**: Коммит "Add topic and catalog queries"
+- [x] **Шаг 049**: В `queries.py` — async функция `add_user_topic(db, user_id, topic_id)` — INSERT OR IGNORE
+- [x] **Шаг 050**: В `queries.py` — async функция `remove_user_topic(db, user_id, topic_id)` — DELETE
+- [x] **Шаг 051**: В `queries.py` — async функция `get_user_topics(db, user_id)` — SELECT topic_id
+- [x] **Шаг 052**: В `queries.py` — async функция `search_catalog(db, category)` — SELECT WHERE category=?
+- [x] **Шаг 053**: В `queries.py` — async функция `seed_catalog(db, entries)` — batch INSERT для загрузки каталога
+- [x] **Шаг 054**: Коммит "Add topic and catalog queries"
 
 ---
 

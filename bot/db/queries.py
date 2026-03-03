@@ -7,7 +7,7 @@ import aiosqlite
 if TYPE_CHECKING:
     from bot.db.database import Database
 
-from bot.db.models import Channel, User
+from bot.db.models import CatalogEntry, Channel, User
 
 
 async def add_user(
@@ -200,3 +200,65 @@ async def get_channel_subscriber_count(db: Database, channel_id: int) -> int:
     if row is None:
         return 0
     return row[0]
+
+
+# ── User topic queries ───────────────────────────────────────────
+
+
+async def add_user_topic(db: Database, user_id: int, topic_id: str) -> None:
+    await db._conn.execute(
+        "INSERT OR IGNORE INTO user_topics (user_id, topic_id) VALUES (?, ?)",
+        (user_id, topic_id),
+    )
+    await db._conn.commit()
+
+
+async def remove_user_topic(db: Database, user_id: int, topic_id: str) -> None:
+    await db._conn.execute(
+        "DELETE FROM user_topics WHERE user_id = ? AND topic_id = ?",
+        (user_id, topic_id),
+    )
+    await db._conn.commit()
+
+
+async def get_user_topics(db: Database, user_id: int) -> list[str]:
+    cursor = await db._conn.execute(
+        "SELECT topic_id FROM user_topics WHERE user_id = ?",
+        (user_id,),
+    )
+    rows = await cursor.fetchall()
+    return [row[0] for row in rows]
+
+
+# ── Catalog queries ──────────────────────────────────────────────
+
+
+async def search_catalog(db: Database, category: str) -> list[CatalogEntry]:
+    cursor = await db._conn.execute(
+        "SELECT * FROM catalog WHERE category = ?", (category,)
+    )
+    cursor.row_factory = aiosqlite.Row
+    rows = await cursor.fetchall()
+    return [
+        CatalogEntry(
+            channel_username=row["channel_username"],
+            title=row["title"],
+            category=row["category"],
+            tags=row["tags"],
+            language=row["language"],
+        )
+        for row in rows
+    ]
+
+
+async def seed_catalog(db: Database, entries: list[CatalogEntry]) -> None:
+    await db._conn.executemany(
+        "INSERT OR IGNORE INTO catalog "
+        "(channel_username, title, category, tags, language) "
+        "VALUES (?, ?, ?, ?, ?)",
+        [
+            (e.channel_username, e.title, e.category, e.tags, e.language)
+            for e in entries
+        ],
+    )
+    await db._conn.commit()
