@@ -449,19 +449,19 @@
 **Контекст фазы**: Все компоненты готовы по отдельности. Собираем всё вместе в main.py — точке входа приложения.
 **Прочитай**: `bot/config.py`, `bot/db/database.py`, `bot/channel_monitor/client.py`, `bot/channel_monitor/manager.py`, `bot/channel_monitor/event_handler.py`, `bot/channel_monitor/poller.py`, `bot/forwarder/pipeline.py`, `bot/telegram_bot/handlers/__init__.py`
 
-- [ ] **Шаг 176**: Написать `bot/main.py` — async функция `main()`: загрузить config
-- [ ] **Шаг 177**: В `main()` — инициализировать Database, вызвать init_schema()
-- [ ] **Шаг 178**: В `main()` — создать Telethon client, вызвать start()
-- [ ] **Шаг 179**: В `main()` — создать aiogram Bot и Dispatcher
-- [ ] **Шаг 180**: В `main()` — зарегистрировать все handlers и middleware
-- [ ] **Шаг 181**: В `main()` — создать ChannelManager, загрузить joined_channels
-- [ ] **Шаг 182**: В `main()` — создать ForwardingPipeline, запустить воркеры
-- [ ] **Шаг 183**: В `main()` — вызвать setup_event_handler()
-- [ ] **Шаг 184**: В `main()` — создать ChannelPoller, запустить как asyncio.Task
-- [ ] **Шаг 185**: В `main()` — запустить задачу очистки forwarded_messages (раз в час)
-- [ ] **Шаг 186**: В `main()` — запустить dp.start_polling(bot) в try/finally с graceful shutdown
-- [ ] **Шаг 187**: В `bot/main.py` — блок `if __name__ == "__main__": asyncio.run(main())`
-- [ ] **Шаг 188**: Коммит "Add main entry point"
+- [x] **Шаг 176**: Написать `bot/main.py` — async функция `main()`: загрузить config
+- [x] **Шаг 177**: В `main()` — инициализировать Database, вызвать init_schema()
+- [x] **Шаг 178**: В `main()` — создать Telethon client, вызвать start()
+- [x] **Шаг 179**: В `main()` — создать aiogram Bot и Dispatcher
+- [x] **Шаг 180**: В `main()` — зарегистрировать все handlers и middleware
+- [x] **Шаг 181**: В `main()` — создать ChannelManager, загрузить joined_channels
+- [x] **Шаг 182**: В `main()` — создать ForwardingPipeline, запустить воркеры
+- [x] **Шаг 183**: В `main()` — вызвать setup_event_handler()
+- [x] **Шаг 184**: В `main()` — создать ChannelPoller, запустить как asyncio.Task
+- [x] **Шаг 185**: В `main()` — запустить задачу очистки forwarded_messages (раз в час)
+- [x] **Шаг 186**: В `main()` — запустить dp.start_polling(bot) в try/finally с graceful shutdown
+- [x] **Шаг 187**: В `bot/main.py` — блок `if __name__ == "__main__": asyncio.run(main())`
+- [x] **Шаг 188**: Коммит "Add main entry point"
 
 ---
 
