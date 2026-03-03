@@ -72,11 +72,11 @@
 **Контекст фазы**: Конфигурация готова (`bot/config.py`). Нужно написать dataclass-модели для всех сущностей.
 **Прочитай**: `docs/plan.md` секция "БД: Схема (SQLite)" — там все поля
 
-- [ ] **Шаг 015**: Написать `bot/db/models.py` — dataclass `User` (user_id, username, first_name, is_paused, created_at)
-- [ ] **Шаг 016**: В `bot/db/models.py` — dataclass `Channel` (channel_id, username, title, is_joined, subscriber_count, last_message_id, poll_interval, last_polled_at, created_at)
-- [ ] **Шаг 017**: В `bot/db/models.py` — dataclass `Subscription` (user_id, channel_id)
-- [ ] **Шаг 018**: В `bot/db/models.py` — dataclass `CatalogEntry` (channel_username, title, category, tags, language)
-- [ ] **Шаг 019**: Коммит "Add data models"
+- [x] **Шаг 015**: Написать `bot/db/models.py` — dataclass `User` (user_id, username, first_name, is_paused, created_at)
+- [x] **Шаг 016**: В `bot/db/models.py` — dataclass `Channel` (channel_id, username, title, is_joined, subscriber_count, last_message_id, poll_interval, last_polled_at, created_at)
+- [x] **Шаг 017**: В `bot/db/models.py` — dataclass `Subscription` (user_id, channel_id)
+- [x] **Шаг 018**: В `bot/db/models.py` — dataclass `CatalogEntry` (channel_username, title, category, tags, language)
+- [x] **Шаг 019**: Коммит "Add data models"
 
 ---
 
