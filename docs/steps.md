@@ -354,15 +354,15 @@
 **Контекст фазы**: Pipeline + Telethon-клиент готовы. Пишем ChannelManager — центральный компонент, который решает join или poll для каждого канала.
 **Прочитай**: `bot/channel_monitor/client.py`, `bot/db/queries.py` (get_channel_subscriber_count, set_channel_joined), `bot/config.py` (JOIN_THRESHOLD), `docs/plan.md` секция "Гибридный мониторинг каналов"
 
-- [ ] **Шаг 137**: Написать `bot/channel_monitor/manager.py` — класс `ChannelManager(telethon_client, db, config)`
-- [ ] **Шаг 138**: В `ChannelManager` — `__init__`: сохранить зависимости, создать `self.joined_channels: set[int]`
-- [ ] **Шаг 139**: В `ChannelManager` — async метод `load_joined_channels()`: загрузить из БД в self.joined_channels
-- [ ] **Шаг 140**: В `ChannelManager` — async метод `resolve_and_add_channel(channel_ref)`: resolve через Telethon, добавить в БД, вернуть Channel
-- [ ] **Шаг 141**: В `ChannelManager` — async метод `on_subscription_change(channel_id)`: пересчитать subscriber_count, решить join/leave
-- [ ] **Шаг 142**: В `on_subscription_change` — если count >= JOIN_THRESHOLD и not is_joined: join через Telethon, обновить БД и joined_channels
-- [ ] **Шаг 143**: В `on_subscription_change` — если count < JOIN_THRESHOLD и is_joined: leave через Telethon, обновить БД и joined_channels
-- [ ] **Шаг 144**: В `on_subscription_change` — если count == 0: удалить канал из БД
-- [ ] **Шаг 145**: Коммит "Add channel manager with join/leave logic"
+- [x] **Шаг 137**: Написать `bot/channel_monitor/manager.py` — класс `ChannelManager(telethon_client, db, config)`
+- [x] **Шаг 138**: В `ChannelManager` — `__init__`: сохранить зависимости, создать `self.joined_channels: set[int]`
+- [x] **Шаг 139**: В `ChannelManager` — async метод `load_joined_channels()`: загрузить из БД в self.joined_channels
+- [x] **Шаг 140**: В `ChannelManager` — async метод `resolve_and_add_channel(channel_ref)`: resolve через Telethon, добавить в БД, вернуть Channel
+- [x] **Шаг 141**: В `ChannelManager` — async метод `on_subscription_change(channel_id)`: пересчитать subscriber_count, решить join/leave
+- [x] **Шаг 142**: В `on_subscription_change` — если count >= JOIN_THRESHOLD и not is_joined: join через Telethon, обновить БД и joined_channels
+- [x] **Шаг 143**: В `on_subscription_change` — если count < JOIN_THRESHOLD и is_joined: leave через Telethon, обновить БД и joined_channels
+- [x] **Шаг 144**: В `on_subscription_change` — если count == 0: удалить канал из БД
+- [x] **Шаг 145**: Коммит "Add channel manager with join/leave logic"
 
 ---
 
