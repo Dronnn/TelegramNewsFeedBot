@@ -103,11 +103,11 @@
 **Контекст фазы**: Database класс готов (`bot/db/database.py`), модели готовы (`bot/db/models.py`). Пишем SQL-запросы для работы с юзерами.
 **Прочитай**: `bot/db/database.py`, `bot/db/models.py`
 
-- [ ] **Шаг 030**: Написать `bot/db/queries.py` — async функция `add_user(db, user_id, username, first_name)` — INSERT OR IGNORE
-- [ ] **Шаг 031**: В `queries.py` — async функция `get_user(db, user_id)` — SELECT, возвращает User или None
-- [ ] **Шаг 032**: В `queries.py` — async функция `set_user_paused(db, user_id, is_paused)` — UPDATE
-- [ ] **Шаг 033**: В `queries.py` — async функция `get_active_subscribers(db, channel_id)` — SELECT user_id WHERE is_paused=0
-- [ ] **Шаг 034**: Коммит "Add user queries"
+- [x] **Шаг 030**: Написать `bot/db/queries.py` — async функция `add_user(db, user_id, username, first_name)` — INSERT OR IGNORE
+- [x] **Шаг 031**: В `queries.py` — async функция `get_user(db, user_id)` — SELECT, возвращает User или None
+- [x] **Шаг 032**: В `queries.py` — async функция `set_user_paused(db, user_id, is_paused)` — UPDATE
+- [x] **Шаг 033**: В `queries.py` — async функция `get_active_subscribers(db, channel_id)` — SELECT user_id WHERE is_paused=0
+- [x] **Шаг 034**: Коммит "Add user queries"
 
 ---
 
