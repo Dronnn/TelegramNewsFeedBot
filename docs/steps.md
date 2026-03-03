@@ -484,11 +484,11 @@
 **Контекст фазы**: Всё работает в happy path. Добавляем обработку ошибок: каналы ушли в приват, юзеры заблокировали бота, graceful shutdown.
 **Прочитай**: `docs/plan.md` секция "Обработка edge cases", `bot/channel_monitor/poller.py`, `bot/channel_monitor/event_handler.py`, `bot/forwarder/pipeline.py`, `bot/main.py`
 
-- [ ] **Шаг 195**: В `channel_monitor/poller.py` — обработка ChannelPrivateError: уведомить подписанных юзеров, залогировать
-- [ ] **Шаг 196**: В `channel_monitor/event_handler.py` — try/except вокруг основной логики, логирование ошибок
-- [ ] **Шаг 197**: В `forwarder/pipeline.py` — максимум 3 ретрая для failed forward, после — drop с логом
-- [ ] **Шаг 198**: В `bot/main.py` — graceful shutdown: отменить все задачи, закрыть Telethon, закрыть БД
-- [ ] **Шаг 199**: Коммит "Add error handling and graceful shutdown"
+- [x] **Шаг 195**: В `channel_monitor/poller.py` — обработка ChannelPrivateError: уведомить подписанных юзеров, залогировать
+- [x] **Шаг 196**: В `channel_monitor/event_handler.py` — try/except вокруг основной логики, логирование ошибок
+- [x] **Шаг 197**: В `forwarder/pipeline.py` — максимум 3 ретрая для failed forward, после — drop с логом
+- [x] **Шаг 198**: В `bot/main.py` — graceful shutdown: отменить все задачи, закрыть Telethon, закрыть БД
+- [x] **Шаг 199**: Коммит "Add error handling and graceful shutdown"
 
 ---
 

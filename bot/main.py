@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import signal
 
 from aiogram import Bot, Dispatcher
 
@@ -51,7 +52,7 @@ async def main() -> None:
 
     await setup_event_handler(telethon_client, channel_manager, pipeline, db)
 
-    poller = ChannelPoller(telethon_client, db, pipeline, config)
+    poller = ChannelPoller(telethon_client, db, pipeline, config, bot)
     poller_task = asyncio.create_task(poller.run())
 
     async def _cleanup_loop() -> None:
@@ -62,14 +63,52 @@ async def main() -> None:
 
     cleanup_task = asyncio.create_task(_cleanup_loop())
 
+    loop = asyncio.get_running_loop()
+    shutdown_event = asyncio.Event()
+
+    def _signal_handler() -> None:
+        logger.info("Received shutdown signal")
+        shutdown_event.set()
+
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, _signal_handler)
+
     try:
         await dp.start_polling(bot)
     finally:
-        await pipeline.stop()
-        poller_task.cancel()
-        cleanup_task.cancel()
-        await telethon_client.disconnect()
-        await db.close()
+        logger.info("Shutting down pipeline...")
+        try:
+            await pipeline.stop()
+        except Exception:
+            logger.exception("Error stopping pipeline")
+
+        logger.info("Cancelling poller...")
+        try:
+            poller_task.cancel()
+            await asyncio.gather(poller_task, return_exceptions=True)
+        except Exception:
+            logger.exception("Error cancelling poller")
+
+        logger.info("Cancelling cleanup task...")
+        try:
+            cleanup_task.cancel()
+            await asyncio.gather(cleanup_task, return_exceptions=True)
+        except Exception:
+            logger.exception("Error cancelling cleanup task")
+
+        logger.info("Disconnecting Telethon...")
+        try:
+            await telethon_client.disconnect()
+        except Exception:
+            logger.exception("Error disconnecting Telethon")
+
+        logger.info("Closing database...")
+        try:
+            await db.close()
+        except Exception:
+            logger.exception("Error closing database")
+
+        logger.info("Shutdown complete")
 
 
 if __name__ == "__main__":

@@ -9,6 +9,7 @@ from telethon.errors import ChannelPrivateError
 from bot.db import queries
 
 if TYPE_CHECKING:
+    from aiogram import Bot
     from telethon import TelegramClient
 
     from bot.config import Config
@@ -28,11 +29,13 @@ class ChannelPoller:
         db: Database,
         pipeline: ForwardingPipeline,
         config: Config,
+        bot: Bot,
     ) -> None:
         self.telethon_client = telethon_client
         self.db = db
         self.pipeline = pipeline
         self.config = config
+        self.bot = bot
 
     async def poll_once(self, channel: Channel) -> None:
         """Poll a single channel for new messages since last_message_id."""
@@ -48,6 +51,22 @@ class ChannelPoller:
                 channel.channel_id,
                 channel.username,
             )
+            subscribers = await queries.get_active_subscribers(
+                self.db, channel.channel_id,
+            )
+            for user_id in subscribers:
+                try:
+                    await self.bot.send_message(
+                        user_id,
+                        f"Channel @{channel.username} is no longer accessible "
+                        f"(private or deleted). You may want to /remove it.",
+                    )
+                except Exception:
+                    logger.warning(
+                        "Failed to notify user %d about private channel %d",
+                        user_id,
+                        channel.channel_id,
+                    )
             return
 
         if not messages:

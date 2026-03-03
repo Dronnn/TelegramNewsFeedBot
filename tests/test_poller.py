@@ -37,6 +37,7 @@ def _make_poller(
     telethon_client: AsyncMock | None = None,
     db: AsyncMock | None = None,
     pipeline: AsyncMock | None = None,
+    bot: AsyncMock | None = None,
 ) -> ChannelPoller:
     if telethon_client is None:
         telethon_client = AsyncMock()
@@ -44,6 +45,8 @@ def _make_poller(
         db = AsyncMock()
     if pipeline is None:
         pipeline = AsyncMock()
+    if bot is None:
+        bot = AsyncMock()
     config = Mock()
     config.poll_interval_default = 120
     return ChannelPoller(
@@ -51,6 +54,7 @@ def _make_poller(
         db=db,
         pipeline=pipeline,
         config=config,
+        bot=bot,
     )
 
 
@@ -124,10 +128,11 @@ async def test_poll_once_no_new_messages():
 
 @pytest.mark.asyncio
 async def test_poll_once_channel_private():
-    """poll_once catches ChannelPrivateError and logs a warning."""
+    """poll_once catches ChannelPrivateError, notifies subscribers via bot."""
     from telethon.errors import ChannelPrivateError
 
-    channel = _make_channel(channel_id=-1003, last_message_id=10)
+    channel = _make_channel(channel_id=-1003, username="testchan", last_message_id=10)
+    subscribers = [700, 800]
 
     telethon_client = AsyncMock()
     telethon_client.get_messages.side_effect = ChannelPrivateError(
@@ -135,19 +140,32 @@ async def test_poll_once_channel_private():
     )
 
     pipeline = AsyncMock()
+    bot = AsyncMock()
 
     poller = _make_poller(
         telethon_client=telethon_client,
         pipeline=pipeline,
+        bot=bot,
     )
 
     with patch("bot.channel_monitor.poller.queries") as mock_queries:
+        mock_queries.get_active_subscribers = AsyncMock(return_value=subscribers)
         mock_queries.update_channel_polled = AsyncMock()
         mock_queries.update_channel_last_message = AsyncMock()
 
         await poller.poll_once(channel)
 
     pipeline.enqueue.assert_not_awaited()
+    mock_queries.get_active_subscribers.assert_awaited_once_with(
+        poller.db, -1003,
+    )
+    assert bot.send_message.await_count == 2
+    for uid in subscribers:
+        bot.send_message.assert_any_await(
+            uid,
+            "Channel @testchan is no longer accessible "
+            "(private or deleted). You may want to /remove it.",
+        )
     mock_queries.update_channel_polled.assert_not_awaited()
     mock_queries.update_channel_last_message.assert_not_awaited()
 

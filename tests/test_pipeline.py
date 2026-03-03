@@ -102,3 +102,22 @@ async def test_user_blocked(db):
     user = await queries.get_user(db, user_id)
     assert user is not None
     assert user.is_paused is True
+
+
+@pytest.mark.asyncio
+async def test_retry_and_drop_after_max_retries(db):
+    """Generic exception retries up to 3 times, then drops the message."""
+    user_id, channel_id, message_id = 103, -1004, 45
+
+    await queries.add_user(db, user_id, "retryuser", "Retry")
+
+    bot = AsyncMock()
+    bot.forward_message.side_effect = RuntimeError("transient failure")
+
+    pipeline = _make_pipeline(bot, db)
+
+    await pipeline.enqueue(channel_id, message_id, user_id)
+    await _run_one_task(pipeline, timeout=5.0)
+
+    assert bot.forward_message.await_count == 3
+    assert not await queries.is_forwarded(db, channel_id, message_id, user_id)

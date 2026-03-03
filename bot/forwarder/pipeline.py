@@ -31,6 +31,7 @@ class ForwardingPipeline:
         self.num_workers = num_workers
         self._queue: asyncio.Queue[tuple[int, int, int]] = asyncio.Queue()
         self._workers: list[asyncio.Task[None]] = []
+        self._retry_counts: dict[tuple[int, int, int], int] = {}
 
     async def enqueue(
         self, channel_id: int, message_id: int, user_id: int
@@ -58,11 +59,14 @@ class ForwardingPipeline:
                     self.db, channel_id, message_id, user_id
                 )
 
+                self._retry_counts.pop((channel_id, message_id, user_id), None)
+
             except TelegramForbiddenError:
                 logger.warning(
                     "User %d blocked the bot, pausing delivery", user_id
                 )
                 await queries.set_user_paused(self.db, user_id, True)
+                self._retry_counts.pop((channel_id, message_id, user_id), None)
 
             except TelegramRetryAfter as exc:
                 logger.warning(
@@ -73,12 +77,27 @@ class ForwardingPipeline:
                 await asyncio.sleep(exc.retry_after)
 
             except Exception:
-                logger.exception(
-                    "Failed to forward message %d from channel %d to user %d",
-                    message_id,
-                    channel_id,
-                    user_id,
-                )
+                key = (channel_id, message_id, user_id)
+                self._retry_counts[key] = self._retry_counts.get(key, 0) + 1
+                if self._retry_counts[key] < 3:
+                    logger.warning(
+                        "Failed to forward message %d from channel %d to user %d "
+                        "(attempt %d/3), re-queuing",
+                        message_id,
+                        channel_id,
+                        user_id,
+                        self._retry_counts[key],
+                    )
+                    await self._queue.put((channel_id, message_id, user_id))
+                else:
+                    logger.exception(
+                        "Dropping message %d from channel %d to user %d "
+                        "after 3 retries",
+                        message_id,
+                        channel_id,
+                        user_id,
+                    )
+                    self._retry_counts.pop(key, None)
 
             finally:
                 self._queue.task_done()
