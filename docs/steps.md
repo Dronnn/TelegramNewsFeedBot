@@ -49,10 +49,10 @@
 **Контекст фазы**: Фаза 0 завершена — есть git, README, .gitignore, .env.example, docs/. Нужно создать структуру Python-проекта.
 **Прочитай**: `docs/plan.md` секция "Структура проекта"
 
-- [ ] **Шаг 008**: Создать `requirements.txt` с четырьмя зависимостями (aiogram, telethon, aiosqlite, python-dotenv)
-- [ ] **Шаг 009**: Создать структуру директорий: `bot/`, `bot/db/`, `bot/telegram_bot/`, `bot/telegram_bot/handlers/`, `bot/channel_monitor/`, `bot/forwarder/`, `bot/utils/`, `data/`, `tests/`, `scripts/`
-- [ ] **Шаг 010**: Создать все `__init__.py` файлы (пустые) во всех пакетах
-- [ ] **Шаг 011**: Коммит "Add project structure and requirements"
+- [x] **Шаг 008**: Создать `requirements.txt` с четырьмя зависимостями (aiogram, telethon, aiosqlite, python-dotenv)
+- [x] **Шаг 009**: Создать структуру директорий: `bot/`, `bot/db/`, `bot/telegram_bot/`, `bot/telegram_bot/handlers/`, `bot/channel_monitor/`, `bot/forwarder/`, `bot/utils/`, `data/`, `tests/`, `scripts/`
+- [x] **Шаг 010**: Создать все `__init__.py` файлы (пустые) во всех пакетах
+- [x] **Шаг 011**: Коммит "Add project structure and requirements"
 
 ---
 
