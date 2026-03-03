@@ -57,6 +57,7 @@ class ChannelManager:
                     await self.client(LeaveChannelRequest(channel_id))
                 except Exception:
                     log.exception("Failed to leave channel %d", channel_id)
+                    return
                 self.joined_channels.discard(channel_id)
                 log.info("Left channel %d (no subscribers)", channel_id)
             await delete_channel(self.db, channel_id)

@@ -51,6 +51,9 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
+    if not topic_id:
+        await callback.answer("Ошибка данных")
+        return
     user_id = callback.from_user.id
 
     await queries.add_user_topic(db, user_id, topic_id)
@@ -82,6 +85,9 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
     db: Database = callback.bot["db"]  # type: ignore[index]
     channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
+    if not topic_id:
+        await callback.answer("Ошибка данных")
+        return
     user_id = callback.from_user.id
 
     await queries.remove_user_topic(db, user_id, topic_id)
