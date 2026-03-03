@@ -319,20 +319,20 @@
 **Контекст фазы**: Rate limiter готов. Пишем основной pipeline: asyncio.Queue + воркеры + дедупликация + обработка ошибок. Это ядро системы пересылки.
 **Прочитай**: `bot/forwarder/rate_limiter.py`, `bot/db/queries.py` (is_forwarded, mark_forwarded), `docs/plan.md` секция "Архитектура"
 
-- [ ] **Шаг 118**: Написать `bot/forwarder/pipeline.py` — класс `ForwardingPipeline(bot, db, rate_limiter, num_workers)`
-- [ ] **Шаг 119**: В `ForwardingPipeline` — `__init__`: создать asyncio.Queue, сохранить зависимости
-- [ ] **Шаг 120**: В `ForwardingPipeline` — async метод `enqueue(channel_id, message_id, user_id)`: положить задание в очередь
-- [ ] **Шаг 121**: В `ForwardingPipeline` — async метод `_worker()`: бесконечный цикл — получить задание из очереди, проверить дедупликацию, переслать
-- [ ] **Шаг 122**: В `_worker()` — дедупликация: вызвать `queries.is_forwarded()`, пропустить если уже переслано
-- [ ] **Шаг 123**: В `_worker()` — вызвать `rate_limiter.acquire()` перед пересылкой
-- [ ] **Шаг 124**: В `_worker()` — вызвать `bot.forward_message(chat_id=user_id, from_chat_id=channel_id, message_id=message_id)`
-- [ ] **Шаг 125**: В `_worker()` — вызвать `queries.mark_forwarded()` после успешной пересылки
-- [ ] **Шаг 126**: В `_worker()` — обработка TelegramForbiddenError: юзер заблокировал бота -> set_user_paused(True)
-- [ ] **Шаг 127**: В `_worker()` — обработка TelegramRetryAfter: вернуть задание в очередь, подождать retry_after секунд
-- [ ] **Шаг 128**: В `_worker()` — обработка общих ошибок: залогировать, продолжить
-- [ ] **Шаг 129**: В `ForwardingPipeline` — async метод `start()`: запустить num_workers воркеров как asyncio.Task
-- [ ] **Шаг 130**: В `ForwardingPipeline` — async метод `stop()`: отменить все воркеры, дождаться завершения
-- [ ] **Шаг 131**: Коммит "Add forwarding pipeline with dedup and error handling"
+- [x] **Шаг 118**: Написать `bot/forwarder/pipeline.py` — класс `ForwardingPipeline(bot, db, rate_limiter, num_workers)`
+- [x] **Шаг 119**: В `ForwardingPipeline` — `__init__`: создать asyncio.Queue, сохранить зависимости
+- [x] **Шаг 120**: В `ForwardingPipeline` — async метод `enqueue(channel_id, message_id, user_id)`: положить задание в очередь
+- [x] **Шаг 121**: В `ForwardingPipeline` — async метод `_worker()`: бесконечный цикл — получить задание из очереди, проверить дедупликацию, переслать
+- [x] **Шаг 122**: В `_worker()` — дедупликация: вызвать `queries.is_forwarded()`, пропустить если уже переслано
+- [x] **Шаг 123**: В `_worker()` — вызвать `rate_limiter.acquire()` перед пересылкой
+- [x] **Шаг 124**: В `_worker()` — вызвать `bot.forward_message(chat_id=user_id, from_chat_id=channel_id, message_id=message_id)`
+- [x] **Шаг 125**: В `_worker()` — вызвать `queries.mark_forwarded()` после успешной пересылки
+- [x] **Шаг 126**: В `_worker()` — обработка TelegramForbiddenError: юзер заблокировал бота -> set_user_paused(True)
+- [x] **Шаг 127**: В `_worker()` — обработка TelegramRetryAfter: вернуть задание в очередь, подождать retry_after секунд
+- [x] **Шаг 128**: В `_worker()` — обработка общих ошибок: залогировать, продолжить
+- [x] **Шаг 129**: В `ForwardingPipeline` — async метод `start()`: запустить num_workers воркеров как asyncio.Task
+- [x] **Шаг 130**: В `ForwardingPipeline` — async метод `stop()`: отменить все воркеры, дождаться завершения
+- [x] **Шаг 131**: Коммит "Add forwarding pipeline with dedup and error handling"
 
 ---
 
@@ -341,11 +341,11 @@
 **Контекст фазы**: Pipeline готов (`bot/forwarder/pipeline.py`). Пишем тесты с моками.
 **Прочитай**: `bot/forwarder/pipeline.py`, `bot/forwarder/rate_limiter.py`
 
-- [ ] **Шаг 132**: Написать `tests/test_pipeline.py` — mock для bot.forward_message, mock для db
-- [ ] **Шаг 133**: Тест `test_enqueue_and_forward`: добавить задание -> воркер пересылает -> mark_forwarded вызван
-- [ ] **Шаг 134**: Тест `test_dedup_skip`: если is_forwarded=True -> пропуск, forward_message не вызван
-- [ ] **Шаг 135**: Тест `test_user_blocked`: TelegramForbiddenError -> set_user_paused(True)
-- [ ] **Шаг 136**: Коммит "Add pipeline tests"
+- [x] **Шаг 132**: Написать `tests/test_pipeline.py` — mock для bot.forward_message, mock для db
+- [x] **Шаг 133**: Тест `test_enqueue_and_forward`: добавить задание -> воркер пересылает -> mark_forwarded вызван
+- [x] **Шаг 134**: Тест `test_dedup_skip`: если is_forwarded=True -> пропуск, forward_message не вызван
+- [x] **Шаг 135**: Тест `test_user_blocked`: TelegramForbiddenError -> set_user_paused(True)
+- [x] **Шаг 136**: Коммит "Add pipeline tests"
 
 ---
 
