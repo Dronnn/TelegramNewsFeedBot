@@ -1,0 +1,25 @@
+# ralphex progress logs
+.ralphex/progress/
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Database
+data/bot.db
+
+# Logs
+logs/
+
+# Telethon sessions
+*.session
+
+# macOS
+.DS_Store
