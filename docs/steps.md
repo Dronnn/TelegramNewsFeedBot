@@ -307,10 +307,10 @@
 **Контекст фазы**: Rate limiter готов (`bot/forwarder/rate_limiter.py`). Пишем тесты.
 **Прочитай**: `bot/forwarder/rate_limiter.py`
 
-- [ ] **Шаг 114**: Написать `tests/test_rate_limiter.py` — тест `test_acquire_without_wait`: первые N запросов проходят сразу (до burst)
-- [ ] **Шаг 115**: Тест `test_acquire_with_wait`: после исчерпания burst, acquire ждёт
-- [ ] **Шаг 116**: Тест `test_rate_over_time`: за 1 секунду проходит примерно rate запросов
-- [ ] **Шаг 117**: Коммит "Add rate limiter tests"
+- [x] **Шаг 114**: Написать `tests/test_rate_limiter.py` — тест `test_acquire_without_wait`: первые N запросов проходят сразу (до burst)
+- [x] **Шаг 115**: Тест `test_acquire_with_wait`: после исчерпания burst, acquire ждёт
+- [x] **Шаг 116**: Тест `test_rate_over_time`: за 1 секунду проходит примерно rate запросов
+- [x] **Шаг 117**: Коммит "Add rate limiter tests"
 
 ---
 
