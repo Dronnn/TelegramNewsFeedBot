@@ -1,0 +1,52 @@
+{
+  "topics": [
+    {
+      "id": "tech",
+      "name": "Технологии",
+      "emoji": "\ud83d\udcbb",
+      "channels": [
+        {"username": "tabordigital", "title": "Табор Digital"},
+        {"username": "techinsider_eng", "title": "Tech Insider"},
+        {"username": "theverge", "title": "The Verge"}
+      ]
+    },
+    {
+      "id": "news",
+      "name": "Новости",
+      "emoji": "\ud83d\udcf0",
+      "channels": [
+        {"username": "bbcrussian", "title": "BBC News Русская служба", "language": "ru"},
+        {"username": "aborigentel", "title": "Абориген", "language": "ru"}
+      ]
+    },
+    {
+      "id": "crypto",
+      "name": "Крипто",
+      "emoji": "\u20bf",
+      "channels": [
+        {"username": "coin_post", "title": "CoinPost"},
+        {"username": "ForkLog", "title": "ForkLog"},
+        {"username": "CryptoInsiders", "title": "Crypto Insiders"}
+      ]
+    },
+    {
+      "id": "science",
+      "name": "Наука",
+      "emoji": "\ud83d\udd2c",
+      "channels": [
+        {"username": "nikitonsky_pub", "title": "Никитонский"},
+        {"username": "sciencemag", "title": "Science Magazine"}
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Финансы",
+      "emoji": "\ud83d\udcb0",
+      "channels": [
+        {"username": "markettwits", "title": "MarketTwits", "tags": "рынки,акции"},
+        {"username": "cblogjp", "title": "Центральный банк", "language": "ru"},
+        {"username": "bankrollo", "title": "Bankrollo"}
+      ]
+    }
+  ]
+}

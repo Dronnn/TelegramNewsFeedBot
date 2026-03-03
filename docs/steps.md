@@ -414,9 +414,9 @@
 **Контекст фазы**: Вся система мониторинга готова. Пишем JSON-файл с каталогом каналов по темам и скрипт для загрузки в БД.
 **Прочитай**: `docs/plan.md` секция "Каталог тем", `bot/db/queries.py` (seed_catalog)
 
-- [ ] **Шаг 165**: Создать `data/channel_catalog.json` — структура с ~5 темами и 2-3 каналами в каждой (заглушки для начала)
-- [ ] **Шаг 166**: Написать `scripts/seed_catalog.py` — скрипт: прочитать JSON, вызвать queries.seed_catalog()
-- [ ] **Шаг 167**: Коммит "Add channel catalog seed data and script"
+- [x] **Шаг 165**: Создать `data/channel_catalog.json` — структура с ~5 темами и 2-3 каналами в каждой (заглушки для начала)
+- [x] **Шаг 166**: Написать `scripts/seed_catalog.py` — скрипт: прочитать JSON, вызвать queries.seed_catalog()
+- [x] **Шаг 167**: Коммит "Add channel catalog seed data and script"
 
 ---
 
