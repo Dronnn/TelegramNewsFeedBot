@@ -87,7 +87,7 @@ python-dotenv>=1.0,<2.0
 1. Telethon обнаруживает новое сообщение в канале
 2. Ищет подписанных юзеров в БД
 3. Кладёт задания в `asyncio.Queue`
-4. Forwarder-воркеры вызывают `bot.forward_message()` с rate limit (~25 msg/sec)
+4. Forwarder-воркеры вызывают `telethon_client.forward_messages()` с rate limit (~25 msg/sec)
 
 **Гибридный мониторинг каналов:**
 - Популярные каналы (>=3 подписчика бота) -> Telethon **подписывается** (join) -> реалтайм через event handler
@@ -456,9 +456,12 @@ LOG_LEVEL=INFO
 
 ## Phase: Fix Message Forwarding (2026-03-04)
 
-Bot API не может пересылать из каналов по числовому ID (бот не имеет доступа). Исправлено: pipeline использует `@username` формат.
+Bot API `forward_message()` не может пересылать сообщения из каналов, с которыми бот не взаимодействовал напрямую (ни по числовому ID, ни по `@username`). Решение: переписать пересылку на Telethon `forward_messages()`, который имеет прямой доступ к каналам через MTProto.
 
 ### Шаги
 
-- [x] Step 1: Изменить `pipeline.py` — использовать `@username` вместо channel_id для from_chat_id
-- [ ] Step 2: Коммит, пуш, деплой
+- [x] Step 1: Попытка использовать `@username` формат в Bot API — не сработало ("message to forward not found")
+- [x] Step 2: Переписать `pipeline.py` на Telethon `forward_messages()` вместо Bot API, обработка ошибок Telethon (`FloodWaitError`, `UserIsBlockedError`)
+- [x] Step 3: Обновить `main.py` — передать `telethon_client` в `ForwardingPipeline`
+- [x] Step 4: Обновить тесты — добавить мок `telethon_client` в `test_pipeline.py`
+- [x] Step 5: Коммит, пуш, деплой — ПОЛЛЕР РАБОТАЕТ, ожидание проверки пересылки
