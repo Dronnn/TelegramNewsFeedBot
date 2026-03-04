@@ -70,6 +70,19 @@ python -m bot.main
 
 При первом запуске Telethon запросит код подтверждения для сервисного аккаунта.
 
+### Запуск в Docker (для сервера)
+
+В репозитории есть готовые файлы `Dockerfile` и `docker-compose.yml`.
+
+1. Скопируй `.env.example` в `.env` и заполни секреты.
+2. Для хранения состояния используй:
+   - `DB_PATH=runtime/bot.db`
+   - `SESSION_NAME=state/newsfeed_service`
+3. Первый запуск сделай в интерактивном режиме, чтобы пройти авторизацию Telethon (код/SMS/2FA).
+4. После успешной авторизации запускай в фоне через compose.
+
+`runtime/` хранит SQLite, `state/` хранит Telethon session. Оба каталога монтируются как volume и переживают перезапуск контейнера.
+
 ## Команды бота
 
 | Команда | Описание |
@@ -143,8 +156,8 @@ python -m bot.main
 | `TELEGRAM_API_ID` | API ID от my.telegram.org | `12345678` |
 | `TELEGRAM_API_HASH` | API Hash от my.telegram.org | `abcdef123456...` |
 | `TELEGRAM_PHONE` | Номер телефона сервисного аккаунта | `+1234567890` |
-| `SESSION_NAME` | Имя файла сессии Telethon | `newsfeed_service` |
-| `DB_PATH` | Путь к файлу SQLite | `data/bot.db` |
+| `SESSION_NAME` | Имя/путь файла сессии Telethon | `state/newsfeed_service` |
+| `DB_PATH` | Путь к файлу SQLite | `runtime/bot.db` |
 | `CATALOG_PATH` | Путь к каталогу каналов | `data/channel_catalog.json` |
 | `JOIN_THRESHOLD` | Мин. подписчиков для join канала | `3` |
 | `POLL_INTERVAL_DEFAULT` | Интервал поллинга в секундах | `120` |
@@ -185,8 +198,12 @@ TelegramNewsFeedBot/
 │   └── channel_catalog.json       # Каталог каналов по темам
 ├── scripts/
 │   └── seed_catalog.py            # Загрузка каталога в БД
+├── runtime/                       # SQLite для docker-запуска (volume)
+├── state/                         # Telethon session для docker-запуска (volume)
 ├── tests/                         # Unit-тесты
 ├── docs/                          # Документация и планы
+├── Dockerfile
+├── docker-compose.yml
 ├── .env.example                   # Шаблон конфигурации
 ├── requirements.txt               # Python-зависимости
 └── README.md

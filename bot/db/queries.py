@@ -74,12 +74,20 @@ def _row_to_channel(row: aiosqlite.Row) -> Channel:
 
 
 async def add_channel(
-    db: Database, channel_id: int, username: str | None, title: str | None
+    db: Database,
+    channel_id: int,
+    username: str | None,
+    title: str | None,
+    last_message_id: int = 0,
 ) -> None:
     await db.conn.execute(
-        "INSERT INTO channels (channel_id, username, title) VALUES (?, ?, ?) "
-        "ON CONFLICT(channel_id) DO UPDATE SET username=excluded.username, title=excluded.title",
-        (channel_id, username, title),
+        "INSERT INTO channels (channel_id, username, title, last_message_id) "
+        "VALUES (?, ?, ?, ?) "
+        "ON CONFLICT(channel_id) DO UPDATE SET "
+        "username=excluded.username, "
+        "title=excluded.title, "
+        "last_message_id=MAX(channels.last_message_id, excluded.last_message_id)",
+        (channel_id, username, title, last_message_id),
     )
     await db.conn.commit()
 

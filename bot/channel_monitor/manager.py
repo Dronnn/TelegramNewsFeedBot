@@ -40,10 +40,16 @@ class ChannelManager:
         log.info("Loaded %d joined channels", len(self.joined_channels))
 
     async def resolve_and_add_channel(self, channel_ref: str) -> Channel:
-        channel_id, username, title = await resolve_channel(
+        channel_id, username, title, last_message_id = await resolve_channel(
             self.client, channel_ref,
         )
-        await add_channel(self.db, channel_id, username, title)
+        await add_channel(
+            self.db,
+            channel_id,
+            username,
+            title,
+            last_message_id=last_message_id,
+        )
         channel = await get_channel(self.db, channel_id)
         if channel is None:
             raise RuntimeError(

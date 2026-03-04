@@ -152,6 +152,7 @@ async def test_poll_once_channel_private():
         mock_queries.get_active_subscribers = AsyncMock(return_value=subscribers)
         mock_queries.update_channel_polled = AsyncMock()
         mock_queries.update_channel_last_message = AsyncMock()
+        mock_queries.delete_channel = AsyncMock()
 
         await poller.poll_once(channel)
 
@@ -168,6 +169,9 @@ async def test_poll_once_channel_private():
         )
     mock_queries.update_channel_polled.assert_not_awaited()
     mock_queries.update_channel_last_message.assert_not_awaited()
+    mock_queries.delete_channel.assert_awaited_once_with(
+        poller.db, -1003,
+    )
 
 
 @pytest.mark.asyncio

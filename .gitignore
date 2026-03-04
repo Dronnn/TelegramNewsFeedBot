@@ -14,12 +14,19 @@ __pycache__/
 
 # Database
 data/bot.db
+runtime/*
+!runtime/.gitkeep
 
 # Logs
 logs/
 
 # Telethon sessions
 *.session
+state/*
+!state/.gitkeep
 
 # macOS
 .DS_Store
+
+# Private deployment notes
+DEPLOYMENT_PRIVATE.md

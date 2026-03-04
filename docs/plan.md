@@ -406,3 +406,18 @@ LOG_LEVEL=INFO
 - [x] Issue D: PRAGMA foreign_keys может сброситься после executescript — повторный PRAGMA после init_schema
 - [x] Issue E: Raw SQL в manager.py — вынесено в queries.delete_channel()
 - [x] Issue F: Poller limit=20 теряет сообщения — увеличено до 100
+
+---
+
+## Phase: Deploy to DigitalOcean (2026-03-04)
+
+Деплой бота на дроплет DigitalOcean и первый запуск с авторизацией Telethon.
+
+### Шаги
+
+- [x] Step 1: Исправить .env на сервере (пути SESSION_NAME и DB_PATH для Docker volumes)
+- [ ] Step 2: Закоммитить все локальные изменения, запушить на GitHub
+- [ ] Step 3: Склонировать/обновить код на сервере с GitHub
+- [ ] Step 4: Пересобрать Docker-образ на сервере
+- [ ] Step 5: Запустить контейнер в интерактивном режиме для Telethon-авторизации
+- [ ] Step 6: После успешной авторизации — перезапуск в фоновом режиме (docker compose up -d)

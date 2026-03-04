@@ -17,7 +17,7 @@ from bot.db.models import CatalogEntry
 from bot.db.queries import seed_catalog
 
 DEFAULT_CATALOG = PROJECT_ROOT / "data" / "channel_catalog.json"
-DEFAULT_DB = PROJECT_ROOT / "data" / "bot.db"
+DEFAULT_DB = PROJECT_ROOT / "runtime" / "bot.db"
 
 
 def load_entries(catalog_path: Path) -> list[CatalogEntry]:

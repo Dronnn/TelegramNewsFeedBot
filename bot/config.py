@@ -12,8 +12,8 @@ class Config:
     telegram_api_id: int
     telegram_api_hash: str
     telegram_phone: str
-    session_name: str = "newsfeed_service"
-    db_path: str = "data/bot.db"
+    session_name: str = "state/newsfeed_service"
+    db_path: str = "runtime/bot.db"
     catalog_path: str = "data/channel_catalog.json"
     join_threshold: int = 3
     poll_interval_default: int = 120
@@ -60,8 +60,8 @@ def load_config() -> Config:
         telegram_api_id=int(telegram_api_id),
         telegram_api_hash=telegram_api_hash,
         telegram_phone=telegram_phone,
-        session_name=os.getenv("SESSION_NAME", "newsfeed_service"),
-        db_path=os.getenv("DB_PATH", "data/bot.db"),
+        session_name=os.getenv("SESSION_NAME", "state/newsfeed_service"),
+        db_path=os.getenv("DB_PATH", "runtime/bot.db"),
         catalog_path=os.getenv("CATALOG_PATH", "data/channel_catalog.json"),
         join_threshold=int(os.getenv("JOIN_THRESHOLD", "3")),
         poll_interval_default=poll_interval_default,

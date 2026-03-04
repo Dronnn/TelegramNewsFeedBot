@@ -64,33 +64,43 @@ class TestResolveChannel:
         channel = self._make_channel_mock(123, "testchan", "Test Channel")
         mock_client = AsyncMock()
         mock_client.get_entity = AsyncMock(return_value=channel)
+        last_msg = AsyncMock()
+        last_msg.id = 777
+        mock_client.get_messages = AsyncMock(return_value=[last_msg])
 
         with patch("bot.channel_monitor.client.utils.get_peer_id", return_value=-1001234567890):
             result = await resolve_channel(mock_client, "@testchan")
 
         mock_client.get_entity.assert_called_once_with("testchan")
-        assert result == (-1001234567890, "testchan", "Test Channel")
+        mock_client.get_messages.assert_called_once_with(channel, limit=1)
+        assert result == (-1001234567890, "testchan", "Test Channel", 777)
 
     @pytest.mark.asyncio
     async def test_resolve_channel_tme_link(self):
         channel = self._make_channel_mock(123, "testchan", "Test Channel")
         mock_client = AsyncMock()
         mock_client.get_entity = AsyncMock(return_value=channel)
+        last_msg = AsyncMock()
+        last_msg.id = 888
+        mock_client.get_messages = AsyncMock(return_value=[last_msg])
 
         with patch("bot.channel_monitor.client.utils.get_peer_id", return_value=-1001234567890):
             result = await resolve_channel(mock_client, "https://t.me/testchan")
 
         mock_client.get_entity.assert_called_once_with("testchan")
-        assert result == (-1001234567890, "testchan", "Test Channel")
+        mock_client.get_messages.assert_called_once_with(channel, limit=1)
+        assert result == (-1001234567890, "testchan", "Test Channel", 888)
 
     @pytest.mark.asyncio
     async def test_resolve_channel_plain(self):
         channel = self._make_channel_mock(123, "testchan", "Test Channel")
         mock_client = AsyncMock()
         mock_client.get_entity = AsyncMock(return_value=channel)
+        mock_client.get_messages = AsyncMock(return_value=[])
 
         with patch("bot.channel_monitor.client.utils.get_peer_id", return_value=-1001234567890):
             result = await resolve_channel(mock_client, "testchan")
 
         mock_client.get_entity.assert_called_once_with("testchan")
-        assert result == (-1001234567890, "testchan", "Test Channel")
+        mock_client.get_messages.assert_called_once_with(channel, limit=1)
+        assert result == (-1001234567890, "testchan", "Test Channel", 0)

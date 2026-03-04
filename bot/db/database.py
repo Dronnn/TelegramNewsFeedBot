@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import aiosqlite
 
 
@@ -9,6 +11,11 @@ class Database:
         self.conn: aiosqlite.Connection | None = None
 
     async def connect(self) -> None:
+        if self.db_path != ":memory:":
+            db_file = Path(self.db_path).expanduser()
+            if db_file.parent != Path("."):
+                db_file.parent.mkdir(parents=True, exist_ok=True)
+
         self.conn = await aiosqlite.connect(self.db_path)
         await self.conn.execute("PRAGMA journal_mode=WAL")
         await self.conn.execute("PRAGMA foreign_keys=ON")

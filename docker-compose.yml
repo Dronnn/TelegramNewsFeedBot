@@ -1,0 +1,14 @@
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: telegram-news-feed-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./runtime:/app/runtime
+      - ./state:/app/state
+    stdin_open: true
+    tty: true
