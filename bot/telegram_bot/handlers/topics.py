@@ -22,10 +22,8 @@ async def _topics_from_catalog(db: Database, all_topics: list[dict]) -> list[dic
 
 
 @router.message(Command("topics"))
-async def cmd_topics(message: Message) -> None:
-    db: Database = message.bot["db"]  # type: ignore[index]
-
-    all_topics = await _topics_from_catalog(db, message.bot["topics"])  # type: ignore[index]
+async def cmd_topics(message: Message, db: Database, topics: list[dict]) -> None:
+    all_topics = await _topics_from_catalog(db, topics)
     if not all_topics:
         await message.answer("Каталог тем пуст.")
         return
@@ -36,15 +34,13 @@ async def cmd_topics(message: Message) -> None:
 
 
 @router.message(Command("mytopics"))
-async def cmd_mytopics(message: Message) -> None:
-    db: Database = message.bot["db"]  # type: ignore[index]
-
+async def cmd_mytopics(message: Message, db: Database, topics: list[dict]) -> None:
     user_topic_ids = await queries.get_user_topics(db, message.from_user.id)
     if not user_topic_ids:
         await message.answer("У тебя пока нет выбранных тем. Используй /topics")
         return
 
-    all_topics: list[dict] = message.bot["topics"]  # type: ignore[index]
+    all_topics: list[dict] = topics
     selected = set(user_topic_ids)
     user_topics = [t for t in all_topics if str(t["id"]) in selected]
 

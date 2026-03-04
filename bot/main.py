@@ -60,9 +60,9 @@ async def main() -> None:
 
     bot = Bot(token=config.bot_token)
     dp = Dispatcher()
-    bot["db"] = db
-    bot["config"] = config
-    bot["topics"] = catalog_data
+    dp["db"] = db
+    dp["config"] = config
+    dp["topics"] = catalog_data
 
     dp.message.middleware(UserRegistrationMiddleware())
     dp.callback_query.middleware(UserRegistrationMiddleware())
@@ -70,7 +70,7 @@ async def main() -> None:
 
     channel_manager = ChannelManager(telethon_client, db, config)
     await channel_manager.load_joined_channels()
-    bot["channel_manager"] = channel_manager
+    dp["channel_manager"] = channel_manager
 
     rate_limiter = TokenBucketRateLimiter(rate=config.forward_rate_limit)
     pipeline = ForwardingPipeline(

@@ -29,9 +29,7 @@ def _parse_channel_ref(text: str) -> str | None:
 
 
 @router.message(Command("add"))
-async def cmd_add(message: Message) -> None:
-    db: Database = message.bot["db"]  # type: ignore[index]
-    channel_manager: ChannelManager = message.bot["channel_manager"]  # type: ignore[index]
+async def cmd_add(message: Message, db: Database, channel_manager: ChannelManager) -> None:
 
     username = _parse_channel_ref(message.text or "")
     if not username:
@@ -55,9 +53,7 @@ async def cmd_add(message: Message) -> None:
 
 
 @router.message(Command("remove"))
-async def cmd_remove(message: Message) -> None:
-    db: Database = message.bot["db"]  # type: ignore[index]
-    channel_manager: ChannelManager = message.bot["channel_manager"]  # type: ignore[index]
+async def cmd_remove(message: Message, db: Database, channel_manager: ChannelManager) -> None:
 
     username = _parse_channel_ref(message.text or "")
     if not username:
@@ -82,8 +78,7 @@ async def cmd_remove(message: Message) -> None:
 
 
 @router.message(Command("list"))
-async def cmd_list(message: Message) -> None:
-    db: Database = message.bot["db"]  # type: ignore[index]
+async def cmd_list(message: Message, db: Database) -> None:
     subs = await queries.get_user_subscriptions(db, message.from_user.id)
     if not subs:
         await message.answer("У тебя пока нет подписок. Используй /add @channel")

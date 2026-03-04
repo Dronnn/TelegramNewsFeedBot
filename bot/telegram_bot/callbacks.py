@@ -22,12 +22,10 @@ def _find_topic_channels(all_topics: list[dict], topic_id: str) -> list[dict]:
 
 
 @router.callback_query(F.data.startswith("remove_channel:"))
-async def cb_remove_channel(callback: CallbackQuery) -> None:
+async def cb_remove_channel(callback: CallbackQuery, db: Database, channel_manager: ChannelManager) -> None:
     if callback.message is None:
         await callback.answer("Сообщение устарело.")
         return
-    db: Database = callback.bot["db"]  # type: ignore[index]
-    channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     try:
         channel_id = int(callback.data.split(":", 1)[1])
     except (ValueError, IndexError):
@@ -49,12 +47,10 @@ async def cb_remove_channel(callback: CallbackQuery) -> None:
 
 
 @router.callback_query(F.data.startswith("subscribe_topic:"))
-async def cb_subscribe_topic(callback: CallbackQuery) -> None:
+async def cb_subscribe_topic(callback: CallbackQuery, db: Database, channel_manager: ChannelManager, topics: list[dict]) -> None:
     if callback.message is None:
         await callback.answer("Сообщение устарело.")
         return
-    db: Database = callback.bot["db"]  # type: ignore[index]
-    channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
     if not topic_id:
         await callback.answer("Ошибка данных")
@@ -64,7 +60,7 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
 
     await queries.add_user_topic(db, user_id, topic_id)
 
-    all_topics = callback.bot["topics"]  # type: ignore[index]
+    all_topics = topics
 
     # Subscribe user to all channels of this topic from the catalog
     channels = _find_topic_channels(all_topics, topic_id)
@@ -86,12 +82,10 @@ async def cb_subscribe_topic(callback: CallbackQuery) -> None:
 
 
 @router.callback_query(F.data.startswith("unsubscribe_topic:"))
-async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
+async def cb_unsubscribe_topic(callback: CallbackQuery, db: Database, channel_manager: ChannelManager, topics: list[dict]) -> None:
     if callback.message is None:
         await callback.answer("Сообщение устарело.")
         return
-    db: Database = callback.bot["db"]  # type: ignore[index]
-    channel_manager: ChannelManager = callback.bot["channel_manager"]  # type: ignore[index]
     topic_id = callback.data.split(":", 1)[1]
     if not topic_id:
         await callback.answer("Ошибка данных")
@@ -101,7 +95,7 @@ async def cb_unsubscribe_topic(callback: CallbackQuery) -> None:
 
     await queries.remove_user_topic(db, user_id, topic_id)
 
-    all_topics = callback.bot["topics"]  # type: ignore[index]
+    all_topics = topics
 
     user_topics = await queries.get_user_topics(db, user_id)
 

@@ -416,8 +416,24 @@ LOG_LEVEL=INFO
 ### Шаги
 
 - [x] Step 1: Исправить .env на сервере (пути SESSION_NAME и DB_PATH для Docker volumes)
-- [ ] Step 2: Закоммитить все локальные изменения, запушить на GitHub
-- [ ] Step 3: Склонировать/обновить код на сервере с GitHub
-- [ ] Step 4: Пересобрать Docker-образ на сервере
-- [ ] Step 5: Запустить контейнер в интерактивном режиме для Telethon-авторизации
-- [ ] Step 6: После успешной авторизации — перезапуск в фоновом режиме (docker compose up -d)
+- [x] Step 2: Закоммитить все локальные изменения, запушить на GitHub
+- [x] Step 2b: Оформить README красиво для GitHub (badges, formatting)
+- [x] Step 3: Синхронизировать код на сервер (rsync)
+- [x] Step 4: Пересобрать Docker-образ на сервере
+- [x] Step 5: Авторизация Telethon через QR-код (обход flood protection)
+- [x] Step 6: Запуск в фоновом режиме (docker compose up -d) — БОТ РАБОТАЕТ
+
+---
+
+## Phase: aiogram 3.26.0 Compatibility Fix (2026-03-04)
+
+Исправление совместимости с aiogram 3.26.0: `Bot` объект больше не поддерживает item assignment (`bot["key"] = value`). Переход на `Dispatcher` workflow data (`dp["key"] = value`).
+
+### Шаги
+
+- [x] Step 1: Обновить `main.py` — `bot["key"]` → `dp["key"]`
+- [x] Step 2: Найти и обновить все обращения к `bot["db"]`, `bot["config"]`, `bot["topics"]`, `bot["channel_manager"]` во всех Python-файлах
+- [x] Step 3: Обновить middleware — доступ через data injection вместо `event.bot["key"]`
+- [x] Step 4: Обновить хендлеры — добавить keyword args или `**data`
+- [x] Step 5: Обновить callbacks — аналогично хендлерам
+- [x] Step 6: Обновить тесты — не требуется (тесты не используют `bot["key"]` паттерн)
