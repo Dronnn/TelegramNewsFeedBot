@@ -448,6 +448,17 @@ LOG_LEVEL=INFO
 
 - [x] Step 1: Добавить `set_my_commands` в `main.py` — регистрация меню команд бота в Telegram
 - [x] Step 2: Расширить `data/channel_catalog.json` — по 8-10 каналов на тему (272 канала всего)
-- [ ] Step 3: Обновить README и docs
-- [ ] Step 4: Коммит, пуш на GitHub (проверить секреты)
-- [ ] Step 5: Деплой на сервер (rsync → rebuild → restart)
+- [x] Step 3: Обновить README и docs
+- [x] Step 4: Коммит, пуш на GitHub (секреты проверены — чисто)
+- [x] Step 5: Деплой на сервер (rsync → rebuild → restart) — БОТ РАБОТАЕТ
+
+---
+
+## Phase: Fix Message Forwarding (2026-03-04)
+
+Bot API не может пересылать из каналов по числовому ID (бот не имеет доступа). Исправлено: pipeline использует `@username` формат.
+
+### Шаги
+
+- [x] Step 1: Изменить `pipeline.py` — использовать `@username` вместо channel_id для from_chat_id
+- [ ] Step 2: Коммит, пуш, деплой

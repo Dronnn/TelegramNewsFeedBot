@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
 
 from bot.db import queries
+from bot.db.queries import get_channel
 
 if TYPE_CHECKING:
     from aiogram import Bot
@@ -56,9 +57,16 @@ class ForwardingPipeline:
 
                 await self.rate_limiter.acquire()
 
+                # Use @username for from_chat_id so Bot API can access
+                # public channels without being a member.
+                channel = await get_channel(self.db, channel_id)
+                from_chat: int | str = channel_id
+                if channel and channel.username:
+                    from_chat = f"@{channel.username}"
+
                 await self.bot.forward_message(
                     chat_id=user_id,
-                    from_chat_id=channel_id,
+                    from_chat_id=from_chat,
                     message_id=message_id,
                 )
 
