@@ -4,13 +4,13 @@ import asyncio
 import logging
 from typing import TYPE_CHECKING
 
-from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
+from telethon.errors import FloodWaitError, UserIsBlockedError
 
 from bot.db import queries
-from bot.db.queries import get_channel
 
 if TYPE_CHECKING:
     from aiogram import Bot
+    from telethon import TelegramClient
 
     from bot.db.database import Database
     from bot.forwarder.rate_limiter import TokenBucketRateLimiter
@@ -24,11 +24,13 @@ class ForwardingPipeline:
         bot: Bot,
         db: Database,
         rate_limiter: TokenBucketRateLimiter,
+        telethon_client: TelegramClient,
         num_workers: int = 3,
     ) -> None:
         self.bot = bot
         self.db = db
         self.rate_limiter = rate_limiter
+        self.telethon_client = telethon_client
         self.num_workers = num_workers
         self._queue: asyncio.Queue[tuple[int, int, int]] = asyncio.Queue(maxsize=10000)
         self._workers: list[asyncio.Task[None]] = []
@@ -57,17 +59,10 @@ class ForwardingPipeline:
 
                 await self.rate_limiter.acquire()
 
-                # Use @username for from_chat_id so Bot API can access
-                # public channels without being a member.
-                channel = await get_channel(self.db, channel_id)
-                from_chat: int | str = channel_id
-                if channel and channel.username:
-                    from_chat = f"@{channel.username}"
-
-                await self.bot.forward_message(
-                    chat_id=user_id,
-                    from_chat_id=from_chat,
-                    message_id=message_id,
+                await self.telethon_client.forward_messages(
+                    entity=user_id,
+                    messages=message_id,
+                    from_peer=channel_id,
                 )
 
                 await queries.mark_forwarded(
@@ -77,7 +72,7 @@ class ForwardingPipeline:
                 self._in_progress.discard(key)
                 self._retry_counts.pop(key, None)
 
-            except TelegramForbiddenError:
+            except UserIsBlockedError:
                 logger.warning(
                     "User %d blocked the bot, pausing delivery", user_id
                 )
@@ -85,16 +80,16 @@ class ForwardingPipeline:
                 self._in_progress.discard(key)
                 self._retry_counts.pop(key, None)
 
-            except TelegramRetryAfter as exc:
+            except FloodWaitError as exc:
                 self._in_progress.discard(key)
                 self._retry_counts[key] = self._retry_counts.get(key, 0) + 1
                 if self._retry_counts[key] < 3:
                     logger.warning(
                         "Rate limited, retrying after %s seconds (attempt %d/3)",
-                        exc.retry_after,
+                        exc.seconds,
                         self._retry_counts[key],
                     )
-                    await asyncio.sleep(exc.retry_after)
+                    await asyncio.sleep(exc.seconds)
                     try:
                         self._queue.put_nowait(key)
                     except asyncio.QueueFull:

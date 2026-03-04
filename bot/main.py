@@ -75,7 +75,8 @@ async def main() -> None:
 
     rate_limiter = TokenBucketRateLimiter(rate=config.forward_rate_limit)
     pipeline = ForwardingPipeline(
-        bot, db, rate_limiter, num_workers=config.forward_workers,
+        bot, db, rate_limiter, telethon_client,
+        num_workers=config.forward_workers,
     )
     await pipeline.start()
 

@@ -29,10 +29,12 @@ def _make_forbidden_error() -> Exception:
 
 def _make_pipeline(bot: AsyncMock, db, *, num_workers: int = 1) -> ForwardingPipeline:
     rate_limiter = TokenBucketRateLimiter(rate=1000, burst=1000)
+    telethon_client = AsyncMock()
     return ForwardingPipeline(
         bot=bot,
         db=db,
         rate_limiter=rate_limiter,
+        telethon_client=telethon_client,
         num_workers=num_workers,
     )
 
