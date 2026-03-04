@@ -437,3 +437,17 @@ LOG_LEVEL=INFO
 - [x] Step 4: Обновить хендлеры — добавить keyword args или `**data`
 - [x] Step 5: Обновить callbacks — аналогично хендлерам
 - [x] Step 6: Обновить тесты — не требуется (тесты не используют `bot["key"]` паттерн)
+
+---
+
+## Phase: Bot Menu + Expand Channel Catalog (2026-03-04)
+
+Два фикса после первого запуска на сервере.
+
+### Шаги
+
+- [x] Step 1: Добавить `set_my_commands` в `main.py` — регистрация меню команд бота в Telegram
+- [x] Step 2: Расширить `data/channel_catalog.json` — по 8-10 каналов на тему (272 канала всего)
+- [ ] Step 3: Обновить README и docs
+- [ ] Step 4: Коммит, пуш на GitHub (проверить секреты)
+- [ ] Step 5: Деплой на сервер (rsync → rebuild → restart)

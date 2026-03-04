@@ -4,6 +4,7 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.types import BotCommand
 
 from bot.channel_monitor.client import create_telethon_client, start_telethon_client
 from bot.channel_monitor.event_handler import setup_event_handler
@@ -84,6 +85,18 @@ async def main() -> None:
     poller_task = asyncio.create_task(poller.run())
 
     cleanup = asyncio.create_task(cleanup_task(db))
+
+    await bot.set_my_commands([
+        BotCommand(command="start", description="Начать работу с ботом"),
+        BotCommand(command="help", description="Справка по командам"),
+        BotCommand(command="add", description="Подписаться на канал"),
+        BotCommand(command="remove", description="Отписаться от канала"),
+        BotCommand(command="list", description="Мои подписки"),
+        BotCommand(command="topics", description="Выбрать темы"),
+        BotCommand(command="mytopics", description="Управление темами"),
+        BotCommand(command="pause", description="Приостановить ленту"),
+        BotCommand(command="resume", description="Возобновить ленту"),
+    ])
 
     try:
         await dp.start_polling(bot)

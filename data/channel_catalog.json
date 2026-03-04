@@ -7,7 +7,14 @@
       "channels": [
         {"username": "tabordigital", "title": "Табор Digital"},
         {"username": "techinsider_eng", "title": "Tech Insider"},
-        {"username": "theverge", "title": "The Verge"}
+        {"username": "theverge", "title": "The Verge"},
+        {"username": "iguides_ru", "title": "iGuides.ru"},
+        {"username": "the_techno", "title": "Технот"},
+        {"username": "techinsider", "title": "TechInsider"},
+        {"username": "appleinsider_ru", "title": "AppleInsider.ru"},
+        {"username": "droiderru", "title": "Droider"},
+        {"username": "mobile_review", "title": "Mobile-Review"},
+        {"username": "waboratory", "title": "Wylsacom"}
       ]
     },
     {
@@ -16,7 +23,15 @@
       "emoji": "\ud83d\udcf0",
       "channels": [
         {"username": "bbcrussian", "title": "BBC News Русская служба", "language": "ru"},
-        {"username": "aborigentel", "title": "Абориген", "language": "ru"}
+        {"username": "aborigentel", "title": "Абориген", "language": "ru"},
+        {"username": "breakingmash", "title": "Mash"},
+        {"username": "shot_shot", "title": "SHOT"},
+        {"username": "bazabazon", "title": "Baza"},
+        {"username": "fontankaru", "title": "Фонтанка.ру"},
+        {"username": "varlamov_news", "title": "Варламов"},
+        {"username": "lentachold", "title": "Лента.ру"},
+        {"username": "interfaborx_russia", "title": "Интерфакс"},
+        {"username": "novaya_gazeta", "title": "Новая газета"}
       ]
     },
     {
@@ -26,7 +41,13 @@
       "channels": [
         {"username": "coin_post", "title": "CoinPost"},
         {"username": "ForkLog", "title": "ForkLog"},
-        {"username": "CryptoInsiders", "title": "Crypto Insiders"}
+        {"username": "CryptoInsiders", "title": "Crypto Insiders"},
+        {"username": "bits_media", "title": "Bits.media"},
+        {"username": "coinkeeper", "title": "CoinKeeper"},
+        {"username": "crypto_bullshit", "title": "Crypto Bullshit"},
+        {"username": "cryptonews_ru", "title": "CryptoNews"},
+        {"username": "Coin_Telegraph_ru", "title": "CoinTelegraph RU"},
+        {"username": "bitcoinrush", "title": "Bitcoin Rush"}
       ]
     },
     {
@@ -35,7 +56,14 @@
       "emoji": "\ud83d\udd2c",
       "channels": [
         {"username": "nikitonsky_pub", "title": "Никитонский"},
-        {"username": "sciencemag", "title": "Science Magazine"}
+        {"username": "sciencemag", "title": "Science Magazine"},
+        {"username": "naborplus1", "title": "N+1"},
+        {"username": "postnauka", "title": "ПостНаука"},
+        {"username": "elementy_ru", "title": "Элементы"},
+        {"username": "scienceart", "title": "ScienceArt"},
+        {"username": "nauka_pro", "title": "Наука PRO"},
+        {"username": "naked_science", "title": "Naked Science"},
+        {"username": "kotorichesky", "title": "Научпок"}
       ]
     },
     {
@@ -45,7 +73,13 @@
       "channels": [
         {"username": "markettwits", "title": "MarketTwits", "tags": "рынки,акции"},
         {"username": "cblogjp", "title": "Центральный банк", "language": "ru"},
-        {"username": "bankrollo", "title": "Bankrollo"}
+        {"username": "bankrollo", "title": "Bankrollo"},
+        {"username": "banksta", "title": "Банкста"},
+        {"username": "cbr_official_channel", "title": "Банк России"},
+        {"username": "moaborex_official", "title": "Московская биржа"},
+        {"username": "fin_rezhim", "title": "Финансовый режим"},
+        {"username": "investfuture", "title": "InvestFuture"},
+        {"username": "tinkoff_invest_official", "title": "Тинькофф Инвестиции"}
       ]
     },
     {
@@ -55,7 +89,13 @@
       "channels": [
         {"username": "match_tv", "title": "Матч ТВ", "language": "ru"},
         {"username": "sports_ru", "title": "Sports.ru", "language": "ru"},
-        {"username": "championat", "title": "Чемпионат", "language": "ru"}
+        {"username": "championat", "title": "Чемпионат", "language": "ru"},
+        {"username": "sportbox_news", "title": "Sportbox"},
+        {"username": "euabortsport", "title": "Eurosport Россия"},
+        {"username": "rabortsport24", "title": "Sport24"},
+        {"username": "soccer_ru", "title": "Футбол России"},
+        {"username": "khl_news", "title": "КХЛ"},
+        {"username": "rpl_official", "title": "РПЛ"}
       ]
     },
     {
@@ -65,7 +105,13 @@
       "channels": [
         {"username": "gamedevtuts", "title": "GameDev Tutorials"},
         {"username": "DTF", "title": "DTF", "language": "ru"},
-        {"username": "ign", "title": "IGN"}
+        {"username": "ign", "title": "IGN"},
+        {"username": "gamemag", "title": "GameMAG"},
+        {"username": "dtf_channel", "title": "DTF Gaming"},
+        {"username": "stopgame_ru", "title": "StopGame"},
+        {"username": "igromaniya", "title": "Игромания"},
+        {"username": "cybersport_ru", "title": "Cybersport.ru"},
+        {"username": "playground_ru", "title": "PlayGround.ru"}
       ]
     },
     {
@@ -75,7 +121,13 @@
       "channels": [
         {"username": "kinomania", "title": "Киномания", "language": "ru"},
         {"username": "filmsnow", "title": "Films Now"},
-        {"username": "kinopoiskru", "title": "Кинопоиск", "language": "ru"}
+        {"username": "kinopoiskru", "title": "Кинопоиск", "language": "ru"},
+        {"username": "kinokurjer", "title": "Кинокурьер"},
+        {"username": "filmorgasm", "title": "Кинооргазм"},
+        {"username": "kinoafisha", "title": "Киноафиша"},
+        {"username": "film_ru", "title": "Film.ru"},
+        {"username": "tvrain_movies", "title": "Кино и сериалы"},
+        {"username": "serialomaniya", "title": "Сериаломания"}
       ]
     },
     {
@@ -85,7 +137,13 @@
       "channels": [
         {"username": "themusicnews", "title": "The Music News"},
         {"username": "muzlenta", "title": "Музлента", "language": "ru"},
-        {"username": "billboard", "title": "Billboard"}
+        {"username": "billboard", "title": "Billboard"},
+        {"username": "zvukcom", "title": "Звук"},
+        {"username": "yandex_music_official", "title": "Яндекс Музыка"},
+        {"username": "the_flow_ru", "title": "The Flow"},
+        {"username": "sadwave", "title": "Sadwave"},
+        {"username": "sounderru", "title": "Sounder"},
+        {"username": "muzaboratory", "title": "Музыкальный блог"}
       ]
     },
     {
@@ -95,7 +153,13 @@
       "channels": [
         {"username": "travelrussia", "title": "Путешествия по России", "language": "ru"},
         {"username": "cheapflydeals", "title": "Cheap Fly Deals"},
-        {"username": "vandrouki", "title": "Вандруки", "language": "ru"}
+        {"username": "vandrouki", "title": "Вандруки", "language": "ru"},
+        {"username": "krugosvetnoe", "title": "Кругосветное"},
+        {"username": "aviasales", "title": "Авиасейлс"},
+        {"username": "turista_club", "title": "Клуб туристов"},
+        {"username": "travel_hack", "title": "Тревел Хак"},
+        {"username": "cheaptrip", "title": "CheapTrip"},
+        {"username": "ostrovok_ru", "title": "Островок"}
       ]
     },
     {
@@ -105,7 +169,13 @@
       "channels": [
         {"username": "eda_ru", "title": "Еда.ру", "language": "ru"},
         {"username": "tasty", "title": "Tasty"},
-        {"username": "foodphoto", "title": "Food Photo"}
+        {"username": "foodphoto", "title": "Food Photo"},
+        {"username": "kulinarnaya_kniga", "title": "Кулинарная книга"},
+        {"username": "afaborisha_eda", "title": "Афиша Еда"},
+        {"username": "receptydnya", "title": "Рецепты дня"},
+        {"username": "lavkagazeta", "title": "Лавка Газета"},
+        {"username": "vkusno_doma", "title": "Вкусно дома"},
+        {"username": "povarenok_ru", "title": "Поварёнок"}
       ]
     },
     {
@@ -115,7 +185,13 @@
       "channels": [
         {"username": "zdorovyeinfo", "title": "Здоровье инфо", "language": "ru"},
         {"username": "meduzalive", "title": "Медуза Live", "language": "ru", "tags": "медицина,здоровье"},
-        {"username": "WHO", "title": "World Health Organization"}
+        {"username": "WHO", "title": "World Health Organization"},
+        {"username": "zozhnik_ru", "title": "Зожник"},
+        {"username": "doctorkomarovsky", "title": "Доктор Комаровский"},
+        {"username": "medportal_ru", "title": "МедПортал"},
+        {"username": "medicina_dokazatelnaya", "title": "Доказательная медицина"},
+        {"username": "apteka_ru", "title": "Аптека.ру"},
+        {"username": "naborzdorovje", "title": "На здоровье"}
       ]
     },
     {
@@ -125,7 +201,13 @@
       "channels": [
         {"username": "psikiatra_net", "title": "Записки психиатра", "language": "ru"},
         {"username": "psychologytoday", "title": "Psychology Today"},
-        {"username": "psy_science", "title": "Психология и наука", "language": "ru"}
+        {"username": "psy_science", "title": "Психология и наука", "language": "ru"},
+        {"username": "psycho_daily", "title": "Психо Daily"},
+        {"username": "psy_logia", "title": "Психология"},
+        {"username": "freud_ru", "title": "Фрейд бы одобрил"},
+        {"username": "brainstorm_psy", "title": "Мозгоштурм"},
+        {"username": "lotorev_psy", "title": "Психология отношений"},
+        {"username": "mentalhealthru", "title": "Ментальное здоровье"}
       ]
     },
     {
@@ -135,7 +217,13 @@
       "channels": [
         {"username": "skillboxmedia", "title": "Skillbox Media", "language": "ru"},
         {"username": "netaboratory", "title": "Нетология", "language": "ru"},
-        {"username": "edutainme", "title": "Edutainme", "language": "ru"}
+        {"username": "edutainme", "title": "Edutainme", "language": "ru"},
+        {"username": "geekbrains_ru", "title": "GeekBrains"},
+        {"username": "stepik_course", "title": "Stepik"},
+        {"username": "coursera_ru", "title": "Coursera на русском"},
+        {"username": "arzamas_academy", "title": "Арзамас"},
+        {"username": "foxford_official", "title": "Фоксфорд"},
+        {"username": "newtonew", "title": "Newtonew"}
       ]
     },
     {
@@ -145,7 +233,13 @@
       "channels": [
         {"username": "knigsovet", "title": "Книгосовет", "language": "ru"},
         {"username": "bookmate", "title": "Bookmate", "language": "ru"},
-        {"username": "flibustahype", "title": "Флибуста", "language": "ru"}
+        {"username": "flibustahype", "title": "Флибуста", "language": "ru"},
+        {"username": "litres_ru", "title": "ЛитРес"},
+        {"username": "bookninja", "title": "Книжный ниндзя"},
+        {"username": "gorky_media", "title": "Горький Медиа"},
+        {"username": "chitatel_ru", "title": "Читатель"},
+        {"username": "polka_academy", "title": "Полка"},
+        {"username": "eksmo_books", "title": "Эксмо"}
       ]
     },
     {
@@ -155,7 +249,13 @@
       "channels": [
         {"username": "artnews", "title": "ArtNews"},
         {"username": "theartnewspaper", "title": "The Art Newspaper"},
-        {"username": "museumrus", "title": "Музеи России", "language": "ru"}
+        {"username": "museumrus", "title": "Музеи России", "language": "ru"},
+        {"username": "tretyakovgallery", "title": "Третьяковская галерея"},
+        {"username": "pushkin_museum", "title": "Пушкинский музей"},
+        {"username": "hermitage_museum", "title": "Эрмитаж"},
+        {"username": "artguide_ru", "title": "Artguide"},
+        {"username": "iskusstvo_life", "title": "Искусство"},
+        {"username": "artsyru", "title": "Артси"}
       ]
     },
     {
@@ -165,7 +265,13 @@
       "channels": [
         {"username": "natgeo", "title": "National Geographic"},
         {"username": "35photo", "title": "35Photo", "language": "ru"},
-        {"username": "streetphotography", "title": "Street Photography"}
+        {"username": "streetphotography", "title": "Street Photography"},
+        {"username": "birdinflight_ru", "title": "Bird in Flight"},
+        {"username": "fotoclub_ru", "title": "Фотоклуб"},
+        {"username": "les_photo", "title": "LES Photo"},
+        {"username": "foto_tips", "title": "Фото советы"},
+        {"username": "naborgrad_photo", "title": "Натурфото"},
+        {"username": "photopolygon", "title": "Photopolygon"}
       ]
     },
     {
@@ -175,7 +281,13 @@
       "channels": [
         {"username": "designchat", "title": "Design Chat"},
         {"username": "uxhorn", "title": "UX Horn", "language": "ru"},
-        {"username": "awwwards", "title": "Awwwards"}
+        {"username": "awwwards", "title": "Awwwards"},
+        {"username": "designgest", "title": "Дизайн дайджест"},
+        {"username": "tabordesign", "title": "Дизайн"},
+        {"username": "figma_ru", "title": "Figma на русском"},
+        {"username": "graphicru", "title": "Graphic.ru"},
+        {"username": "behance_ru", "title": "Behance Russia"},
+        {"username": "ux_live", "title": "UX Live"}
       ]
     },
     {
@@ -185,7 +297,13 @@
       "channels": [
         {"username": "devkg", "title": "Dev.KG"},
         {"username": "pythonl", "title": "Python"},
-        {"username": "habr_com", "title": "Хабр", "language": "ru"}
+        {"username": "habr_com", "title": "Хабр", "language": "ru"},
+        {"username": "tproger_official", "title": "Типичный программист"},
+        {"username": "devby", "title": "Dev.by"},
+        {"username": "codex_team", "title": "CodeX"},
+        {"username": "pythonist", "title": "Pythonist"},
+        {"username": "javascript_ru", "title": "JavaScript"},
+        {"username": "frontend_ru", "title": "Frontend"}
       ]
     },
     {
@@ -195,7 +313,13 @@
       "channels": [
         {"username": "ai_newz", "title": "AI Newz"},
         {"username": "gonzo_ML", "title": "Gonzo ML", "language": "ru"},
-        {"username": "deeplearning_ai", "title": "DeepLearning.AI"}
+        {"username": "deeplearning_ai", "title": "DeepLearning.AI"},
+        {"username": "neurohive", "title": "Neurohive"},
+        {"username": "machinelearning_ru", "title": "Machine Learning RU"},
+        {"username": "deeplearning_ru", "title": "Deep Learning на русском"},
+        {"username": "sberai_official", "title": "SberAI"},
+        {"username": "ai_explained_ru", "title": "AI Explained"},
+        {"username": "naboruralnet", "title": "NeuralNet"}
       ]
     },
     {
@@ -205,7 +329,13 @@
       "channels": [
         {"username": "startupoftheday", "title": "Стартап дня", "language": "ru"},
         {"username": "vc_ru", "title": "VC.ru", "language": "ru"},
-        {"username": "techcrunch", "title": "TechCrunch"}
+        {"username": "techcrunch", "title": "TechCrunch"},
+        {"username": "rb_ru", "title": "RB.ru"},
+        {"username": "incrussia", "title": "Inc. Russia"},
+        {"username": "rusbase", "title": "Rusbase"},
+        {"username": "futurecrew_vc", "title": "FutureCrew"},
+        {"username": "sklarov_startup", "title": "Стартапы и венчур"},
+        {"username": "thealteam", "title": "The A Team"}
       ]
     },
     {
@@ -215,7 +345,13 @@
       "channels": [
         {"username": "marketing_s", "title": "Маркетинг", "language": "ru"},
         {"username": "cossa_ru", "title": "Cossa", "language": "ru"},
-        {"username": "digitalmarketing", "title": "Digital Marketing"}
+        {"username": "digitalmarketing", "title": "Digital Marketing"},
+        {"username": "smm_ru", "title": "SMM на русском"},
+        {"username": "targetolog_ru", "title": "Таргетолог"},
+        {"username": "smmplanner", "title": "SMMplanner"},
+        {"username": "marketing_advice", "title": "Маркетинг советы"},
+        {"username": "ppc_world", "title": "PPC World"},
+        {"username": "dnative_ru", "title": "DNative"}
       ]
     },
     {
@@ -225,7 +361,13 @@
       "channels": [
         {"username": "rbc_news", "title": "РБК Новости", "language": "ru"},
         {"username": "forbes_russia", "title": "Forbes Russia", "language": "ru"},
-        {"username": "bloombergbusiness", "title": "Bloomberg Business"}
+        {"username": "bloombergbusiness", "title": "Bloomberg Business"},
+        {"username": "vedomosti", "title": "Ведомости"},
+        {"username": "kommersant", "title": "Коммерсантъ"},
+        {"username": "delovoy_ru", "title": "Деловой Петербург"},
+        {"username": "finanz_ru", "title": "Finanz.ru"},
+        {"username": "secretmag", "title": "Секрет фирмы"},
+        {"username": "banki_ru", "title": "Banki.ru"}
       ]
     },
     {
@@ -235,7 +377,13 @@
       "channels": [
         {"username": "rian_ru", "title": "РИА Новости", "language": "ru"},
         {"username": "taborsky", "title": "ТАСС", "language": "ru"},
-        {"username": "raboratory", "title": "Политика сегодня", "language": "ru"}
+        {"username": "raboratory", "title": "Политика сегодня", "language": "ru"},
+        {"username": "politjoystic", "title": "Политджойстик"},
+        {"username": "kremlinprachka", "title": "Кремлёвская прачка"},
+        {"username": "soloviev_live", "title": "Соловьёв Live"},
+        {"username": "politnavigator", "title": "ПолитНавигатор"},
+        {"username": "russica2", "title": "Russica2"},
+        {"username": "kremlin_mother_expert", "title": "Кремлёвский мамковед"}
       ]
     },
     {
@@ -245,7 +393,13 @@
       "channels": [
         {"username": "autonews", "title": "Autonews", "language": "ru"},
         {"username": "drive2", "title": "DRIVE2", "language": "ru"},
-        {"username": "topgear", "title": "Top Gear"}
+        {"username": "topgear", "title": "Top Gear"},
+        {"username": "auto_mail_ru", "title": "Авто Mail.ru"},
+        {"username": "drom_ru", "title": "Дром"},
+        {"username": "avtozvuk", "title": "Автозвук"},
+        {"username": "kolesa_ru", "title": "Колёса.ру"},
+        {"username": "zr_ru", "title": "За рулём"},
+        {"username": "avtoblogger", "title": "Автоблогер"}
       ]
     },
     {
@@ -255,7 +409,13 @@
       "channels": [
         {"username": "vikivodka", "title": "Вики Водка", "language": "ru"},
         {"username": "voguemagazine", "title": "Vogue"},
-        {"username": "fashionista", "title": "Fashionista"}
+        {"username": "fashionista", "title": "Fashionista"},
+        {"username": "glamour_russia", "title": "Glamour Россия"},
+        {"username": "elle_russia", "title": "Elle Россия"},
+        {"username": "cosmo_ru", "title": "Cosmopolitan Россия"},
+        {"username": "fashion_weeks", "title": "Fashion Weeks"},
+        {"username": "buro247", "title": "Buro 24/7"},
+        {"username": "gq_russia", "title": "GQ Россия"}
       ]
     },
     {
@@ -265,7 +425,13 @@
       "channels": [
         {"username": "animalplanet", "title": "Animal Planet"},
         {"username": "kotiki_i_sobaki", "title": "Котики и собаки", "language": "ru"},
-        {"username": "natgeo_wild", "title": "Nat Geo Wild"}
+        {"username": "natgeo_wild", "title": "Nat Geo Wild"},
+        {"username": "zoomir_ru", "title": "Зоомир"},
+        {"username": "petovod", "title": "Петовод"},
+        {"username": "kote_life", "title": "Котэ Life"},
+        {"username": "sobaki_ru", "title": "Собаки.ру"},
+        {"username": "vetvrach_online", "title": "Ветеринар онлайн"},
+        {"username": "animal_facts_ru", "title": "Факты о животных"}
       ]
     },
     {
@@ -275,7 +441,13 @@
       "channels": [
         {"username": "anekdotikha", "title": "Анекдотиха", "language": "ru"},
         {"username": "maboratory", "title": "Мемы", "language": "ru"},
-        {"username": "humorlenta", "title": "Юмор лента", "language": "ru"}
+        {"username": "humorlenta", "title": "Юмор лента", "language": "ru"},
+        {"username": "borsch_humor", "title": "Борщ"},
+        {"username": "xuynya_xuynya", "title": "Хуйня"},
+        {"username": "peaboron", "title": "Перборон"},
+        {"username": "kmemnash", "title": "Мемнаш"},
+        {"username": "dayvinchik", "title": "Дайвинчик"},
+        {"username": "leprasorium", "title": "Лепрозорий"}
       ]
     },
     {
@@ -285,7 +457,13 @@
       "channels": [
         {"username": "historyrussia", "title": "История России", "language": "ru"},
         {"username": "history", "title": "History Channel"},
-        {"username": "catx2", "title": "Cat_Cat", "language": "ru", "tags": "история,факты"}
+        {"username": "catx2", "title": "Cat_Cat", "language": "ru", "tags": "история,факты"},
+        {"username": "historyru", "title": "История.РФ"},
+        {"username": "warhistory", "title": "Военная история"},
+        {"username": "diletant_media", "title": "Дилетант"},
+        {"username": "ancient_history_ru", "title": "Древняя история"},
+        {"username": "archaeology_ru", "title": "Археология"},
+        {"username": "redakciya_istoriya", "title": "Редакция. История"}
       ]
     },
     {
@@ -295,7 +473,13 @@
       "channels": [
         {"username": "roscosmos_gk", "title": "Роскосмос", "language": "ru"},
         {"username": "spacex", "title": "SpaceX"},
-        {"username": "nasa", "title": "NASA"}
+        {"username": "nasa", "title": "NASA"},
+        {"username": "space_live_ru", "title": "Космос Live"},
+        {"username": "kosmos_pro", "title": "Космос PRO"},
+        {"username": "astro_ru", "title": "Астрономия"},
+        {"username": "zelenyikot", "title": "Зелёный кот"},
+        {"username": "spacenews_ru", "title": "Космические новости"},
+        {"username": "planetarium_moscow", "title": "Московский планетарий"}
       ]
     }
   ]
